@@ -1,0 +1,106 @@
+{
+  "elementos": [
+    {
+      "id": "E",
+      "tipo": "fuente",
+      "valor": 48,
+      "unidad": "V",
+      "nodo_a": "n1",
+      "nodo_b": "n2",
+      "positivo": "n1",
+      "x": 0.12,
+      "y": 0.5,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": 0.9
+    },
+    {
+      "id": "R1",
+      "tipo": "resistencia",
+      "valor": 1,
+      "unidad": "Ω",
+      "nodo_a": "n1",
+      "nodo_b": "n3",
+      "positivo": null,
+      "x": 0.5,
+      "y": 0.3,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R2",
+      "tipo": "resistencia",
+      "valor": 3,
+      "unidad": "Ω",
+      "nodo_a": "n3",
+      "nodo_b": "n2",
+      "positivo": null,
+      "x": 0.5,
+      "y": 0.7,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.62,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R3",
+      "tipo": "resistencia",
+      "valor": 7,
+      "unidad": "Ω",
+      "nodo_a": "n1",
+      "nodo_b": "n4",
+      "positivo": null,
+      "x": 0.85,
+      "y": 0.3,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R4",
+      "tipo": "resistencia",
+      "valor": 5,
+      "unidad": "Ω",
+      "nodo_a": "n4",
+      "nodo_b": "n2",
+      "positivo": null,
+      "x": 0.85,
+      "y": 0.7,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    }
+  ],
+  "nodos": [
+    {
+      "id": "n1",
+      "x": 0.12,
+      "y": 0.08,
+      "etiqueta": "A"
+    },
+    {
+      "id": "n2",
+      "x": 0.12,
+      "y": 0.92,
+      "etiqueta": "B"
+    },
+    {
+      "id": "n3",
+      "x": 0.5,
+      "y": 0.5,
+      "etiqueta": null
+    },
+    {
+      "id": "n4",
+      "x": 0.85,
+      "y": 0.5,
+      "etiqueta": null
+    }
+  ],
+  "notas": "Ejemplo guardado: Ejercicio 11."
+}

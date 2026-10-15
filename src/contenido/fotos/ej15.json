@@ -1,0 +1,142 @@
+{
+  "elementos": [
+    {
+      "id": "R200",
+      "tipo": "resistencia",
+      "valor": 200,
+      "unidad": "Ω",
+      "nodo_a": "T",
+      "nodo_b": "G",
+      "positivo": null,
+      "x": 0.08,
+      "y": 0.5,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "E40",
+      "tipo": "fuente",
+      "valor": 40,
+      "unidad": "V",
+      "nodo_a": "T",
+      "nodo_b": "n2",
+      "positivo": "T",
+      "x": 0.37,
+      "y": 0.3,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": 0.9
+    },
+    {
+      "id": "R80",
+      "tipo": "resistencia",
+      "valor": 80,
+      "unidad": "Ω",
+      "nodo_a": "n2",
+      "nodo_b": "G",
+      "positivo": null,
+      "x": 0.37,
+      "y": 0.72,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "E360",
+      "tipo": "fuente",
+      "valor": 360,
+      "unidad": "V",
+      "nodo_a": "n3",
+      "nodo_b": "T",
+      "positivo": "n3",
+      "x": 0.63,
+      "y": 0.3,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.7,
+      "confianza_polaridad": 0.55
+    },
+    {
+      "id": "R20",
+      "tipo": "resistencia",
+      "valor": 20,
+      "unidad": "Ω",
+      "nodo_a": "n3",
+      "nodo_b": "G",
+      "positivo": null,
+      "x": 0.63,
+      "y": 0.72,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "E80",
+      "tipo": "fuente",
+      "valor": 80,
+      "unidad": "V",
+      "nodo_a": "T",
+      "nodo_b": "n4",
+      "positivo": "T",
+      "x": 0.92,
+      "y": 0.3,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": 0.9
+    },
+    {
+      "id": "R70",
+      "tipo": "resistencia",
+      "valor": 70,
+      "unidad": "Ω",
+      "nodo_a": "n4",
+      "nodo_b": "G",
+      "positivo": null,
+      "x": 0.92,
+      "y": 0.72,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    }
+  ],
+  "nodos": [
+    {
+      "id": "T",
+      "x": 0.5,
+      "y": 0.08,
+      "etiqueta": null
+    },
+    {
+      "id": "G",
+      "x": 0.5,
+      "y": 0.94,
+      "etiqueta": null
+    },
+    {
+      "id": "n2",
+      "x": 0.37,
+      "y": 0.52,
+      "etiqueta": null
+    },
+    {
+      "id": "n3",
+      "x": 0.63,
+      "y": 0.52,
+      "etiqueta": null
+    },
+    {
+      "id": "n4",
+      "x": 0.92,
+      "y": 0.52,
+      "etiqueta": null
+    }
+  ],
+  "notas": "Ejemplo guardado: Ejercicio 15."
+}

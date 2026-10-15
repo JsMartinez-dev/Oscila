@@ -15,9 +15,9 @@ export const DOC_EJ11 = {
   componentes: [
     comp('E', 'fuente', 0, 10, 270, 48),
     comp('R1', 'resistencia', 10, 1, 90, 1),
-    comp('R3', 'resistencia', 10, 7, 90, 3),
-    comp('R7', 'resistencia', 20, 1, 90, 7),
-    comp('R5', 'resistencia', 20, 7, 90, 5),
+    comp('R2', 'resistencia', 10, 7, 90, 3),
+    comp('R3', 'resistencia', 20, 1, 90, 7),
+    comp('R4', 'resistencia', 20, 7, 90, 5),
   ],
   cables: [...ruta([0, 6], [0, 0], [20, 0], [20, 1]), w(10, 0, 10, 1), w(10, 5, 10, 7), w(20, 5, 20, 7), ...ruta([0, 10], [0, 12], [20, 12], [20, 11]), w(10, 11, 10, 12)],
   nodos: [],
