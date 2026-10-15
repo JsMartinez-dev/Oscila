@@ -1,6 +1,6 @@
 // Montaje virtual de circuitos: editor, reconocimiento de foto y solución paso a paso.
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Editor, { centrar } from '../components/editor/Editor.jsx';
 import { DOC_VACIO, useHistorial } from '../components/editor/useHistorial.js';
 import Pasos from '../components/Pasos.jsx';
@@ -8,6 +8,7 @@ import { TextoMat } from '../components/Tex.jsx';
 import { docANetlist, validarNetlist } from '../circuitos/netlist.js';
 import { resolverPasoAPaso } from '../circuitos/pasos.js';
 import ReconocerFoto from '../components/foto/ReconocerFoto.jsx';
+import { limpiarPendiente, verPendiente } from '../circuitos/pendiente.js';
 import './Montaje.css';
 
 const PESTANAS = [
@@ -23,7 +24,12 @@ const ETIQUETA_CLASE = {
 };
 
 export default function Montaje() {
-  const historial = useHistorial(DOC_VACIO);
+  const [inicial] = useState(() => {
+    const p = verPendiente();
+    return p ? centrar(p) : DOC_VACIO;
+  });
+  const historial = useHistorial(inicial);
+  useEffect(() => limpiarPendiente(), []);
   const [pestana, setPestana] = useState('editor');
   const [entrada, setEntrada] = useState(null); // { doc, metodo }
   const [avisoFoto, setAvisoFoto] = useState(null);

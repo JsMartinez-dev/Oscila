@@ -1,23 +1,16 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Navbar from "./components/Navbar";
 import Inicio from "./pages/Inicio";
 import Montaje from "./pages/Montaje";
 import Ejercicios from "./pages/Ejercicios";
+import Teoria from "./pages/Teoria";
+import Aplicaciones from "./pages/Aplicaciones";
 import TestInteractivo from "./pages/TestInteractivo";
-
-function EnConstruccion({ titulo }) {
-  return (
-    <div style={{ maxWidth: 800, margin: "3rem auto", padding: "0 1.25rem" }}>
-      <h1>{titulo}</h1>
-      <p style={{ color: "var(--text-secondary)" }}>Sección en construcción.</p>
-    </div>
-  );
-}
 
 const PAGES = {
   inicio: Inicio,
-  teoria: () => <EnConstruccion titulo="Teoría" />,
-  ejemplos: () => <EnConstruccion titulo="Aplicaciones en ingeniería" />,
+  teoria: Teoria,
+  ejemplos: Aplicaciones,
   montaje: Montaje,
   ejercicios: Ejercicios,
   test: TestInteractivo,
@@ -26,12 +19,16 @@ const PAGES = {
 export default function App() {
   const [activePage, setActivePage] = useState("inicio");
   const PageComponent = PAGES[activePage];
+  const navegar = useCallback((pagina) => {
+    setActivePage(pagina);
+    window.scrollTo({ top: 0 });
+  }, []);
 
   return (
     <div className="app-shell">
-      <Navbar activePage={activePage} onNavigate={setActivePage} />
+      <Navbar activePage={activePage} onNavigate={navegar} />
       <main className="page-content">
-        <PageComponent onNavigate={setActivePage} />
+        <PageComponent onNavigate={navegar} />
       </main>
       <footer className="site-footer">
         <span>Circuitos en Vivo — Electricidad y Magnetismo</span>
