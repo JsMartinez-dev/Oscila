@@ -1,0 +1,148 @@
+{
+  "elementos": [
+    {
+      "id": "R8",
+      "tipo": "resistencia",
+      "valor": 8,
+      "unidad": "Ω",
+      "nodo_a": "n1",
+      "nodo_b": "n2",
+      "positivo": null,
+      "x": 0.08,
+      "y": 0.5,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R5",
+      "tipo": "resistencia",
+      "valor": 5,
+      "unidad": "Ω",
+      "nodo_a": "n3",
+      "nodo_b": "n1",
+      "positivo": null,
+      "x": 0.5,
+      "y": 0.25,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R1c",
+      "tipo": "resistencia",
+      "valor": 1,
+      "unidad": "Ω",
+      "nodo_a": "n4",
+      "nodo_b": "n3",
+      "positivo": null,
+      "x": 0.5,
+      "y": 0.5,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.6,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "E4",
+      "tipo": "fuente",
+      "valor": 4,
+      "unidad": "V",
+      "nodo_a": "n4",
+      "nodo_b": "n2",
+      "positivo": "n4",
+      "x": 0.5,
+      "y": 0.76,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": 0.88
+    },
+    {
+      "id": "R3",
+      "tipo": "resistencia",
+      "valor": 3,
+      "unidad": "Ω",
+      "nodo_a": "n5",
+      "nodo_b": "n1",
+      "positivo": null,
+      "x": 0.75,
+      "y": 0.08,
+      "orientacion": "horizontal",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R1d",
+      "tipo": "resistencia",
+      "valor": 1,
+      "unidad": "Ω",
+      "nodo_a": "n6",
+      "nodo_b": "n5",
+      "positivo": null,
+      "x": 0.94,
+      "y": 0.33,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "E12",
+      "tipo": "fuente",
+      "valor": 12,
+      "unidad": "V",
+      "nodo_a": "n6",
+      "nodo_b": "n2",
+      "positivo": "n6",
+      "x": 0.94,
+      "y": 0.76,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": 0.9
+    }
+  ],
+  "nodos": [
+    {
+      "id": "n1",
+      "x": 0.5,
+      "y": 0.08,
+      "etiqueta": "b"
+    },
+    {
+      "id": "n2",
+      "x": 0.5,
+      "y": 0.95,
+      "etiqueta": "e"
+    },
+    {
+      "id": "n3",
+      "x": 0.5,
+      "y": 0.38,
+      "etiqueta": null
+    },
+    {
+      "id": "n4",
+      "x": 0.5,
+      "y": 0.62,
+      "etiqueta": null
+    },
+    {
+      "id": "n5",
+      "x": 0.94,
+      "y": 0.08,
+      "etiqueta": "c"
+    },
+    {
+      "id": "n6",
+      "x": 0.94,
+      "y": 0.58,
+      "etiqueta": null
+    }
+  ],
+  "notas": "Ejemplo guardado: Ejercicio 14."
+}

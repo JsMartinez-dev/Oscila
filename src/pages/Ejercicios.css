@@ -1,493 +1,230 @@
-/* ==================== PÁGINA DE EJERCICIOS ==================== */
-
-.ejercicios-page {
-  padding: 2rem;
-  max-width: 1400px;
+.ejer {
+  max-width: 1300px;
   margin: 0 auto;
-  animation: fadeIn 0.5s ease-out;
+  padding: 1.5rem 1.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ─── Encabezado ─── */
-.ejercicios-header {
-  text-align: center;
-  margin-bottom: 3rem;
-  animation: slideDown 0.5s ease-out;
-}
-
-.header-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  border-radius: 16px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-  color: white;
-  animation: floatIcon 3s ease-in-out infinite;
-}
-
-.header-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+.ejer-cabecera h1 {
+  font-size: 1.8rem;
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.header-subtitle {
-  font-size: 1.1rem;
+.ejer-cabecera p {
   color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
 }
 
-/* ─── Grid de ejercicios ─── */
-.ejercicios-grid {
+.ejer-cuerpo {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
 }
 
-.ejercicio-card {
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(99, 102, 241, 0.05) 100%);
-  border: 2px solid rgba(99, 102, 241, 0.2);
-  border-radius: 12px;
-  padding: 1.5rem;
-  cursor: pointer;
-  transition: var(--transition);
+.ejer-indice {
+  position: sticky;
+  top: 90px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-}
-
-.ejercicio-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-  transition: left 0.3s ease;
-  z-index: -1;
-}
-
-.ejercicio-card:hover::before {
-  left: 0;
-}
-
-.ejercicio-card:hover {
-  border-color: var(--primary-color);
-  transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.2);
-}
-
-.ejercicio-icon {
-  font-size: 2.5rem;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.ejercicio-titulo {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.ejercicio-desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  margin: 0;
-  flex-grow: 1;
-}
-
-.ejercicio-btn {
-  align-self: flex-start;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-  margin-top: auto;
-}
-
-.ejercicio-btn:hover {
-  transform: translateX(4px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-}
-
-.ejercicio-btn:active {
-  transform: translateX(2px);
-}
-
-/* ─── Modal de ejercicio ─── */
-.ejercicio-modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.modal-title {
-  color: var(--text-primary);
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-  padding-bottom: 1rem;
-  border-bottom: 3px solid var(--primary-color);
-}
-
-.seccion-ejercicio {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.seccion-titulo {
-  color: var(--primary-color);
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgba(99, 102, 241, 0.3);
-}
-
-.seccion-texto {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  line-height: 1.7;
-  margin: 0;
-}
-
-/* Caja de problema */
-.problema-box {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
-  border-left: 4px solid var(--primary-color);
-  padding: 1.25rem;
-  border-radius: 8px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  font-size: 1rem;
-}
-
-.problema-box strong {
-  color: var(--primary-color);
-  font-weight: 600;
-}
-
-/* ─── Fórmulas ─── */
-.formulas-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.formula-item {
   background: var(--bg-secondary);
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  border-radius: 8px;
-  padding: 1.25rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.formula-nombre {
-  color: var(--accent-color);
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 0.75rem 0;
-}
-
-.formula-display {
-  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 12px;
   padding: 1rem;
-  border-radius: 6px;
+}
+
+.ejer-indice h2 {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.ejer-indice ul {
+  list-style: none;
   display: flex;
-  justify-content: center;
-  overflow-x: auto;
-  margin: 0.75rem 0;
+  flex-wrap: wrap;
+  gap: 0.3rem;
 }
 
-.formula-display mjx-container {
-  color: var(--text-primary) !important;
+.ejer-indice button {
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.85rem;
 }
 
-.variables-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.ejer-indice button.activo {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+}
+
+.ejer-hoja {
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
+  line-height: 1.65;
+}
+
+.ejer-seccion {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6366f1;
+}
+
+.ejer-titulo {
+  font-size: 1.6rem;
+  color: #1e1b4b;
+}
+
+.ejer-hoja h3 {
+  font-size: 1.1rem;
+  color: #312e81;
+}
+
+.ejer-enunciado {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+}
+
+.ejer-enunciado p + p {
+  margin-top: 0.4rem;
+}
+
+.ejer-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ejer-controles h3 {
+  margin-right: auto;
+}
+
+.ejer-controles button,
+.ejer-navegar button {
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+}
+
+.ejer-navegar button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ejer-inciso {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.ejer-inciso > summary {
+  cursor: pointer;
+  padding: 0.65rem 1rem;
+  font-weight: 600;
+  color: #1e1b4b;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ejer-inciso > summary::before {
+  content: '▸';
+  color: #6366f1;
+  transition: transform 0.15s;
+}
+
+.ejer-inciso[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.ejer-inciso[open] > summary {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ejer-inciso-cuerpo {
+  padding: 0.75rem 1.1rem 1rem;
+  overflow-x: auto;
+}
+
+.ejer-inciso-cuerpo p {
+  margin: 0.35rem 0;
+}
+
+.ejer-inciso-cuerpo blockquote {
+  background: #eef2ff;
+  border-left: 4px solid #6366f1;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+}
+
+.ejer-inciso-cuerpo h4 {
+  margin-top: 0.6rem;
+}
+
+.md-figura {
+  display: block;
+  max-width: min(100%, 520px);
+  margin: 0.5rem auto;
+}
+
+.md-tabla-wrap {
+  overflow-x: auto;
+}
+
+.md-tabla-wrap table {
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+}
+
+.md-tabla-wrap th,
+.md-tabla-wrap td {
+  border: 1px solid #d1d5db;
+  padding: 0.3rem 0.7rem;
+  text-align: center;
+}
+
+.md-tabla-wrap th {
+  background: #f3f4f6;
+}
+
+.ejer-hoja .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2rem 0;
+}
+
+.ejer-navegar {
+  display: flex;
+  justify-content: space-between;
   margin-top: 1rem;
 }
 
-.variable-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(99, 102, 241, 0.05);
-  border-radius: 6px;
-  border-left: 3px solid var(--primary-color);
-}
-
-.variable-symbol {
-  color: var(--primary-color);
-  font-weight: 700;
-  min-width: 40px;
-  display: flex;
-  justify-content: center;
-}
-
-.variable-symbol mjx-container {
-  color: var(--primary-color) !important;
-}
-
-.variable-desc {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-/* ─── Procedimiento ─── */
-.procedimiento-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.paso-item {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background: rgba(99, 102, 241, 0.05);
-  border-radius: 8px;
-  border-left: 4px solid var(--primary-color);
-  transition: var(--transition);
-}
-
-.paso-item:hover {
-  background: rgba(99, 102, 241, 0.1);
-  transform: translateX(4px);
-}
-
-.paso-numero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: white;
-  font-weight: 700;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-.paso-contenido {
-  color: var(--text-secondary);
-  line-height: 1.7;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-}
-
-/* ─── Resultados ─── */
-.resultados-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.resultado-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(99, 102, 241, 0.05));
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  border-radius: 8px;
-  box-shadow: var(--shadow-sm);
-}
-
-.resultado-label {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.resultado-valor {
-  color: var(--success-color);
-  font-size: 1.3rem;
-  font-weight: 700;
-  background: rgba(16, 185, 129, 0.1);
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  border-left: 3px solid var(--success-color);
-}
-
-.interpretacion-box {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
-  border-left: 4px solid var(--secondary-color);
-  padding: 1.25rem;
-  border-radius: 8px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  font-size: 0.95rem;
-}
-
-.interpretacion-box strong {
-  color: var(--secondary-color);
-  font-weight: 600;
-}
-
-/* ─── Boceto del Problema ─── */
-.boceto-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.04));
-  border: 2px dashed rgba(99, 102, 241, 0.3);
-  border-radius: 12px;
-  padding: 2rem;
-  min-height: 300px;
-  overflow: hidden;
-  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.boceto-imagen {
-  max-width: 100%;
-  max-height: 400px;
-  border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
-  transition: var(--transition);
-}
-
-.boceto-imagen:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.3);
-}
-
-/* ─── Responsive ─── */
-@media (max-width: 768px) {
-  .ejercicios-page {
-    padding: 1rem;
-  }
-
-  .header-title {
-    font-size: 1.8rem;
-  }
-
-  .header-subtitle {
-    font-size: 0.95rem;
-  }
-
-  .ejercicios-grid {
+@media (max-width: 900px) {
+  .ejer-cuerpo {
     grid-template-columns: 1fr;
   }
-
-  .modal-title {
-    font-size: 1.5rem;
-  }
-
-  .seccion-titulo {
-    font-size: 1.1rem;
-  }
-
-  .resultados-container {
-    grid-template-columns: 1fr;
-  }
-
-  .resultado-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .paso-item {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .paso-numero {
-    align-self: flex-start;
-  }
-
-  .variables-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-icon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .header-title {
-    font-size: 1.5rem;
-  }
-
-  .ejercicio-titulo {
-    font-size: 1.1rem;
-  }
-
-  .modal-title {
-    font-size: 1.3rem;
-  }
-
-  .seccion-titulo {
-    font-size: 1rem;
-  }
-
-  .formula-display {
-    font-size: 0.85rem;
-  }
-}
-
-/* ─── Animaciones ─── */
-@keyframes floatIcon {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .ejer-indice {
+    position: static;
   }
 }

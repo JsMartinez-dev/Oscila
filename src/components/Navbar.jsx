@@ -10,14 +10,14 @@ const NAV_ITEMS = [
     description: "Portada del proyecto",
   },
   {
-    id: "marco",
-    label: "Marco Conceptual",
+    id: "teoria",
+    label: "Teoría",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
       </svg>
     ),
-    description: "Teoría y fundamentos",
+    description: "Potencial, capacitancia, circuitos y Kirchhoff",
   },
   {
     id: "ejemplos",
@@ -30,14 +30,14 @@ const NAV_ITEMS = [
     description: "Ingeniería aplicada",
   },
   {
-    id: "laboratorio",
-    label: "Laboratorio",
+    id: "montaje",
+    label: "Montaje",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 3h6M9 3v6l-5 9a2 2 0 001.8 3h12.4A2 2 0 0020 18l-5-9V3"/>
       </svg>
     ),
-    description: "Simulaciones interactivas",
+    description: "Dibuja o fotografía un circuito y resuélvelo",
   },
   {
     id: "ejercicios",
@@ -61,7 +61,7 @@ const NAV_ITEMS = [
   },
 ];
 
-export default function Navbar({ activePage, onNavigate }) {
+export default function Navbar({ activePage, onNavigate, feria }) {
   return (
     <header className="navbar">
       <div className="navbar-brand">
@@ -72,8 +72,8 @@ export default function Navbar({ activePage, onNavigate }) {
           </svg>
         </div>
         <div className="brand-text">
-          <span className="brand-title">Ondas & Ondulaciones</span>
-          <span className="brand-subtitle">Calor y Ondas</span>
+          <span className="brand-title">Circuitos en Vivo</span>
+          <span className="brand-subtitle">Electricidad y Magnetismo</span>
         </div>
       </div>
 
@@ -90,6 +90,17 @@ export default function Navbar({ activePage, onNavigate }) {
           </button>
         ))}
       </nav>
+      {feria && (
+        <button
+          className={`nav-item nav-feria ${feria.activo ? "nav-item--active" : ""}`}
+          onClick={feria.alternar}
+          title="Pantalla completa y letra grande (tecla F)"
+          aria-pressed={feria.activo}
+        >
+          <span className="nav-icon">⛶</span>
+          <span className="nav-label">{feria.activo ? "Salir" : "Feria"}</span>
+        </button>
+      )}
     </header>
   );
 }

@@ -5,133 +5,99 @@ import "../pages/TestInteractivo.css";
 const QUESTIONS = [
   {
     id: 1,
-    question: "¿Qué es un movimiento oscilatorio?",
-    options: {
-      A: "Movimiento en línea recta constante",
-      B: "Movimiento alrededor de una posición de equilibrio",
-      C: "Movimiento circular uniforme",
-      D: "Movimiento acelerado hacia arriba",
-    },
+    question: "¿Cuál es la unidad del potencial eléctrico en el SI?",
+    options: { A: "N/C", B: "J/C (voltio)", C: "C/V", D: "J·s" },
     correctAnswer: "B",
-    feedback: "Debes repasar el movimiento oscilatorio, que es el movimiento de ida y vuelta alrededor de una posición de equilibrio, como ocurre en un columpio o un péndulo.",
-    topic: "Movimiento Oscilatorio",
+    feedback: "El potencial es energía por unidad de carga: v = U/q, así que 1 V = 1 J/C. N/C es la unidad del campo eléctrico y C/V la de la capacitancia.",
+    topic: "Potencial eléctrico",
   },
   {
     id: 2,
-    question: "El Movimiento Armónico Simple (M.A.S.) se caracteriza porque",
-    options: {
-      A: "Nunca se repite",
-      B: "Tiene velocidad constante",
-      C: "Se repite en intervalos iguales de tiempo",
-      D: "Ocurre solo en círculos",
-    },
+    question: "El potencial de una carga puntual es v = Kₑq/r. Si te alejas al doble de la distancia, el potencial…",
+    options: { A: "se duplica", B: "no cambia", C: "se reduce a la mitad", D: "se reduce a la cuarta parte" },
     correctAnswer: "C",
-    feedback: "Debes repasar el tema de movimiento periódico y Movimiento Armónico Simple, ya que el M.A.S. se repite constantemente en tiempos iguales.",
-    topic: "Movimiento Periódico",
+    feedback: "El potencial de una carga puntual es inversamente proporcional a r (no a r²): al doble de distancia queda la mitad. El que cae como 1/r² es el campo.",
+    topic: "Potencial de cargas puntuales",
   },
   {
     id: 3,
-    question: "En el M.A.S., la posición donde el cuerpo permanece en reposo si no actúa ninguna fuerza se llama:",
-    options: {
-      A: "Posición extrema",
-      B: "Posición inicial",
-      C: "Posición de equilibrio",
-      D: "Punto final",
-    },
-    correctAnswer: "C",
-    feedback: "Debes repasar la posición de equilibrio, que es el punto central donde las fuerzas se compensan y el cuerpo estaría quieto.",
-    topic: "Posición de Equilibrio",
+    question: "Según E = −∇v, el campo eléctrico apunta…",
+    options: { A: "hacia donde el potencial aumenta", B: "hacia donde el potencial disminuye", C: "siempre paralelo a las equipotenciales", D: "en cualquier dirección" },
+    correctAnswer: "B",
+    feedback: "El signo menos indica que el campo apunta en la dirección en que el potencial disminuye más rápido, y es perpendicular a las superficies equipotenciales.",
+    topic: "Campo a partir del potencial",
   },
   {
     id: 4,
-    question: "Un ejemplo de Movimiento Armónico Simple es:",
-    options: {
-      A: "Un automóvil avanzando",
-      B: "Un resorte con una masa oscilando",
-      C: "Un avión despegando",
-      D: "Una pelota cayendo libremente",
-    },
-    correctAnswer: "B",
-    feedback: "Debes repasar los ejemplos de Movimiento Armónico Simple, especialmente el sistema masa-resorte, donde el objeto oscila repetidamente.",
-    topic: "Ejemplos de M.A.S.",
+    question: "Si se duplica el voltaje aplicado a un condensador, ¿qué pasa con su capacitancia C = Q/Δv?",
+    options: { A: "Se duplica", B: "Se reduce a la mitad", C: "No cambia: se duplica la carga", D: "Se cuadruplica" },
+    correctAnswer: "C",
+    feedback: "La capacitancia depende solo de la geometría y del material. Al duplicar el voltaje se duplica la carga Q = CΔv y C se mantiene.",
+    topic: "Capacitancia",
   },
   {
     id: 5,
-    question: "¿Qué ocurre en las posiciones extremas del movimiento?",
-    options: {
-      A: "La velocidad es máxima",
-      B: "El cuerpo cambia de dirección",
-      C: "El cuerpo queda detenido permanentemente",
-      D: "No existe fuerza restauradora",
-    },
+    question: "Dos condensadores conectados en serie tienen siempre…",
+    options: { A: "el mismo voltaje", B: "la misma carga", C: "la misma energía", D: "la misma capacitancia" },
     correctAnswer: "B",
-    feedback: "Debes repasar las posiciones extremas en el M.A.S., ya que en esos puntos el cuerpo se detiene un instante y cambia el sentido del movimiento.",
-    topic: "Posiciones Extremas",
+    feedback: "En serie la carga es la misma en todos (la que sale de una placa llega a la siguiente). En paralelo lo que se comparte es el voltaje.",
+    topic: "Condensadores en serie y paralelo",
   },
   {
     id: 6,
-    question: "La fuerza que hace regresar el cuerpo hacia la posición de equilibrio se llama:",
-    options: {
-      A: "Fuerza gravitacional",
-      B: "Fuerza eléctrica",
-      C: "Fuerza restauradora",
-      D: "Fuerza nuclear",
-    },
-    correctAnswer: "C",
-    feedback: "Debes repasar la fuerza restauradora y la Ley de Hooke, porque esta fuerza siempre intenta devolver el cuerpo a la posición de equilibrio.",
-    topic: "Fuerza Restauradora",
+    question: "La energía de un condensador es U = ½CV². Si el voltaje se duplica, la energía…",
+    options: { A: "se duplica", B: "se cuadruplica", C: "no cambia", D: "se reduce a la mitad" },
+    correctAnswer: "B",
+    feedback: "La energía depende del cuadrado del voltaje: (2V)² = 4V². Por eso un desfibrilador carga su condensador a miles de voltios.",
+    topic: "Energía en condensadores",
   },
   {
     id: 7,
-    question: "El movimiento de vaivén corresponde a:",
-    options: {
-      A: "Movimiento uniforme",
-      B: "Movimiento oscilatorio",
-      C: "Movimiento parabólico",
-      D: "Movimiento circular",
-    },
-    correctAnswer: "B",
-    feedback: "Debes repasar el movimiento oscilatorio, que consiste en un movimiento repetitivo de ida y vuelta.",
-    topic: "Movimiento Oscilatorio",
+    question: "Dos resistencias iguales R conectadas en paralelo equivalen a…",
+    options: { A: "2R", B: "R", C: "R/2", D: "R²" },
+    correctAnswer: "C",
+    feedback: "En paralelo: 1/Req = 1/R + 1/R = 2/R, entonces Req = R/2. La resistencia equivalente en paralelo siempre es menor que la menor de ellas.",
+    topic: "Resistencias en serie y paralelo",
   },
   {
     id: 8,
-    question: "¿Cuál de las siguientes características pertenece al M.A.S.?",
-    options: {
-      A: "Trayectoria curva irregular",
-      B: "Trayectoria con tendencia a línea recta",
-      C: "Movimiento aleatorio",
-      D: "Velocidad infinita",
-    },
+    question: "En un circuito en serie, ¿qué tienen en común todos los elementos?",
+    options: { A: "El mismo voltaje", B: "La misma corriente", C: "La misma potencia", D: "La misma resistencia" },
     correctAnswer: "B",
-    feedback: "Debes repasar las características del Movimiento Armónico Simple, ya que normalmente ocurre en trayectoria rectilínea.",
-    topic: "Características del M.A.S.",
+    feedback: "En serie hay un solo camino: la misma corriente pasa por todos los elementos y los voltajes se suman.",
+    topic: "Circuitos en serie",
   },
   {
     id: 9,
-    question: "En un resorte, cuando la masa se aleja de la posición de equilibrio:",
-    options: {
-      A: "Desaparece la fuerza restauradora",
-      B: "El movimiento termina",
-      C: "Aparece una fuerza que intenta regresarla",
-      D: "La masa queda inmóvil",
-    },
-    correctAnswer: "C",
-    feedback: "Debes repasar la Ley de Hooke, porque mientras más se aleja la masa, mayor es la fuerza que la devuelve al equilibrio.",
-    topic: "Ley de Hooke",
+    question: "Según R = ρL/A, si se usa un cable del mismo material con el doble de longitud y la misma sección, su resistencia…",
+    options: { A: "se duplica", B: "se reduce a la mitad", C: "no cambia", D: "se cuadruplica" },
+    correctAnswer: "A",
+    feedback: "La resistencia es proporcional a la longitud e inversamente proporcional al área de la sección.",
+    topic: "Resistividad",
   },
   {
     id: 10,
-    question: "Las oscilaciones mecánicas necesitan:",
-    options: {
-      A: "Un medio material o sistema físico",
-      B: "Vacío absoluto",
-      C: "Solo energía eléctrica",
-      D: "Luz solar",
-    },
-    correctAnswer: "A",
-    feedback: "Debes repasar las oscilaciones mecánicas, que ocurren únicamente en sistemas materiales como resortes, péndulos o cuerdas.",
-    topic: "Oscilaciones Mecánicas",
+    question: "Con la convención del curso, al recorrer una malla y pasar por una resistencia en el mismo sentido de la corriente, el término es…",
+    options: { A: "+IR", B: "−IR", C: "+ε", D: "0" },
+    correctAnswer: "B",
+    feedback: "A favor de la corriente el potencial cae: −IR. En contra de la corriente: +IR. En una fuente: de − a + es +ε y de + a − es −ε.",
+    topic: "Leyes de Kirchhoff (signos)",
+  },
+  {
+    id: 11,
+    question: "Si la corriente ENTRA por el terminal + de una fuente, la fuente…",
+    options: { A: "entrega potencia", B: "absorbe potencia (se está cargando)", C: "no tiene potencia", D: "se convierte en resistencia" },
+    correctAnswer: "B",
+    feedback: "Una fuente entrega potencia cuando la corriente sale por su +, y absorbe cuando entra por el +, como una batería que se recarga.",
+    topic: "Potencia en fuentes",
+  },
+  {
+    id: 12,
+    question: "Un circuito tiene dos fuentes en ramas distintas. ¿Cómo se clasifica y cómo se resuelve?",
+    options: { A: "Serie; sumando resistencias", B: "Paralelo; con un divisor de corriente", C: "No reducible; con las leyes de Kirchhoff", D: "Mixto; solo con la ley de Ohm" },
+    correctAnswer: "C",
+    feedback: "Con más de una fuente no hay una única resistencia equivalente vista por la fuente: se plantean ecuaciones de nodos y de mallas (Kirchhoff).",
+    topic: "Clasificación de circuitos",
   },
 ];
 
@@ -207,7 +173,13 @@ export default function TestInteractivo() {
     doc.setTextColor(100, 100, 100);
     const fecha = new Date().toLocaleDateString("es-ES");
     doc.text(`Fecha: ${fecha}`, margin, yPosition);
-    yPosition += 10;
+    yPosition += 6;
+    doc.text("Electricidad y Magnetismo - Universidad del Magdalena", margin, yPosition);
+    yPosition += 5;
+    doc.text("Profesor: Jarvin Mestra Páez", margin, yPosition);
+    yPosition += 5;
+    doc.text("Desarrollado por: Juan Sebastian Martinez y Juan David Rivera", margin, yPosition);
+    yPosition += 8;
 
     // Línea separadora
     doc.setDrawColor(200, 200, 200);
@@ -278,11 +250,11 @@ export default function TestInteractivo() {
 
     doc.setFontSize(10);
     const suggestions = [
-      "• Revisa los conceptos fundamentales en el Marco Conceptual",
-      "• Utiliza los Ejemplos de Ingeniería para ver aplicaciones prácticas",
-      "• Practica con los Simuladores de Péndulo y Resorte",
-      "• Completa los Ejercicios prácticos del tema",
-      "• Realiza el test nuevamente después de estudiar",
+      "- Repasa la sección de Teoría: potencial, capacitancia, circuitos y Kirchhoff",
+      "- Dibuja circuitos en el Montaje virtual y revisa la solución paso a paso",
+      "- Resuelve los Ejercicios resueltos, abriendo cada inciso solo después de intentarlo",
+      "- Mira las Aplicaciones en ingeniería para conectar las fórmulas con casos reales",
+      "- Vuelve a hacer el test después de estudiar",
     ];
 
     suggestions.forEach((suggestion) => {
@@ -303,7 +275,7 @@ export default function TestInteractivo() {
     doc.setFontSize(9);
     doc.setTextColor(150, 150, 150);
     doc.text(
-      "Test Interactivo - Oscilaciones y Movimiento Armónico Simple",
+      "Circuitos en Vivo - Test de Electricidad y Magnetismo",
       pageWidth / 2,
       pageHeight - 10,
       { align: "center" }
@@ -332,13 +304,13 @@ export default function TestInteractivo() {
             {score === QUESTIONS.length && (
               <p className="perfect">¡Excelente! Has dominado completamente el tema.</p>
             )}
-            {score >= 8 && score < QUESTIONS.length && (
+            {score / QUESTIONS.length >= 0.8 && score < QUESTIONS.length && (
               <p className="good">¡Muy bien! Tienes un excelente desempeño.</p>
             )}
-            {score >= 6 && score < 8 && (
+            {score / QUESTIONS.length >= 0.6 && score / QUESTIONS.length < 0.8 && (
               <p className="fair">Buen trabajo, pero hay algunos temas por repasar.</p>
             )}
-            {score < 6 && (
+            {score / QUESTIONS.length < 0.6 && (
               <p className="needs-improvement">Necesitas estudiar más estos temas.</p>
             )}
           </div>
@@ -364,7 +336,7 @@ export default function TestInteractivo() {
   return (
     <div className="test-container">
       <div className="test-header">
-        <h1 >Test Interactivo: Oscilaciones y Movimiento Armónico Simple</h1>
+        <h1>Test Interactivo: Electricidad y Magnetismo</h1>
         <div className="progress-bar">
           <div
             className="progress-fill"

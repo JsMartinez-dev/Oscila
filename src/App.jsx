@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Navbar from "./components/Navbar";
 import Inicio from "./pages/Inicio";
-import MarcoConceptual from "./pages/MarcoConceptual";
-import EjemplosIngenieria from "./pages/EjemplosIngenieria";
-import Laboratorio from "./pages/Laboratorio";
+import Montaje from "./pages/Montaje";
 import Ejercicios from "./pages/Ejercicios";
+import Teoria from "./pages/Teoria";
+import Aplicaciones from "./pages/Aplicaciones";
 import TestInteractivo from "./pages/TestInteractivo";
+import { ContadorFeria, useModoFeria } from "./components/ModoFeria";
 
 const PAGES = {
   inicio: Inicio,
-  marco: MarcoConceptual,
-  ejemplos: EjemplosIngenieria,
-  laboratorio: Laboratorio,
+  teoria: Teoria,
+  ejemplos: Aplicaciones,
+  montaje: Montaje,
   ejercicios: Ejercicios,
   test: TestInteractivo,
 };
@@ -19,18 +20,24 @@ const PAGES = {
 export default function App() {
   const [activePage, setActivePage] = useState("inicio");
   const PageComponent = PAGES[activePage];
+  const feria = useModoFeria();
+  const navegar = useCallback((pagina) => {
+    setActivePage(pagina);
+    window.scrollTo({ top: 0 });
+  }, []);
 
   return (
     <div className="app-shell">
-      <Navbar activePage={activePage} onNavigate={setActivePage} />
+      <Navbar activePage={activePage} onNavigate={navegar} feria={feria} />
       <main className="page-content">
-        <PageComponent />
+        <PageComponent onNavigate={navegar} />
       </main>
       <footer className="site-footer">
-        <span>Calor y Ondas — Proyecto Académico</span>
+        <span>Circuitos en Vivo — Electricidad y Magnetismo</span>
         <span className="footer-sep">·</span>
-        <span>Oscilaciones y Ondas Mecánicas</span>
+        <span>Universidad del Magdalena</span>
       </footer>
+      {feria.activo && <ContadorFeria />}
     </div>
   );
 }

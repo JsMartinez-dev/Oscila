@@ -461,3 +461,50 @@
     height: 40px;
   }
 }
+
+/* ==================== CIRCUITOS EN VIVO ==================== */
+.inicio-lema {
+  margin-top: 0.75rem;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.inicio-accesos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.inicio-acceso {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: left;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: 12px;
+  padding: 0.9rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.inicio-acceso:hover {
+  background: rgba(99, 102, 241, 0.22);
+  transform: translateY(-2px);
+}
+
+.inicio-acceso span {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.inicio-evento {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}

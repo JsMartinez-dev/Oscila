@@ -1,0 +1,121 @@
+{
+  "elementos": [
+    {
+      "id": "R10s",
+      "tipo": "resistencia",
+      "valor": 10,
+      "unidad": "Ω",
+      "nodo_a": "L",
+      "nodo_b": "m",
+      "positivo": null,
+      "x": 0.38,
+      "y": 0.12,
+      "orientacion": "horizontal",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "E",
+      "tipo": "fuente",
+      "valor": 25,
+      "unidad": "V",
+      "nodo_a": "m",
+      "nodo_b": "R",
+      "positivo": "R",
+      "x": 0.6,
+      "y": 0.12,
+      "orientacion": "horizontal",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": 0.6
+    },
+    {
+      "id": "R10",
+      "tipo": "resistencia",
+      "valor": 10,
+      "unidad": "Ω",
+      "nodo_a": "L",
+      "nodo_b": "R",
+      "positivo": null,
+      "x": 0.5,
+      "y": 0.4,
+      "orientacion": "horizontal",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R5i",
+      "tipo": "resistencia",
+      "valor": 5,
+      "unidad": "Ω",
+      "nodo_a": "L",
+      "nodo_b": "R",
+      "positivo": null,
+      "x": 0.5,
+      "y": 0.65,
+      "orientacion": "horizontal",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R5e",
+      "tipo": "resistencia",
+      "valor": 5,
+      "unidad": "Ω",
+      "nodo_a": "L",
+      "nodo_b": "c",
+      "positivo": null,
+      "x": 0.06,
+      "y": 0.62,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R20",
+      "tipo": "resistencia",
+      "valor": 20,
+      "unidad": "Ω",
+      "nodo_a": "c",
+      "nodo_b": "R",
+      "positivo": null,
+      "x": 0.94,
+      "y": 0.62,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    }
+  ],
+  "nodos": [
+    {
+      "id": "L",
+      "x": 0.25,
+      "y": 0.4,
+      "etiqueta": "a"
+    },
+    {
+      "id": "R",
+      "x": 0.75,
+      "y": 0.4,
+      "etiqueta": "b"
+    },
+    {
+      "id": "m",
+      "x": 0.49,
+      "y": 0.12,
+      "etiqueta": null
+    },
+    {
+      "id": "c",
+      "x": 0.5,
+      "y": 0.94,
+      "etiqueta": null
+    }
+  ],
+  "notas": "Ejemplo guardado: Ejercicio 13."
+}

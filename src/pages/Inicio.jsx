@@ -1,79 +1,64 @@
-import React from 'react';
 import './Inicio.css';
 
-export default function Inicio() {
-  const integrantes = [
-    "Juan Sebastian Martinez Uribe",
-    "Bibiana Arteaga Castellanos",
-    "Esteban Andrés Arévalo",
-    "Ali David Valle Mancilla",
-    "Yulia Cabana Olivella",
-    "Omar Andres Rojas Arango",
-    "Carlos Alberto Teran Lizcano",
-    "Alejandro Smith Cano Pezzano",
-    "Gabriel González Silva",
-    "Daniel Miranda Morales",
-    "Andrés Felipe Chacon Saucedo"
-  ];
+const DESARROLLADORES = ['Juan Sebastian Martinez', 'Juan David Rivera'];
 
+const ACCESOS = [
+  { id: 'montaje', titulo: 'Montaje virtual', texto: 'Dibuja o fotografía un circuito y obtén su solución paso a paso.' },
+  { id: 'teoria', titulo: 'Teoría', texto: 'Potencial, capacitancia, circuitos y leyes de Kirchhoff.' },
+  { id: 'ejercicios', titulo: 'Ejercicios', texto: '15 ejercicios resueltos con incisos colapsables.' },
+  { id: 'test', titulo: 'Test', texto: '12 preguntas con retroalimentación y plan de estudio en PDF.' },
+];
+
+export default function Inicio({ onNavigate }) {
   return (
     <div className="inicio-page">
-      {}
       <div className="portada-container">
-        {}
         <div className="universidad-logo">
           <div className="logo-placeholder">
-              <img src="https://bloque10.unimagdalena.edu.co/wp-content/uploads/2021/06/Escudo-Color-Texto-azul-1-1024x1024.png" alt="Logo unimag" />
+            <img src={`${import.meta.env.BASE_URL}logo-unimagdalena.png`} alt="Escudo de la Universidad del Magdalena" />
           </div>
           <p className="logo-text">Universidad del Magdalena</p>
         </div>
 
-        {}
         <div className="contenido-portada">
-          {}
           <div className="titulo-section">
-            <h1 className="titulo-principal">CALOR Y ONDAS</h1>
+            <h1 className="titulo-principal">CIRCUITOS EN VIVO</h1>
             <div className="subtitulo-divider"></div>
-            <h2 className="subtitulo">Onda Expansiva</h2>
+            <h2 className="subtitulo">Electricidad y Magnetismo</h2>
+            <p className="inicio-lema">Dibuja un circuito (o tómale una foto a uno hecho a mano): la plataforma lo clasifica y lo resuelve paso a paso, verificando cada número.</p>
           </div>
 
-          {}
+          <div className="inicio-accesos">
+            {ACCESOS.map((a) => (
+              <button key={a.id} type="button" className="inicio-acceso" onClick={() => onNavigate?.(a.id)}>
+                <strong>{a.titulo}</strong>
+                <span>{a.texto}</span>
+              </button>
+            ))}
+          </div>
+
           <section className="section-integrantes">
-            <h3 className="section-titulo">Integrantes</h3>
+            <h3 className="section-titulo">Desarrolladores</h3>
             <div className="integrantes-list">
-              {integrantes.map((integrante, index) => (
-                <div key={index} className="integrante-item">
+              {DESARROLLADORES.map((d) => (
+                <div key={d} className="integrante-item">
                   <span className="integrante-dot"></span>
-                  <span className="integrante-nombre">{integrante}</span>
+                  <span className="integrante-nombre">{d}</span>
                 </div>
               ))}
             </div>
           </section>
 
-          {}
           <section className="section-profesor">
             <h3 className="section-titulo">Profesor</h3>
             <div className="profesor-info">
-              <span className="profesor-nombre">Jean Linero Cueto</span>
+              <span className="profesor-nombre">Jarvin Mestra Páez</span>
             </div>
           </section>
         </div>
 
-        {}
-        <div className="desarrollador-credits">
-          <p className="credits-label">Desarrollado por</p>
-          <div className="credits-content">
-            <span className="developer-name">Juan Sebastian Martinez</span>
-            <a href="https://github.com/JsMartinez-dev" target="_blank" rel="noopener noreferrer" className="github-link" title="Visitar GitHub">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        {/* Decoración inferior */}
         <div className="portada-footer">
+          <p className="inicio-evento">II Foro Internacional de Física · Universidad del Magdalena</p>
           <div className="wave-decoration"></div>
         </div>
       </div>

@@ -1,0 +1,319 @@
+.montaje {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.montaje-cabecera h1 {
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.montaje-cabecera p {
+  color: var(--text-secondary);
+}
+
+.montaje-pestanas {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.montaje-pestanas button {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.montaje-pestanas button.activa {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+}
+
+.montaje-banner {
+  position: relative;
+  background: rgba(250, 204, 21, 0.12);
+  border: 1px solid #facc15;
+  color: #fef3c7;
+  border-radius: 10px;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  font-size: 0.92rem;
+}
+
+.montaje-banner button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.montaje-vacio,
+.montaje-error {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.montaje-error {
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.montaje-vacio button,
+.montaje-error button {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.montaje-solucion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.montaje-avisos {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.montaje-avisos li {
+  background: rgba(245, 158, 11, 0.12);
+  border-left: 3px solid var(--warning-color);
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #fde68a;
+}
+
+.montaje-clase {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-left: 6px solid var(--primary-color);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+.montaje-clase.clase-serie {
+  border-left-color: #10b981;
+}
+.montaje-clase.clase-paralelo {
+  border-left-color: #0ea5e9;
+}
+.montaje-clase.clase-mixto {
+  border-left-color: #8b5cf6;
+}
+.montaje-clase.clase-no {
+  border-left-color: #f97316;
+}
+
+.montaje-clase-tipo {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+}
+
+.montaje-clase-tipo span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.montaje-clase-tipo strong {
+  font-size: 1.35rem;
+}
+
+.montaje-metodo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.montaje-metodo button {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+}
+
+.montaje-metodo button.activa {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: var(--primary-color);
+  color: #fff;
+}
+
+.montaje-metodo button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.montaje-mini {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Hoja de solución con aspecto de documento (como el PDF de ejercicios resueltos) */
+.hoja {
+  background: #ffffff;
+  color: #111827;
+  border-radius: 14px;
+  padding: 1.75rem 2rem;
+  box-shadow: var(--shadow-xl);
+  overflow-x: auto;
+}
+
+.hoja-verificado {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: #047857;
+}
+
+.pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pasos-h {
+  font-size: 1.1rem;
+  color: #312e81;
+  margin-top: 0.8rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.25rem;
+}
+
+.pasos-diagramas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.pasos-figura {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0.75rem;
+  background: #fcfcfa;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.pasos-figura figcaption {
+  align-self: flex-start;
+  font-size: 0.9rem;
+}
+
+.pasos-sub {
+  color: #4b5563;
+}
+
+.pasos-texto,
+.pasos-check {
+  line-height: 1.7;
+}
+
+.pasos-check {
+  background: #ecfdf5;
+  border-left: 3px solid #10b981;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+}
+
+.pasos-formulas {
+  background: #eef2ff;
+  border-left: 4px solid #6366f1;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  line-height: 2;
+}
+
+.pasos-sep {
+  color: #9ca3af;
+}
+
+.tex-bloque {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.15rem 0;
+}
+
+.pasos-tabla-wrap {
+  overflow-x: auto;
+}
+
+.pasos-tabla {
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  min-width: 60%;
+}
+
+.pasos-tabla th,
+.pasos-tabla td {
+  border: 1px solid #d1d5db;
+  padding: 0.35rem 0.75rem;
+  text-align: center;
+}
+
+.pasos-tabla th {
+  background: #f3f4f6;
+}
+
+.pasos-resumen {
+  background: #fefce8;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 0.5rem 1rem 0.75rem;
+}
+
+.pasos-resumen ul {
+  padding-left: 1.2rem;
+  line-height: 2;
+}
+
+.pasos-nota {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 700px) {
+  .hoja {
+    padding: 1rem;
+  }
+  .montaje-clase {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

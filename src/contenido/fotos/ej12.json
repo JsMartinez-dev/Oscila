@@ -1,0 +1,100 @@
+{
+  "elementos": [
+    {
+      "id": "E",
+      "tipo": "fuente",
+      "valor": 50,
+      "unidad": "V",
+      "nodo_a": "n1",
+      "nodo_b": "n3",
+      "positivo": "n1",
+      "x": 0.1,
+      "y": 0.5,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": 0.93
+    },
+    {
+      "id": "R1",
+      "tipo": "resistencia",
+      "valor": 100,
+      "unidad": "Ω",
+      "nodo_a": "n1",
+      "nodo_b": "n2",
+      "positivo": null,
+      "x": 0.3,
+      "y": 0.1,
+      "orientacion": "horizontal",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R2",
+      "tipo": "resistencia",
+      "valor": 50,
+      "unidad": "Ω",
+      "nodo_a": "n2",
+      "nodo_b": "n3",
+      "positivo": null,
+      "x": 0.5,
+      "y": 0.5,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R3",
+      "tipo": "resistencia",
+      "valor": 200,
+      "unidad": "Ω",
+      "nodo_a": "n2",
+      "nodo_b": "n3",
+      "positivo": null,
+      "x": 0.7,
+      "y": 0.5,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.55,
+      "confianza_polaridad": null
+    },
+    {
+      "id": "R4",
+      "tipo": "resistencia",
+      "valor": 200,
+      "unidad": "Ω",
+      "nodo_a": "n2",
+      "nodo_b": "n3",
+      "positivo": null,
+      "x": 0.9,
+      "y": 0.5,
+      "orientacion": "vertical",
+      "confianza": 0.95,
+      "confianza_valor": 0.92,
+      "confianza_polaridad": null
+    }
+  ],
+  "nodos": [
+    {
+      "id": "n1",
+      "x": 0.1,
+      "y": 0.1,
+      "etiqueta": null
+    },
+    {
+      "id": "n2",
+      "x": 0.7,
+      "y": 0.1,
+      "etiqueta": null
+    },
+    {
+      "id": "n3",
+      "x": 0.5,
+      "y": 0.9,
+      "etiqueta": null
+    }
+  ],
+  "notas": "Ejemplo guardado: Ejercicio 12."
+}
