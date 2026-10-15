@@ -61,7 +61,7 @@ const NAV_ITEMS = [
   },
 ];
 
-export default function Navbar({ activePage, onNavigate }) {
+export default function Navbar({ activePage, onNavigate, feria }) {
   return (
     <header className="navbar">
       <div className="navbar-brand">
@@ -90,6 +90,17 @@ export default function Navbar({ activePage, onNavigate }) {
           </button>
         ))}
       </nav>
+      {feria && (
+        <button
+          className={`nav-item nav-feria ${feria.activo ? "nav-item--active" : ""}`}
+          onClick={feria.alternar}
+          title="Pantalla completa y letra grande (tecla F)"
+          aria-pressed={feria.activo}
+        >
+          <span className="nav-icon">⛶</span>
+          <span className="nav-label">{feria.activo ? "Salir" : "Feria"}</span>
+        </button>
+      )}
     </header>
   );
 }

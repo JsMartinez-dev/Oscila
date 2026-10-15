@@ -6,6 +6,7 @@ import Ejercicios from "./pages/Ejercicios";
 import Teoria from "./pages/Teoria";
 import Aplicaciones from "./pages/Aplicaciones";
 import TestInteractivo from "./pages/TestInteractivo";
+import { ContadorFeria, useModoFeria } from "./components/ModoFeria";
 
 const PAGES = {
   inicio: Inicio,
@@ -19,6 +20,7 @@ const PAGES = {
 export default function App() {
   const [activePage, setActivePage] = useState("inicio");
   const PageComponent = PAGES[activePage];
+  const feria = useModoFeria();
   const navegar = useCallback((pagina) => {
     setActivePage(pagina);
     window.scrollTo({ top: 0 });
@@ -26,7 +28,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Navbar activePage={activePage} onNavigate={navegar} />
+      <Navbar activePage={activePage} onNavigate={navegar} feria={feria} />
       <main className="page-content">
         <PageComponent onNavigate={navegar} />
       </main>
@@ -35,6 +37,7 @@ export default function App() {
         <span className="footer-sep">·</span>
         <span>Universidad del Magdalena</span>
       </footer>
+      {feria.activo && <ContadorFeria />}
     </div>
   );
 }
