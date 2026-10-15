@@ -100,7 +100,7 @@ function etiquetaComponente(c) {
   const horizontal = t.a.y === t.b.y;
   const nombre = c.nombre ?? nombreLatex(c.id, c.tipo);
   const texto = c.texto ?? formatearValor(c.valor, c.tipo);
-  if (horizontal) return { nombre, texto, x: cx, y: cy - 1.05 * G, anchor: 'middle', dy: 0 };
+  if (horizontal) return { nombre, texto, x: cx, y: cy - 1.6 * G, anchor: 'middle', dy: 0.8 * G };
   return { nombre, texto, x: cx + 1.0 * G, y: cy - 2, anchor: 'start', dy: 15 };
 }
 

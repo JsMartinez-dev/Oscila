@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Inicio from "./pages/Inicio";
 import Montaje from "./pages/Montaje";
+import Ejercicios from "./pages/Ejercicios";
 import TestInteractivo from "./pages/TestInteractivo";
 
 function EnConstruccion({ titulo }) {
@@ -18,7 +19,7 @@ const PAGES = {
   teoria: () => <EnConstruccion titulo="Teoría" />,
   ejemplos: () => <EnConstruccion titulo="Aplicaciones en ingeniería" />,
   montaje: Montaje,
-  ejercicios: () => <EnConstruccion titulo="Ejercicios" />,
+  ejercicios: Ejercicios,
   test: TestInteractivo,
 };
 
