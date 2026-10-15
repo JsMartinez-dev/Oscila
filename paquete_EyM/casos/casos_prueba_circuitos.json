@@ -1,0 +1,697 @@
+{
+  "convencion": {
+    "fuente": "pos = nodo del terminal +, neg = nodo del terminal -; valor en V",
+    "resistencia": "valor en ohm entre nodos a y b",
+    "condensador": "valor en F entre nodos a y b",
+    "corriente_resistencia": "I_de_a_hacia_b_A positiva si va de a hacia b",
+    "corriente_fuente": "I_sale_por_+_A positiva => la fuente entrega potencia"
+  },
+  "casos": [
+    {
+      "ejercicio": 11,
+      "descripcion": "Dos ramas en paralelo (1+3 y 7+5) con fuente de 48 V",
+      "metodo_esperado": "reduccion (mixto)",
+      "nodos": [
+        "A",
+        "B",
+        "n1",
+        "n2"
+      ],
+      "tierra": "B",
+      "elementos": [
+        {
+          "id": "E",
+          "tipo": "fuente",
+          "valor": 48.0,
+          "pos": "A",
+          "neg": "B"
+        },
+        {
+          "id": "R1",
+          "tipo": "resistencia",
+          "valor": 1.0,
+          "a": "A",
+          "b": "n1"
+        },
+        {
+          "id": "R2",
+          "tipo": "resistencia",
+          "valor": 3.0,
+          "a": "n1",
+          "b": "B"
+        },
+        {
+          "id": "R3",
+          "tipo": "resistencia",
+          "valor": 7.0,
+          "a": "A",
+          "b": "n2"
+        },
+        {
+          "id": "R4",
+          "tipo": "resistencia",
+          "valor": 5.0,
+          "a": "n2",
+          "b": "B"
+        }
+      ],
+      "esperado": {
+        "Req_ohm": 3.0,
+        "I_fuente_A": 16.0,
+        "P_fuente_W": 768.0,
+        "clasificacion": "mixto",
+        "potenciales_V": {
+          "A": 48.0,
+          "B": 0.0,
+          "n1": 36.0,
+          "n2": 20.0
+        },
+        "por_elemento": {
+          "R1": {
+            "I_de_a_hacia_b_A": 12.0,
+            "V_A": 12.0,
+            "P_W": 144.0
+          },
+          "R2": {
+            "I_de_a_hacia_b_A": 12.0,
+            "V_A": 36.0,
+            "P_W": 432.0
+          },
+          "R3": {
+            "I_de_a_hacia_b_A": 4.0,
+            "V_A": 28.0,
+            "P_W": 112.0
+          },
+          "R4": {
+            "I_de_a_hacia_b_A": 4.0,
+            "V_A": 20.0,
+            "P_W": 80.0
+          },
+          "E": {
+            "I_sale_por_+_A": 16.0,
+            "P_W": 768.0,
+            "rol": "entrega"
+          }
+        }
+      }
+    },
+    {
+      "ejercicio": 12,
+      "descripcion": "R1 en serie con R2||R3||R4, fuente 50 V",
+      "metodo_esperado": "reduccion (mixto)",
+      "nodos": [
+        "P",
+        "T",
+        "G"
+      ],
+      "tierra": "G",
+      "elementos": [
+        {
+          "id": "E",
+          "tipo": "fuente",
+          "valor": 50.0,
+          "pos": "P",
+          "neg": "G"
+        },
+        {
+          "id": "R1",
+          "tipo": "resistencia",
+          "valor": 100.0,
+          "a": "P",
+          "b": "T"
+        },
+        {
+          "id": "R2",
+          "tipo": "resistencia",
+          "valor": 50.0,
+          "a": "T",
+          "b": "G"
+        },
+        {
+          "id": "R3",
+          "tipo": "resistencia",
+          "valor": 200.0,
+          "a": "T",
+          "b": "G"
+        },
+        {
+          "id": "R4",
+          "tipo": "resistencia",
+          "valor": 200.0,
+          "a": "T",
+          "b": "G"
+        }
+      ],
+      "esperado": {
+        "Req_ohm": 133.33,
+        "I_fuente_A": 0.375,
+        "P_fuente_W": 18.75,
+        "clasificacion": "mixto",
+        "potenciales_V": {
+          "P": 50.0,
+          "T": 12.5,
+          "G": 0.0
+        },
+        "por_elemento": {
+          "R1": {
+            "I_de_a_hacia_b_A": 0.375,
+            "V_A": 37.5,
+            "P_W": 14.0625
+          },
+          "R2": {
+            "I_de_a_hacia_b_A": 0.25,
+            "V_A": 12.5,
+            "P_W": 3.125
+          },
+          "R3": {
+            "I_de_a_hacia_b_A": 0.0625,
+            "V_A": 12.5,
+            "P_W": 0.7813
+          },
+          "R4": {
+            "I_de_a_hacia_b_A": 0.0625,
+            "V_A": 12.5,
+            "P_W": 0.7813
+          },
+          "E": {
+            "I_sale_por_+_A": 0.375,
+            "P_W": 18.75,
+            "rol": "entrega"
+          }
+        }
+      }
+    },
+    {
+      "ejercicio": 13,
+      "descripcion": "Red con fuente de 25 V en serie con 10 ohm; a=L, b=R",
+      "metodo_esperado": "reduccion (mixto)",
+      "nodos": [
+        "L",
+        "R",
+        "m",
+        "c"
+      ],
+      "tierra": "L",
+      "elementos": [
+        {
+          "id": "R10s",
+          "tipo": "resistencia",
+          "valor": 10.0,
+          "a": "L",
+          "b": "m"
+        },
+        {
+          "id": "E",
+          "tipo": "fuente",
+          "valor": 25.0,
+          "pos": "R",
+          "neg": "m"
+        },
+        {
+          "id": "R10",
+          "tipo": "resistencia",
+          "valor": 10.0,
+          "a": "L",
+          "b": "R"
+        },
+        {
+          "id": "R5i",
+          "tipo": "resistencia",
+          "valor": 5.0,
+          "a": "L",
+          "b": "R"
+        },
+        {
+          "id": "R5e",
+          "tipo": "resistencia",
+          "valor": 5.0,
+          "a": "L",
+          "b": "c"
+        },
+        {
+          "id": "R20",
+          "tipo": "resistencia",
+          "valor": 20.0,
+          "a": "c",
+          "b": "R"
+        }
+      ],
+      "esperado": {
+        "Req_ohm": 12.94,
+        "I_fuente_A": 1.932,
+        "P_fuente_W": 48.3,
+        "V_a_menos_V_b_V": -5.68,
+        "I_por_a_y_b_A": 0.227,
+        "clasificacion": "mixto",
+        "potenciales_V": {
+          "L": 0.0,
+          "R": 5.6818,
+          "m": -19.3182,
+          "c": 1.1364
+        },
+        "por_elemento": {
+          "R10s": {
+            "I_de_a_hacia_b_A": 1.9318,
+            "V_A": 19.3182,
+            "P_W": 37.3192
+          },
+          "R10": {
+            "I_de_a_hacia_b_A": -0.5682,
+            "V_A": 5.6818,
+            "P_W": 3.2283
+          },
+          "R5i": {
+            "I_de_a_hacia_b_A": -1.1364,
+            "V_A": 5.6818,
+            "P_W": 6.4566
+          },
+          "R5e": {
+            "I_de_a_hacia_b_A": -0.2273,
+            "V_A": 1.1364,
+            "P_W": 0.2583
+          },
+          "R20": {
+            "I_de_a_hacia_b_A": -0.2273,
+            "V_A": 4.5455,
+            "P_W": 1.0331
+          },
+          "E": {
+            "I_sale_por_+_A": 1.9318,
+            "P_W": 48.2955,
+            "rol": "entrega"
+          }
+        }
+      }
+    },
+    {
+      "ejercicio": 14,
+      "descripcion": "Dos fuentes, tres ramas (no reducible: Kirchhoff)",
+      "metodo_esperado": "kirchhoff (nodos + mallas)",
+      "nodos": [
+        "N1",
+        "c",
+        "x",
+        "y",
+        "z",
+        "G"
+      ],
+      "tierra": "G",
+      "elementos": [
+        {
+          "id": "R8",
+          "tipo": "resistencia",
+          "valor": 8.0,
+          "a": "N1",
+          "b": "G"
+        },
+        {
+          "id": "E4",
+          "tipo": "fuente",
+          "valor": 4.0,
+          "pos": "x",
+          "neg": "G"
+        },
+        {
+          "id": "R1c",
+          "tipo": "resistencia",
+          "valor": 1.0,
+          "a": "x",
+          "b": "y"
+        },
+        {
+          "id": "R5",
+          "tipo": "resistencia",
+          "valor": 5.0,
+          "a": "y",
+          "b": "N1"
+        },
+        {
+          "id": "E12",
+          "tipo": "fuente",
+          "valor": 12.0,
+          "pos": "z",
+          "neg": "G"
+        },
+        {
+          "id": "R1d",
+          "tipo": "resistencia",
+          "valor": 1.0,
+          "a": "z",
+          "b": "c"
+        },
+        {
+          "id": "R3",
+          "tipo": "resistencia",
+          "valor": 3.0,
+          "a": "c",
+          "b": "N1"
+        }
+      ],
+      "esperado": {
+        "clasificacion": "no reducible (dos fuentes)",
+        "potenciales_V": {
+          "N1": 6.7692,
+          "c": 10.6923,
+          "x": 4.0,
+          "y": 4.4615,
+          "z": 12.0,
+          "G": 0.0
+        },
+        "por_elemento": {
+          "R8": {
+            "I_de_a_hacia_b_A": 0.8462,
+            "V_A": 6.7692,
+            "P_W": 5.7278
+          },
+          "R1c": {
+            "I_de_a_hacia_b_A": -0.4615,
+            "V_A": 0.4615,
+            "P_W": 0.213
+          },
+          "R5": {
+            "I_de_a_hacia_b_A": -0.4615,
+            "V_A": 2.3077,
+            "P_W": 1.0651
+          },
+          "R1d": {
+            "I_de_a_hacia_b_A": 1.3077,
+            "V_A": 1.3077,
+            "P_W": 1.7101
+          },
+          "R3": {
+            "I_de_a_hacia_b_A": 1.3077,
+            "V_A": 3.9231,
+            "P_W": 5.1302
+          },
+          "E4": {
+            "I_sale_por_+_A": -0.4615,
+            "P_W": -1.8462,
+            "rol": "absorbe"
+          },
+          "E12": {
+            "I_sale_por_+_A": 1.3077,
+            "P_W": 15.6923,
+            "rol": "entrega"
+          }
+        }
+      }
+    },
+    {
+      "ejercicio": 15,
+      "descripcion": "Tres fuentes, cuatro ramas (no reducible: Kirchhoff); 360 V con + abajo",
+      "metodo_esperado": "kirchhoff (nodos + mallas)",
+      "nodos": [
+        "T",
+        "n2",
+        "n3",
+        "n4",
+        "G"
+      ],
+      "tierra": "G",
+      "elementos": [
+        {
+          "id": "R200",
+          "tipo": "resistencia",
+          "valor": 200.0,
+          "a": "T",
+          "b": "G"
+        },
+        {
+          "id": "E40",
+          "tipo": "fuente",
+          "valor": 40.0,
+          "pos": "T",
+          "neg": "n2"
+        },
+        {
+          "id": "R80",
+          "tipo": "resistencia",
+          "valor": 80.0,
+          "a": "n2",
+          "b": "G"
+        },
+        {
+          "id": "E360",
+          "tipo": "fuente",
+          "valor": 360.0,
+          "pos": "n3",
+          "neg": "T"
+        },
+        {
+          "id": "R20",
+          "tipo": "resistencia",
+          "valor": 20.0,
+          "a": "n3",
+          "b": "G"
+        },
+        {
+          "id": "E80",
+          "tipo": "fuente",
+          "valor": 80.0,
+          "pos": "T",
+          "neg": "n4"
+        },
+        {
+          "id": "R70",
+          "tipo": "resistencia",
+          "valor": 70.0,
+          "a": "n4",
+          "b": "G"
+        }
+      ],
+      "esperado": {
+        "clasificacion": "no reducible (tres fuentes)",
+        "potenciales_V": {
+          "T": -200.0,
+          "n2": -240.0,
+          "n3": 160.0,
+          "n4": -280.0,
+          "G": 0.0
+        },
+        "por_elemento": {
+          "R200": {
+            "I_de_a_hacia_b_A": -1.0,
+            "V_A": 200.0,
+            "P_W": 200.0
+          },
+          "R80": {
+            "I_de_a_hacia_b_A": -3.0,
+            "V_A": 240.0,
+            "P_W": 720.0
+          },
+          "R20": {
+            "I_de_a_hacia_b_A": 8.0,
+            "V_A": 160.0,
+            "P_W": 1280.0
+          },
+          "R70": {
+            "I_de_a_hacia_b_A": -4.0,
+            "V_A": 280.0,
+            "P_W": 1120.0
+          },
+          "E40": {
+            "I_sale_por_+_A": 3.0,
+            "P_W": 120.0,
+            "rol": "entrega"
+          },
+          "E360": {
+            "I_sale_por_+_A": 8.0,
+            "P_W": 2880.0,
+            "rol": "entrega"
+          },
+          "E80": {
+            "I_sale_por_+_A": 4.0,
+            "P_W": 320.0,
+            "rol": "entrega"
+          }
+        }
+      }
+    },
+    {
+      "ejercicio": 9,
+      "descripcion": "Red de 4 condensadores (lados sup-der e inf-izq son cables)",
+      "metodo_esperado": "reduccion de capacitancias",
+      "nodos": [
+        "a",
+        "b",
+        "m"
+      ],
+      "tierra": "b",
+      "elementos": [
+        {
+          "id": "E",
+          "tipo": "fuente",
+          "valor": 10.0,
+          "pos": "a",
+          "neg": "b"
+        },
+        {
+          "id": "C4",
+          "tipo": "condensador",
+          "valor": 4e-06,
+          "a": "a",
+          "b": "b"
+        },
+        {
+          "id": "C7",
+          "tipo": "condensador",
+          "valor": 7e-06,
+          "a": "b",
+          "b": "m"
+        },
+        {
+          "id": "C5",
+          "tipo": "condensador",
+          "valor": 5e-06,
+          "a": "m",
+          "b": "a"
+        },
+        {
+          "id": "C6",
+          "tipo": "condensador",
+          "valor": 6e-06,
+          "a": "a",
+          "b": "b"
+        }
+      ],
+      "esperado": {
+        "Ceq_F": 1.2917e-05,
+        "Q_total_C": 0.00012917,
+        "U_total_J": 0.0006458,
+        "por_elemento": {
+          "C4": {
+            "V": 10.0,
+            "Q": 4e-05,
+            "U": 0.0002
+          },
+          "C7": {
+            "V": 4.167,
+            "Q": 2.917e-05,
+            "U": 6.08e-05
+          },
+          "C5": {
+            "V": 5.833,
+            "Q": 2.917e-05,
+            "U": 8.51e-05
+          },
+          "C6": {
+            "V": 10.0,
+            "Q": 6e-05,
+            "U": 0.0003
+          }
+        },
+        "clasificacion": "mixto"
+      }
+    },
+    {
+      "ejercicio": 10,
+      "descripcion": "Escalera de condensadores C1=10 uF, C2=5 uF, Vab=500 V",
+      "metodo_esperado": "reduccion de capacitancias",
+      "nodos": [
+        "a",
+        "b",
+        "p1",
+        "q1",
+        "c",
+        "d",
+        "t3",
+        "u3"
+      ],
+      "tierra": "b",
+      "elementos": [
+        {
+          "id": "E",
+          "tipo": "fuente",
+          "valor": 500.0,
+          "pos": "a",
+          "neg": "b"
+        },
+        {
+          "id": "C1a",
+          "tipo": "condensador",
+          "valor": 1e-05,
+          "a": "a",
+          "b": "p1"
+        },
+        {
+          "id": "C1b",
+          "tipo": "condensador",
+          "valor": 1e-05,
+          "a": "b",
+          "b": "q1"
+        },
+        {
+          "id": "C2a",
+          "tipo": "condensador",
+          "valor": 5e-06,
+          "a": "p1",
+          "b": "q1"
+        },
+        {
+          "id": "C1c",
+          "tipo": "condensador",
+          "valor": 1e-05,
+          "a": "p1",
+          "b": "c"
+        },
+        {
+          "id": "C1d",
+          "tipo": "condensador",
+          "valor": 1e-05,
+          "a": "q1",
+          "b": "d"
+        },
+        {
+          "id": "C2b",
+          "tipo": "condensador",
+          "valor": 5e-06,
+          "a": "c",
+          "b": "d"
+        },
+        {
+          "id": "C1e",
+          "tipo": "condensador",
+          "valor": 1e-05,
+          "a": "c",
+          "b": "t3"
+        },
+        {
+          "id": "C1f",
+          "tipo": "condensador",
+          "valor": 1e-05,
+          "a": "d",
+          "b": "u3"
+        },
+        {
+          "id": "C1g",
+          "tipo": "condensador",
+          "valor": 1e-05,
+          "a": "t3",
+          "b": "u3"
+        }
+      ],
+      "esperado": {
+        "Ceq_F": 3.095e-06,
+        "Q_total_C": 0.001548,
+        "V_cd_V": 71.43,
+        "U_tres_mas_alejados_J": 0.0085,
+        "por_elemento": {
+          "C1a": {
+            "Q": 0.001548,
+            "U": 0.1198
+          },
+          "C1b": {
+            "Q": 0.001548,
+            "U": 0.1198
+          },
+          "C2a": {
+            "V": 190.5,
+            "Q": 0.0009524,
+            "U": 0.0907
+          }
+        },
+        "clasificacion": "mixto"
+      }
+    }
+  ]
+}
