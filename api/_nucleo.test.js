@@ -79,6 +79,13 @@ describe('api/_nucleo reconocer', () => {
     expect(JSON.parse(f.mock.calls[1][1].body).generation_config.response_schema).toBeUndefined();
   });
 
+  it('key inválida (Gemini responde 400 API_KEY_INVALID) → código "clave"', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => ({ status: 400, text: async () => JSON.stringify({ error: { message: 'API key not valid. Please pass a valid API key.', details: [{ reason: 'API_KEY_INVALID' }] } }) })));
+    const r = await reconocer(entrada, entorno);
+    expect(r.status).toBe(502);
+    expect(r.cuerpo.codigo).toBe('clave');
+  });
+
   it('rechaza formatos de imagen no soportados', async () => {
     const r = await reconocer({ imagen: 'x', mime: 'image/gif' }, entorno);
     expect(r.status).toBe(400);
