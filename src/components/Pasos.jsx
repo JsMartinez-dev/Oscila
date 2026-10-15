@@ -24,6 +24,11 @@ export default function Pasos({ bloques }) {
                   )}
                 </figcaption>
                 {d.doc ? <Esquema doc={d.doc} anotaciones={d.anotaciones} maxAncho={520} /> : <p className="pasos-nota">Sin dibujo disponible.</p>}
+                {d.doc && d.leyenda && (
+                  <p className="pasos-leyenda">
+                    <TextoMat texto={d.leyenda} />
+                  </p>
+                )}
               </figure>
             ))}
           </div>

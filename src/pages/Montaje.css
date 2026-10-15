@@ -308,6 +308,12 @@
   font-size: 0.85rem;
 }
 
+.pasos-leyenda {
+  margin: 0.4rem 0 0;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
 @media (max-width: 700px) {
   .hoja {
     padding: 1rem;

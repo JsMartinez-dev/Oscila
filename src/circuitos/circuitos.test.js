@@ -6,7 +6,7 @@ import { clasificar } from './clasificacion.js';
 import { resolverPasoAPaso } from './pasos.js';
 import { docANetlist } from './netlist.js';
 import { plantearKirchhoff, ecuacionesLineales } from './kirchhoff.js';
-import { DOC_EJ14, DOC_EJ15, DOC_EJ14_CRUCE } from './ejemplos.js';
+import { DOC_EJ11, DOC_EJ12, DOC_EJ13, DOC_EJ14, DOC_EJ15, DOC_EJ14_CRUCE } from './ejemplos.js';
 
 const datos = JSON.parse(readFileSync(resolve(process.cwd(), 'paquete_EyM/casos/casos_prueba_circuitos.json'), 'utf8'));
 const caso = (n) => datos.casos.find((c) => c.ejercicio === n);
@@ -144,5 +144,69 @@ describe('Mallas a partir del dibujo', () => {
     const s = resolverPasoAPaso(netlist, { doc: DOC_EJ14_CRUCE, geo });
     expect(s.ok, `${s.error} ${(s.fallas ?? []).join('; ')}`).toBe(true);
     comprobarElementos(s.mna, caso(14).esperado);
+  });
+});
+
+describe('Sentidos de corriente en Kirchhoff', () => {
+  const FRASE_CURSO = 'igual que en la solución del curso';
+  const textos = (s) => s.bloques.filter((b) => b.tipo === 'texto' || b.tipo === 'check').map((b) => b.texto).join('\n');
+  const resolverDoc = (doc) => {
+    const { netlist, geo } = docANetlist(doc);
+    const s = resolverPasoAPaso(netlist, { doc, geo, metodo: 'kirchhoff' });
+    expect(s.ok, `${s.error} ${(s.fallas ?? []).join('; ')}`).toBe(true);
+    return s;
+  };
+
+  it('los campos curso de los ejemplos coinciden con casos_prueba_circuitos.json', () => {
+    for (const [n, doc] of [[11, DOC_EJ11], [12, DOC_EJ12], [13, DOC_EJ13], [14, DOC_EJ14], [15, DOC_EJ15]]) {
+      expect(doc.curso.ejercicio).toBe(n);
+      const esperado = Object.fromEntries(
+        Object.entries(caso(n).esperado.por_elemento).map(([id, e]) => [id, e.I_de_a_hacia_b_A ?? e['I_sale_por_+_A']]),
+      );
+      expect(doc.curso.corrientes, `Ej. ${n}`).toEqual(esperado);
+    }
+  });
+
+  it('Ej. 15: regla, sentido supuesto en palabras, leyenda y sentido real', () => {
+    const s = resolverDoc(DOC_EJ15);
+    const t = textos(s);
+    expect(t).toContain('**Regla del sentido supuesto:** cada corriente sale por el $+$ de la fuente de su rama');
+    expect(t).toContain(String.raw`hacia abajo por la rama de $360\,\mathrm{V}$ (sale por el $+$ de la fuente)`);
+    expect(t).toContain(String.raw`hacia abajo por la rama de $200\,\Omega$`);
+    expect(t).toContain(String.raw`por la rama de $360\,\mathrm{V}$ circulan $8.00\,\mathrm{A}$ hacia abajo`);
+    expect(t).toContain(String.raw`el sentido real es el contrario al supuesto; por la rama de $200\,\Omega$ circula $1.00\,\mathrm{A}$ hacia arriba`);
+    expect(t).toContain(`${FRASE_CURSO} (Ejercicio 15)`);
+    expect(t).not.toContain('realmente va de');
+    const diagrama = s.bloques.find((b) => b.tipo === 'diagrama');
+    expect(diagrama.leyenda).toContain('Flechas verdes: sentido supuesto de cada corriente');
+    expect(diagrama.leyenda).toContain('mallas recorridas en sentido horario');
+    expect(s.bloques.some((b) => b.tipo === 'titulo' && b.texto === 'Sentido real de cada corriente')).toBe(true);
+  });
+
+  it('Ej. 15 con una resistencia cambiada: no se menciona la solución del curso', () => {
+    const doc = { ...DOC_EJ15, componentes: DOC_EJ15.componentes.map((c) => (c.id === 'R70' ? { ...c, valor: 75 } : c)) };
+    expect(textos(resolverDoc(doc))).not.toContain(FRASE_CURSO);
+  });
+
+  it('Ej. 15 con un elemento renombrado: no se menciona la solución del curso', () => {
+    const doc = { ...DOC_EJ15, componentes: DOC_EJ15.componentes.map((c) => (c.id === 'R20' ? { ...c, id: 'Rx' } : c)) };
+    expect(textos(resolverDoc(doc))).not.toContain(FRASE_CURSO);
+  });
+
+  it('Ej. 11 a 14 (y 14 con cruce) resueltos por Kirchhoff coinciden con la solución del curso', () => {
+    for (const doc of [DOC_EJ11, DOC_EJ12, DOC_EJ13, DOC_EJ14, DOC_EJ14_CRUCE]) {
+      expect(textos(resolverDoc(doc))).toContain(`${FRASE_CURSO} (Ejercicio ${doc.curso.ejercicio})`);
+    }
+  });
+
+  it('sin dibujo: sentidos de nodo a nodo y sin frase del curso', () => {
+    const s = resolverPasoAPaso(caso(15));
+    expect(s.ok).toBe(true);
+    const t = textos(s);
+    expect(t).toContain('en las ramas sin fuente el sentido se elige libremente');
+    expect(t).toContain(String.raw`de $T$ a $G$ por la rama de $360\,\mathrm{V}$ (sale por el $+$ de la fuente)`);
+    expect(t).toContain(String.raw`circulan $8.00\,\mathrm{A}$ de $T$ a $G$`);
+    expect(t).not.toContain(FRASE_CURSO);
+    expect(s.bloques.find((b) => b.tipo === 'diagrama')?.leyenda ?? null).toBeNull();
   });
 });
