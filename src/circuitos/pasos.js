@@ -302,7 +302,8 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
       ? {
           corrientes: ramas.map((r) => {
             const e = r.elems.find((x) => x.elem.tipo === 'resistencia') ?? r.elems[0];
-            return { id: e.elem.id, desde: e.desde, etiqueta: `I${r.k}` };
+            const nodoA = e.elem.tipo === 'fuente' ? e.elem.neg : e.elem.a; // nodo del terminal "a" en el dibujo
+            return { id: e.elem.id, sentido: e.desde === nodoA ? 'ab' : 'ba', etiqueta: `I${r.k}` };
           }),
           mallas: pl.origenMallas === 'dibujo' ? mallas.map((m, i) => ({ centro: m.centro, etiqueta: `M${i + 1}` })) : [],
         }

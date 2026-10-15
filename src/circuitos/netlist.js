@@ -125,7 +125,6 @@ export function docANetlist(doc) {
       if (libre) {
         nombre.set(n.r, libre);
         usados.add(libre);
-        if (n.etiquetas.length > 1) avisos.push(`Los puntos ${n.etiquetas.join(', ')} están unidos por cables: son el mismo nodo.`);
       }
     }
   }

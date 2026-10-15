@@ -19,7 +19,7 @@ function crearNombrador(tipoRed, usados) {
   let letra = 0;
   return (hijos) => {
     const subs = hijos.map((h) => subindice(h.nombre)).join('');
-    if (subs && subs.length <= 4 && hijos.every((h) => /^[0-9a-z]*$/.test(subindice(h.nombre))) && !usados.has(subs)) {
+    if (subs && subs.length <= 4 && hijos.every((h) => /^[0-9]+$/.test(subindice(h.nombre))) && !usados.has(subs)) {
       usados.add(subs);
       return `${L}_{${subs}}`;
     }
