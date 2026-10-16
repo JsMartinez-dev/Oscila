@@ -16,7 +16,14 @@ export function Credito({ credito }) {
       </>
     );
   }
-  if (credito.tipo === 'propia') return <>Dibujo propio (SVG) de {credito.autor}.</>;
+  if (credito.tipo === 'propia') {
+    return (
+      <>
+        Imagen: dibujo propio (SVG) de {credito.autor}
+        {credito.nota ? `, ${credito.nota}` : ''}.
+      </>
+    );
+  }
   return (
     <>
       Imagen: {credito.autor}

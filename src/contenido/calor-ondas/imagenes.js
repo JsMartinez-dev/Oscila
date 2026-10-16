@@ -122,9 +122,9 @@ export const IMAGENES = {
   },
   'cuerda-posiciones': {
     src: 'calor-ondas/cuerda-posiciones.svg',
-    alt: 'Cable tensor entre dos soportes en cinco posiciones, vistas en los destellos 1 a 5, con el punto P y la amplitud A_P = 8.0 mm; L = 60.0 cm',
-    ancho: 650,
-    credito: PROPIA,
+    alt: 'Cable tensor fijo en sus extremos vibrando en el tercer armónico (3 vientres, nodos en L/3 y 2L/3), visto en los destellos 1 a 5 con amplitudes +A, +A/√2, 0, −A/√2 y −A; el punto P está en el vientre central con A_P = 8.0 mm; L = 60.0 cm',
+    ancho: 620,
+    credito: { ...PROPIA, nota: 'redibujada para coincidir con el enunciado' },
   },
   'bombas-agua': {
     src: 'calor-ondas/bombas-agua.svg',
