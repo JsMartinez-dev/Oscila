@@ -5,7 +5,8 @@
 
 ## Git
 - **No hacer commit, push ni merge.** Los hace el usuario.
-- Una rama por tarea, con nombre descriptivo (por ejemplo `ajuste/…`, `docs/…`, `config/…`), creada desde la rama base que indique el usuario (por ahora `feature/electricidad-magnetismo`).
+- Una rama por tarea, con nombre descriptivo (por ejemplo `ajuste/…`, `docs/…`, `config/…`). Antes de crearla, `git fetch`; la rama sale de `origin/main`.
+- La base es `main`: todos los PR van a `main`. (`feature/electricidad-magnetismo` ya no se usa.)
 - Al terminar cada tarea, detenerse y reportar:
   - en qué rama quedó el trabajo;
   - qué archivos cambiaron;
