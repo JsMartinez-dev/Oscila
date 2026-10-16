@@ -12,7 +12,7 @@ En la raíz del proyecto copié la carpeta `paquete_EyM/`:
 ## Cambios
 
 ### 1. Datos del proyecto
-- Desarrolladores: **solo** Juan Sebastian Martinez y Juan David Rivera. Quita a todos los demás integrantes de la portada, el README, el PDF que genera el test y cualquier otro lugar.
+- Desarrolladores de Electricidad y Magnetismo, en este orden: Juan Sebastian Martinez, Juan David Rivera y Eduardo Enrique Vergara. Deben aparecer en la portada, la sección Créditos, el README y el PDF que genera el test.
 - Materia: **Electricidad y Magnetismo**. Profesor: **Jarvin Mestra Páez**. Universidad del Magdalena.
 - Elimina todo lo de Calor y Ondas: oscilaciones, M.A.S., péndulo, resortes, el profesor anterior, el título "Onda Expansiva" y el contenido de ondas. Ponle a la plataforma un título provisional relacionado con circuitos y EyM, y propónme 3 alternativas al final.
 
@@ -20,7 +20,7 @@ En la raíz del proyecto copié la carpeta `paquete_EyM/`:
 - **Teoría:** potencial eléctrico, capacitancia, resistencia y circuitos, y leyes de Kirchhoff, siguiendo la hoja de fórmulas y su convención de signos.
 - **Ejemplos de ingeniería:** aplicaciones de EyM. Puedes reutilizar la fuente de 12 V, pero corrige sus errores: $V_p=V_{rms}\sqrt2-1.4$ y $C_{min}=476\,\mu\mathrm F$.
 - **Ejercicios:** los 15 del paquete, agrupados por sección, con KaTeX y sus figuras. Que se puedan colapsar por inciso.
-- **Test:** al menos 10 preguntas nuevas de EyM. El PDF que genera debe mostrar a los dos desarrolladores y la materia nueva.
+- **Test:** al menos 10 preguntas nuevas de EyM. El PDF que genera debe mostrar a los tres desarrolladores y la materia nueva.
 
 ### 3. Montaje virtual de circuitos (lo principal; reemplaza el laboratorio de oscilaciones)
 

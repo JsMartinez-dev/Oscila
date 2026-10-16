@@ -198,3 +198,9 @@
     padding: var(--esp-4);
   }
 }
+
+.contenido-credito {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-texto-suave);
+}

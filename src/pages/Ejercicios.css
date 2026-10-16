@@ -293,3 +293,10 @@
     padding: 0.6rem 0.75rem 0.85rem;
   }
 }
+
+.ejer-credito {
+  font-size: var(--texto-sm);
+  color: var(--color-texto-suave);
+  border-top: var(--borde-fino);
+  padding-top: var(--esp-3);
+}

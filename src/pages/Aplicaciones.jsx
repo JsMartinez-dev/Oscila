@@ -40,7 +40,10 @@ export default function Aplicaciones({ onNavigate }) {
             {ap.imagenes.map((im) => (
               <figure key={im.src}>
                 <img src={`${import.meta.env.BASE_URL}${im.src}`} alt={im.pie} loading="lazy" />
-                <figcaption>{im.pie}</figcaption>
+                <figcaption>
+                  {im.pie}
+                  {im.credito && <span className="contenido-credito">{im.credito}</span>}
+                </figcaption>
               </figure>
             ))}
           </div>

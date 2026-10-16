@@ -1,8 +1,14 @@
-# Circuitos en Vivo — Electricidad y Magnetismo
+# Oscila — Plataforma de física
 
-Plataforma educativa para el curso de **Electricidad y Magnetismo** de la Universidad del Magdalena, preparada para el **II Foro Internacional de Física**.
+*Física que se ve y se calcula.*
 
-Su centro es un **montaje virtual de circuitos**:
+Plataforma educativa de la Universidad del Magdalena, preparada para el **II Foro Internacional de Física**. Tiene tres módulos:
+
+- **Electricidad y Magnetismo** (principal).
+- **Calor y Ondas** (en revisión; restaurado de la versión anterior, oculto en modo feria).
+- **Mecánica** (próximamente).
+
+El centro de Electricidad y Magnetismo es el **montaje virtual de circuitos**:
 
 1. **Dibuja** un circuito en una cuadrícula, al estilo de circuit-diagram.org, **o tómale una foto** a uno dibujado a mano.
 2. La plataforma lo **clasifica** (serie, paralelo, mixto o no reducible) y explica por qué.
@@ -19,12 +25,15 @@ Cada número que se muestra se verifica con un **análisis nodal modificado (MNA
 
 | Sección | Contenido |
 |---|---|
-| Inicio | Portada, desarrolladores y profesor |
+| Inicio | Portada con los tres módulos y créditos |
 | Teoría | Potencial eléctrico, capacitancia, resistencia y circuitos, leyes de Kirchhoff (según la hoja de fórmulas del curso) |
 | Aplicaciones | Fuente de 12 V, desfibrilador, caída de voltaje en un cable y divisor de voltaje con sensor |
 | Montaje | Editor, reconocimiento de fotos y solución paso a paso |
 | Ejercicios | Los 15 ejercicios resueltos, agrupados por tema e incisos colapsables |
 | Test | 12 preguntas con retroalimentación y plan de estudio en PDF |
+| Créditos | Equipos, profesores, inspiración, tecnologías e imágenes (botón en la barra lateral) |
+
+Calor y Ondas tiene su propia portada, marco conceptual, aplicaciones, laboratorio de simulaciones, ejercicios y test.
 
 En cualquier sección, la tecla **F** o el botón de la barra activan el **modo feria**: pantalla completa y letra grande.
 
@@ -83,11 +92,17 @@ src/pages/              secciones de la plataforma
 paquete_EyM/            material fuente: ejercicios, hoja de fórmulas y casos de prueba
 ```
 
-## Desarrolladores
+## Créditos
 
-- Juan Sebastian Martinez ([@JsMartinez-dev](https://github.com/JsMartinez-dev))
-- Juan David Rivera
+**Electricidad y Magnetismo**
 
-**Profesor:** Jarvin Mestra Páez · **Asignatura:** Electricidad y Magnetismo · Universidad del Magdalena
+- Desarrolladores: Juan Sebastian Martinez ([@JsMartinez-dev](https://github.com/JsMartinez-dev)), Juan David Rivera y Eduardo Enrique Vergara.
+- Profesor: Jarvin Mestra Páez · Universidad del Magdalena · II Foro Internacional de Física.
 
-La versión anterior (Calor y Ondas) quedó guardada en la etiqueta git `v1-calor-y-ondas`.
+**Calor y Ondas.** Módulo original desarrollado por Juan Sebastian Martinez Uribe, Bibiana Arteaga Castellanos, Esteban Andrés Arévalo, Ali David Valle Mancilla, Yulia Cabana Olivella, Omar Andres Rojas Arango, Carlos Alberto Teran Lizcano, Alejandro Smith Cano Pezzano, Gabriel González Silva, Daniel Miranda Morales y Andrés Felipe Chacon Saucedo. Profesor: Jean Linero Cueto. La versión anterior quedó guardada en la etiqueta git `v1-calor-y-ondas`.
+
+**Inspiración.** El editor de circuitos se inspiró en la interfaz de [circuit-diagram.org](https://www.circuit-diagram.org/) (proyecto independiente, sin afiliación).
+
+**Tecnologías y licencias.** React, Vite, KaTeX, jsPDF, react-markdown, remark/rehype y Zod (MIT); tipografía Lexend (SIL Open Font License 1.1); [API de Gemini de Google](https://ai.google.dev/gemini-api/terms) para el reconocimiento de fotos.
+
+**Imágenes.** Cada imagen ajena lleva autor, fuente y licencia en la app (sección Créditos). Las de Wikimedia Commons se usan sin modificaciones con su licencia (CC BY-SA o dominio público); las ilustraciones SVG sin fuente ajena son dibujos propios de Oscila. El inventario está en `src/contenido/creditos.js` y `src/contenido/calor-ondas/imagenes.js`.

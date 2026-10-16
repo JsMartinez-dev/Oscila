@@ -14,7 +14,7 @@ const CC_BY_SA_3 = ['CC BY-SA 3.0', 'https://creativecommons.org/licenses/by-sa/
 
 const EQUIPO = { tipo: 'equipo', autor: 'Equipo de Calor y Ondas' };
 const EQUIPO_IA = { tipo: 'equipo', autor: 'Equipo de Calor y Ondas', nota: 'elaborada con apoyo de IA (Gemini)' };
-const PROPIA = { tipo: 'propia', autor: 'Circuitos en Vivo' };
+const PROPIA = { tipo: 'propia', autor: 'Oscila' };
 
 export const IMAGENES = {
   // Teoría
@@ -97,7 +97,7 @@ export const IMAGENES = {
   electronica3: { src: 'aplicaciones/electronica3.png', alt: 'Capacitor de Filtrado', ancho: 350, credito: EQUIPO },
   electronica4: { src: 'aplicaciones/electronica4.png', alt: 'Circuito con Capacitor de Filtrado', ancho: 350, credito: EQUIPO },
   'marino-costera': {
-    src: 'calor-ondas/marino-costera.png',
+    src: 'calor-ondas/marino-costera.webp',
     alt: 'Tren de ondas incidente sobre un dique rompeolas con escollera y faro',
     ancho: 650,
     credito: EQUIPO_IA,
@@ -109,7 +109,7 @@ export const IMAGENES = {
     credito: PROPIA,
   },
   'sistemas-rack': {
-    src: 'calor-ondas/sistemas-rack.png',
+    src: 'calor-ondas/sistemas-rack.webp',
     alt: 'Rack con sensores',
     ancho: 650,
     credito: EQUIPO_IA,

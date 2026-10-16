@@ -20,10 +20,10 @@ export const APLICACIONES = [
     titulo: 'Ingeniería Electrónica: fuente de alimentación de 12 V',
     resumen: 'Transformador, rectificador, filtro con condensador y regulación con Zener.',
     imagenes: [
-      { src: 'aplicaciones/electronica1.png', pie: 'Etapas de una fuente: transformador, rectificador, filtro y regulador.' },
-      { src: 'aplicaciones/electronica2.png', pie: 'Salida del transformador (18 V AC) en el osciloscopio.' },
-      { src: 'aplicaciones/electronica3.png', pie: 'Señal rectificada y filtrada: queda un pequeño rizado.' },
-      { src: 'aplicaciones/electronica4.png', pie: 'Salida regulada: una línea recta (12 V DC).' },
+      { src: 'aplicaciones/electronica1.png', pie: 'Etapas de una fuente: transformador, rectificador, filtro y regulador.', credito: 'Imagen: Equipo de Calor y Ondas.' },
+      { src: 'aplicaciones/electronica2.png', pie: 'Salida del transformador (18 V AC) en el osciloscopio.', credito: 'Imagen: Equipo de Calor y Ondas.' },
+      { src: 'aplicaciones/electronica3.png', pie: 'Señal rectificada y filtrada: queda un pequeño rizado.', credito: 'Imagen: Equipo de Calor y Ondas.' },
+      { src: 'aplicaciones/electronica4.png', pie: 'Salida regulada: una línea recta (12 V DC).', credito: 'Imagen: Equipo de Calor y Ondas.' },
     ],
     md: String.raw`
 Una fuente de alimentación convierte la corriente alterna de la red en corriente continua. Se diseñó una fuente de **12 V y 120 mA** en cuatro etapas.

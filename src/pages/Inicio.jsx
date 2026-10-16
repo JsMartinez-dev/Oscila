@@ -5,9 +5,9 @@ import { PREGUNTAS } from '../contenido/test.js';
 import { TEORIA } from '../contenido/teoria.js';
 import { APLICACIONES } from '../contenido/aplicaciones.js';
 import { ETIQUETA_ESTADO, modulosVisibles } from '../contenido/modulos.js';
+import { EYM, PLATAFORMA } from '../contenido/creditos.js';
+import { CREDITOS_CALOR_ONDAS as CO } from '../contenido/calor-ondas/creditos.js';
 import './Inicio.css';
-
-const DESARROLLADORES = ['Juan Sebastian Martinez', 'Juan David Rivera'];
 
 const plural = (n, uno, varios) => `${n} ${n === 1 ? uno : varios}`;
 
@@ -24,10 +24,10 @@ export default function Inicio({ onNavigate, feria = false }) {
   return (
     <div className="inicio">
       <header className="inicio-hero">
-        <p className="inicio-evento">II Foro Internacional de Física · Universidad del Magdalena</p>
-        <h1 className="inicio-titulo">Circuitos en Vivo</h1>
-        <p className="inicio-lema">
-          Dibuja un circuito (o tómale una foto a uno hecho a mano): la plataforma lo clasifica y lo resuelve paso a paso, verificando cada número.
+        <h1 className="inicio-titulo">{PLATAFORMA.nombre}</h1>
+        <p className="inicio-lema">{PLATAFORMA.lema}</p>
+        <p className="inicio-evento">
+          {EYM.evento} · {EYM.universidad}
         </p>
       </header>
 
@@ -76,7 +76,7 @@ export default function Inicio({ onNavigate, feria = false }) {
                 <p className="modulo-texto">{m.descripcion}</p>
                 {m.ruta && (
                   <button type="button" className="btn" onClick={() => onNavigate?.(m.ruta)}>
-                    Ver estado
+                    Abrir módulo
                   </button>
                 )}
               </article>
@@ -85,27 +85,47 @@ export default function Inicio({ onNavigate, feria = false }) {
         </div>
       </section>
 
-      <section className="tarjeta inicio-creditos" aria-label="Créditos">
-        <div className="inicio-universidad">
-          <img src={`${import.meta.env.BASE_URL}logo-unimagdalena.png`} alt="Escudo de la Universidad del Magdalena" />
-          <span>Universidad del Magdalena</span>
-        </div>
-        <div className="inicio-personas">
-          <div>
-            <h2 className="inicio-creditos-titulo">Desarrolladores</h2>
-            <ul>
-              {DESARROLLADORES.map((d) => (
-                <li key={d}>{d}</li>
-              ))}
-            </ul>
+      <section className="tarjeta inicio-creditos" aria-labelledby="inicio-creditos">
+        <h2 id="inicio-creditos" className="inicio-seccion">
+          Créditos
+        </h2>
+        <div className="inicio-creditos-cuerpo">
+          <div className="inicio-universidad">
+            <img src={`${import.meta.env.BASE_URL}logo-unimagdalena.png`} alt="Escudo de la Universidad del Magdalena" />
+            <span>
+              {EYM.universidad}
+              <small>{EYM.evento}</small>
+            </span>
           </div>
-          <div>
-            <h2 className="inicio-creditos-titulo">Profesor</h2>
-            <ul>
-              <li>Jarvin Mestra Páez</li>
-            </ul>
+          <div className="inicio-personas">
+            <div>
+              <h3 className="inicio-creditos-titulo">{EYM.modulo}: desarrolladores</h3>
+              <ul>
+                {EYM.desarrolladores.map((d) => (
+                  <li key={d}>{d}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="inicio-creditos-titulo">Profesor</h3>
+              <ul>
+                <li>{EYM.profesor}</li>
+              </ul>
+            </div>
+            {!feria && (
+              <div className="inicio-creditos-co">
+                <h3 className="inicio-creditos-titulo">Calor y Ondas</h3>
+                <p>
+                  Módulo original desarrollado por {CO.integrantes.join(', ')}. Profesor: {CO.profesor}.
+                </p>
+              </div>
+            )}
           </div>
         </div>
+        <button type="button" className="btn" onClick={() => onNavigate?.('creditos')}>
+          Ver todos los créditos
+          <span aria-hidden="true">→</span>
+        </button>
       </section>
     </div>
   );
