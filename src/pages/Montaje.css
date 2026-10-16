@@ -269,11 +269,17 @@
   padding-bottom: 0.25rem;
 }
 
+/* El circuito original (y cualquier diagrama que no quepa en media columna a la escala común)
+   ocupa la fila completa; las demás reducciones van debajo en dos columnas */
 .pasos-diagramas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--esp-4);
   margin-top: var(--esp-2);
+}
+
+.pasos-figura--fila {
+  grid-column: 1 / -1;
 }
 
 .pasos-figura {
@@ -287,16 +293,12 @@
   align-items: center;
 }
 
-/* El diagrama usa el ancho disponible (la regla manda sobre el atributo width que pone Esquema),
-   con tope de 760 px de ancho y 420 px de alto para que un circuito pequeño no quede con letras gigantes.
-   !important: Esquema.jsx pone max-width: 100% en línea y no se toca. Donde el navegador entiende
-   attr() con tipo (Chromium), además se limita a 1.5 veces el ancho natural del dibujo (atributo width). */
+/* Ancho de cada dibujo: lo calcula Pasos.jsx con un solo factor para todos los diagramas de la solución
+   (misma escala, tope de 1.5× y de 420 px de alto). La regla manda sobre el atributo width que pone Esquema. */
 .pasos-figura svg {
-  width: 100%;
-  max-width: min(100%, 760px) !important;
-  max-width: min(100%, 760px, calc(attr(width px) * 1.5)) !important;
+  width: var(--ancho-dibujo, 100%);
+  max-width: 100%;
   height: auto;
-  max-height: 420px;
 }
 
 .pasos-figura figcaption {
@@ -395,5 +397,8 @@
   .montaje-clase {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .pasos-diagramas-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
