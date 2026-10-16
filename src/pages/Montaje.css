@@ -1,137 +1,173 @@
+/* Montaje virtual: pestañas, clasificación, método y hoja de solución. Valores de src/estilos/tokens.css. */
+
 .montaje {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 3rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--esp-4);
+}
+
+.montaje-cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
 }
 
 .montaje-cabecera h1 {
-  font-size: 1.8rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: var(--titulo-lg);
+  letter-spacing: -0.01em;
 }
 
 .montaje-cabecera p {
-  color: var(--text-secondary);
+  color: var(--color-texto-suave);
+  max-width: 50rem;
 }
 
 .montaje-pestanas {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--esp-3);
   flex-wrap: wrap;
 }
 
 .montaje-pestanas button {
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 999px;
-  padding: 0.55rem 1.1rem;
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
+  padding: 0.5rem 1.1rem;
   font-size: 0.95rem;
+  font-weight: var(--peso-medio);
   cursor: pointer;
 }
 
+.montaje-pestanas button:hover {
+  background: var(--color-acento-suave);
+}
+
 .montaje-pestanas button.activa {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: #fff;
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
+  font-weight: var(--peso-fuerte);
+  box-shadow: var(--sombra);
 }
 
 .montaje-banner {
   position: relative;
-  background: rgba(250, 204, 21, 0.12);
-  border: 1px solid #facc15;
-  color: #fef3c7;
-  border-radius: 10px;
-  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  background: var(--color-aviso-fondo);
+  border: var(--grosor-borde) solid var(--color-aviso-borde);
+  color: var(--color-aviso);
+  border-radius: var(--radio);
+  padding: 0.75rem 2.75rem 0.75rem 1rem;
   font-size: 0.92rem;
+}
+
+.montaje-banner strong {
+  color: var(--color-aviso);
 }
 
 .montaje-banner button {
   position: absolute;
-  top: 0.5rem;
-  right: 0.6rem;
-  background: none;
-  border: none;
-  color: inherit;
+  top: 0.45rem;
+  right: 0.5rem;
+  width: 1.9rem;
+  height: 1.9rem;
+  background: var(--color-superficie);
+  border: var(--borde);
+  border-radius: var(--radio-sm);
+  color: var(--color-principal);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .montaje-vacio,
 .montaje-error {
-  background: var(--bg-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 12px;
-  padding: 1.5rem;
+  background: var(--color-superficie);
+  border: var(--borde);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra);
+  padding: var(--esp-6);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--esp-3);
   align-items: flex-start;
 }
 
 .montaje-error {
-  border-color: rgba(239, 68, 68, 0.5);
+  background: var(--color-error-fondo);
+  color: var(--color-error);
+}
+
+.montaje-error strong {
+  color: var(--color-error);
+}
+
+.montaje-error p,
+.montaje-error li,
+.montaje-error summary {
+  color: var(--color-texto);
 }
 
 .montaje-vacio button,
 .montaje-error button {
-  background: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
+  background: var(--color-principal);
+  color: var(--color-sobre-principal);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
   padding: 0.5rem 1rem;
+  font-weight: var(--peso-medio);
   cursor: pointer;
 }
 
 .montaje-solucion {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--esp-4);
 }
 
 .montaje-avisos {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: var(--esp-2);
 }
 
 .montaje-avisos li {
-  background: rgba(245, 158, 11, 0.12);
-  border-left: 3px solid var(--warning-color);
+  background: var(--color-aviso-fondo);
+  border: var(--grosor-borde) solid var(--color-aviso-borde);
+  border-left-width: 6px;
   padding: 0.45rem 0.75rem;
-  border-radius: 6px;
+  border-radius: var(--radio-sm);
   font-size: 0.9rem;
-  color: #fde68a;
+  color: var(--color-aviso);
 }
 
+/* Clasificación: tarjeta con franja de color por tipo (el texto dice el tipo; el color es apoyo) */
 .montaje-clase {
   display: flex;
-  gap: 1.25rem;
+  gap: var(--esp-5);
   align-items: center;
-  background: var(--bg-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-left: 6px solid var(--primary-color);
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
+  background: var(--color-superficie);
+  border: var(--borde);
+  border-left: 10px solid var(--color-principal);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra);
+  padding: var(--esp-4) var(--esp-5);
 }
 
 .montaje-clase.clase-serie {
-  border-left-color: #10b981;
+  border-left-color: var(--color-clase-serie);
 }
 .montaje-clase.clase-paralelo {
-  border-left-color: #0ea5e9;
+  border-left-color: var(--color-clase-paralelo);
 }
 .montaje-clase.clase-mixto {
-  border-left-color: #8b5cf6;
+  border-left-color: var(--color-clase-mixto);
 }
 .montaje-clase.clase-no {
-  border-left-color: #f97316;
+  border-left-color: var(--color-clase-no);
 }
 
 .montaje-clase-tipo {
@@ -141,62 +177,80 @@
 }
 
 .montaje-clase-tipo span {
-  font-size: 0.75rem;
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-fuerte);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-muted);
+  color: var(--color-texto-suave);
 }
 
 .montaje-clase-tipo strong {
-  font-size: 1.35rem;
+  font-size: 1.4rem;
+  font-weight: var(--peso-fuerte);
+  color: var(--color-principal);
 }
 
 .montaje-metodo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--esp-2);
   flex-wrap: wrap;
 }
 
+.montaje-metodo > span:first-child {
+  font-weight: var(--peso-fuerte);
+  color: var(--color-principal);
+}
+
 .montaje-metodo button {
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  border-radius: 8px;
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
   padding: 0.45rem 0.9rem;
+  font-weight: var(--peso-medio);
   cursor: pointer;
 }
 
+.montaje-metodo button:hover:not(:disabled) {
+  background: var(--color-acento-suave);
+}
+
 .montaje-metodo button.activa {
-  background: rgba(99, 102, 241, 0.25);
-  border-color: var(--primary-color);
-  color: #fff;
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
+  font-weight: var(--peso-fuerte);
 }
 
 .montaje-metodo button:disabled {
-  opacity: 0.4;
+  color: var(--color-texto-suave);
+  border-style: dashed;
+  box-shadow: none;
   cursor: not-allowed;
 }
 
 .montaje-mini {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  font-size: var(--texto-sm);
+  color: var(--color-texto-suave);
 }
 
-/* Hoja de solución con aspecto de documento (como el PDF de ejercicios resueltos) */
+/* Hoja de solución con aspecto de documento: borde y sombra alrededor, nada encima del dibujo */
 .hoja {
-  background: #ffffff;
-  color: #111827;
-  border-radius: 14px;
+  background: var(--color-fondo);
+  color: var(--color-hoja-texto);
+  border: var(--borde);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-lg);
   padding: 1.75rem 2rem;
-  box-shadow: var(--shadow-xl);
   overflow-x: auto;
 }
 
 .hoja-verificado {
-  margin-top: 1.25rem;
-  font-size: 0.85rem;
-  color: #047857;
+  margin-top: var(--esp-5);
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
+  color: var(--color-ok);
 }
 
 .pasos {
@@ -206,25 +260,25 @@
 }
 
 .pasos-h {
-  font-size: 1.1rem;
-  color: #312e81;
+  font-size: 1.15rem;
+  color: var(--color-principal);
   margin-top: 0.8rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: var(--grosor-borde) solid var(--color-principal);
   padding-bottom: 0.25rem;
 }
 
 .pasos-diagramas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-  margin-top: 0.5rem;
+  gap: var(--esp-4);
+  margin-top: var(--esp-2);
 }
 
 .pasos-figura {
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 0.75rem;
-  background: #fcfcfa;
+  border: var(--borde-fino);
+  border-radius: var(--radio);
+  padding: var(--esp-3);
+  background: var(--color-fondo);
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -237,7 +291,7 @@
 }
 
 .pasos-sub {
-  color: #4b5563;
+  color: var(--color-hoja-suave);
 }
 
 .pasos-texto,
@@ -246,22 +300,22 @@
 }
 
 .pasos-check {
-  background: #ecfdf5;
-  border-left: 3px solid #10b981;
+  background: var(--color-ok-fondo);
+  border-left: 4px solid var(--color-ok);
   padding: 0.4rem 0.75rem;
-  border-radius: 6px;
+  border-radius: var(--radio-sm);
 }
 
 .pasos-formulas {
-  background: #eef2ff;
-  border-left: 4px solid #6366f1;
+  background: var(--color-acento-suave);
+  border-left: 4px solid var(--color-principal);
   padding: 0.6rem 0.9rem;
-  border-radius: 8px;
+  border-radius: var(--radio-sm);
   line-height: 2;
 }
 
 .pasos-sep {
-  color: #9ca3af;
+  color: var(--color-hoja-separador);
 }
 
 .tex-bloque {
@@ -282,19 +336,21 @@
 
 .pasos-tabla th,
 .pasos-tabla td {
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--color-hoja-linea);
   padding: 0.35rem 0.75rem;
   text-align: center;
 }
 
 .pasos-tabla th {
-  background: #f3f4f6;
+  background: var(--color-superficie-2);
+  color: var(--color-principal);
 }
 
 .pasos-resumen {
-  background: #fefce8;
-  border: 1px solid #fde68a;
-  border-radius: 10px;
+  background: var(--color-aviso-fondo);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
   padding: 0.5rem 1rem 0.75rem;
 }
 
@@ -304,22 +360,33 @@
 }
 
 .pasos-nota {
-  color: #6b7280;
+  color: var(--color-hoja-suave);
   font-size: 0.85rem;
 }
 
 .pasos-leyenda {
   margin: 0.4rem 0 0;
-  color: #6b7280;
+  color: var(--color-hoja-suave);
   font-size: 0.85rem;
 }
 
 @media (max-width: 700px) {
+  .montaje-cabecera h1 {
+    font-size: var(--titulo-md);
+  }
   .hoja {
-    padding: 1rem;
+    padding: var(--esp-4);
+    box-shadow: var(--sombra);
   }
   .montaje-clase {
     flex-direction: column;
     align-items: flex-start;
+  }
+  /* En pantallas angostas el número de ecuación de KaTeX (posición absoluta) se encima con
+     ecuaciones largas: se pone a continuación de la ecuación y entra en el desplazamiento horizontal. */
+  .tex-bloque .katex-display > .katex > .katex-html > .tag {
+    position: static;
+    display: inline-block;
+    margin-left: 1.5em;
   }
 }

@@ -1,0 +1,125 @@
+/* Tokens de diseño: el único lugar con colores, bordes, sombras, espacios y tipografía.
+   Estilo neo-brutalista: fondo blanco, bordes de tinta gruesos, sombras duras sin desenfoque.
+   Regla del acento: el lila (#B989ED) tiene 2.67:1 sobre blanco, así que NUNCA se usa como texto,
+   borde ni única señal de estado sobre blanco; siempre va con borde de tinta o texto medianoche encima. */
+
+:root {
+  /* Colores base */
+  --color-fondo: #ffffff;
+  --color-superficie: #ffffff;
+  --color-superficie-2: #f8f5fc; /* zonas apenas teñidas (barra lateral, franjas) */
+  --color-tinta: #160b26; /* bordes y sombras, casi negro */
+  --color-principal: #2e1a47; /* morado medianoche: títulos y botones normales */
+  --color-principal-hover: #452a69;
+  --color-sobre-principal: #ffffff;
+  --color-acento: #b989ed; /* lila: acciones principales, ítem activo */
+  --color-acento-hover: #c9a3f3;
+  --color-sobre-acento: #2e1a47;
+  --color-acento-suave: #f1e8fd; /* fondo al pasar el cursor, tarjetas suaves */
+  --color-texto: #2e1a47;
+  --color-texto-suave: #5b4a73;
+  --color-linea-suave: #d9d0e4; /* separadores finos dentro de una tarjeta */
+  --color-velo: rgba(22, 11, 38, 0.55); /* fondo detrás del cajón */
+
+  /* Estados (texto oscuro sobre fondo claro; todos AA) */
+  --color-ok: #0f6b3f;
+  --color-ok-fondo: #e3f6ea;
+  --color-aviso: #7a4b00;
+  --color-aviso-fondo: #fff4d6;
+  --color-aviso-borde: #9a6500;
+  --color-error: #a3162b;
+  --color-error-fondo: #fde8eb;
+  --color-info: #1d4f91;
+  --color-info-fondo: #e6effb;
+  --color-revisar: #facc15; /* resaltado de elementos a revisar en el editor (relleno, no texto) */
+
+  /* Editor y hoja de solución (el dibujo de Esquema.jsx conserva sus colores propios) */
+  --color-cuadricula: #8e83a1; /* puntos de la cuadrícula: 3.5:1 sobre blanco */
+  --color-guia: #1d4f91; /* cable en previa y cursor del editor */
+  --color-hoja-texto: #111827;
+  --color-hoja-suave: #4b5563;
+  --color-hoja-separador: #6b7280;
+  --color-hoja-linea: #b9b0c6; /* bordes de las tablas de la solución */
+
+  /* Clasificación de circuitos (franja izquierda de la tarjeta) */
+  --color-clase-serie: #0f6b3f;
+  --color-clase-paralelo: #1d4f91;
+  --color-clase-mixto: #6b2fb3;
+  --color-clase-no: #a34a00;
+
+  /* Foco */
+  --color-foco: #2e1a47;
+  --foco: 3px solid var(--color-foco);
+  --foco-separacion: 3px;
+
+  /* Bordes y radios */
+  --grosor-borde: 2px;
+  --borde: var(--grosor-borde) solid var(--color-tinta);
+  --borde-grueso: 3px solid var(--color-tinta);
+  --borde-fino: 1px solid var(--color-linea-suave);
+  --radio-sm: 6px;
+  --radio: 10px;
+  --radio-lg: 14px;
+  --radio-pildora: 999px;
+
+  /* Sombras duras */
+  --sombra-sm: 2px 2px 0 var(--color-tinta);
+  --sombra: 4px 4px 0 var(--color-tinta);
+  --sombra-lg: 6px 6px 0 var(--color-tinta);
+
+  /* Espacios (escala de 4 px) */
+  --esp-1: 0.25rem;
+  --esp-2: 0.5rem;
+  --esp-3: 0.75rem;
+  --esp-4: 1rem;
+  --esp-5: 1.25rem;
+  --esp-6: 1.5rem;
+  --esp-7: 2rem;
+  --esp-8: 3rem;
+
+  /* Tipografía (Lexend, local con @fontsource) */
+  --fuente: 'Lexend Variable', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --texto-xs: 0.75rem;
+  --texto-sm: 0.875rem;
+  --texto-base: 1rem;
+  --texto-lg: 1.125rem;
+  --titulo-sm: 1.25rem;
+  --titulo-md: 1.6rem;
+  --titulo-lg: 2.2rem;
+  --titulo-xl: clamp(2.2rem, 5vw, 3.4rem);
+  --peso-normal: 400;
+  --peso-medio: 600;
+  --peso-fuerte: 800;
+  --interlineado: 1.6;
+
+  /* Estructura */
+  --ancho-lateral: 15.5rem;
+  --alto-barra-movil: 3.5rem;
+  --ancho-contenido: 1200px;
+  --z-barra: 100;
+  --z-velo: 150;
+  --z-cajon: 160;
+  --z-contador: 200;
+  --transicion: 0.15s ease;
+
+  /* Puente temporal (se quita en la Fase B): variables del tema oscuro anterior,
+     redirigidas a valores claros para que las páginas aún no rediseñadas se lean sobre blanco. */
+  --primary-color: var(--color-principal);
+  --secondary-color: var(--color-principal-hover);
+  --accent-color: var(--color-principal);
+  --success-color: var(--color-ok);
+  --warning-color: var(--color-aviso-borde);
+  --danger-color: var(--color-error);
+  --bg-primary: var(--color-fondo);
+  --bg-secondary: var(--color-superficie-2);
+  --bg-tertiary: var(--color-acento-suave);
+  --bg-light: var(--color-superficie-2);
+  --text-primary: var(--color-texto);
+  --text-secondary: var(--color-texto-suave);
+  --text-muted: var(--color-texto-suave);
+  --shadow-sm: var(--sombra-sm);
+  --shadow-md: var(--sombra-sm);
+  --shadow-lg: var(--sombra);
+  --shadow-xl: var(--sombra-lg);
+  --transition: all var(--transicion);
+}
