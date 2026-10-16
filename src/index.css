@@ -1,30 +1,9 @@
-/* ==================== VARIABLES Y RESET ==================== */
-:root {
-  --primary-color: #6366f1;
-  --secondary-color: #8b5cf6;
-  --accent-color: #ec4899;
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
-  --danger-color: #ef4444;
-  
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --bg-light: #f8fafc;
-  
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-  
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Base global y estructura de la app. Los valores salen de src/estilos/tokens.css. */
 
-* {
+/* ==================== RESET Y BASE ==================== */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -35,277 +14,428 @@ html {
 }
 
 body {
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--fuente);
+  font-size: var(--texto-base);
+  line-height: var(--interlineado);
+  background: var(--color-fondo);
+  color: var(--color-texto);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  color: var(--text-primary);
-  line-height: 1.6;
 }
 
-/* ==================== APP SHELL ==================== */
-.app-shell {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow-x: hidden;
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-principal);
+  font-weight: var(--peso-fuerte);
+  line-height: 1.2;
 }
 
-/* ==================== NAVBAR ==================== */
-.navbar {
-  background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-  padding: 0.75rem 2rem;
-  box-shadow: var(--shadow-lg);
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  animation: slideDown 0.5s ease-out;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
+:focus-visible {
+  outline: var(--foco);
+  outline-offset: var(--foco-separacion);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
   }
 }
 
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-shrink: 0;
-}
-
-.brand-icon {
-  width: 32px;
-  height: 32px;
-  display: flex;
+/* ==================== COMPONENTES BÁSICOS ==================== */
+.btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-  animation: floatIcon 3s ease-in-out infinite;
-  flex-shrink: 0;
-}
-
-@keyframes floatIcon {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.brand-title {
-  font-size: 1rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.2;
-}
-
-.brand-subtitle {
-  font-size: 0.65rem;
-  color: var(--text-secondary);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  line-height: 1.2;
-}
-
-.navbar-nav {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.9rem;
-  border-radius: 6px;
-  background: transparent;
-  border: 2px solid transparent;
-  color: var(--text-secondary);
+  gap: var(--esp-2);
+  padding: var(--esp-2) var(--esp-4);
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
+  font-weight: var(--peso-medio);
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
+  text-decoration: none;
+  transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
 }
 
-.nav-item::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
+.btn:hover:not(:disabled) {
+  background: var(--color-acento-suave);
 }
 
-.nav-item:hover {
-  color: white;
-  border-color: var(--primary-color);
-  transform: translateY(-2px);
+.btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: none;
 }
 
-.nav-item:hover::before {
-  opacity: 0.1;
+.btn:disabled {
+  cursor: not-allowed;
+  color: var(--color-texto-suave);
+  border-style: dashed;
+  box-shadow: none;
 }
 
-.nav-item--active,
-.nav-item.nav-item--active {
-  color: white;
-  border-color: var(--primary-color);
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+.btn--principal {
+  background: var(--color-principal);
+  color: var(--color-sobre-principal);
 }
 
-.nav-icon {
-  width: 18px;
-  height: 18px;
-  display: flex;
+.btn--principal:hover:not(:disabled) {
+  background: var(--color-principal-hover);
+}
+
+.btn--acento {
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
+  font-weight: var(--peso-fuerte);
+  box-shadow: var(--sombra);
+}
+
+.btn--acento:hover:not(:disabled) {
+  background: var(--color-acento-hover);
+}
+
+.tarjeta {
+  background: var(--color-superficie);
+  border: var(--borde);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra);
+}
+
+.pildora {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: var(--transition);
+  padding: 0.1rem 0.6rem;
+  border: var(--borde);
+  border-radius: var(--radio-pildora);
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-fuerte);
+  line-height: 1.5;
+  white-space: nowrap;
+  background: var(--color-superficie);
+  color: var(--color-principal);
 }
 
-.nav-item svg {
-  width: 100%;
-  height: 100%;
-  transition: var(--transition);
+.pildora--acento {
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
 }
 
-.nav-item:hover .nav-icon svg {
-  filter: drop-shadow(0 0 8px var(--primary-color));
+.pildora--revision {
+  background: var(--color-aviso-fondo);
+  color: var(--color-aviso);
 }
 
-.nav-label {
-  display: inline;
+.pildora--pronto {
+  background: var(--color-superficie-2);
+  color: var(--color-texto-suave);
+  border-style: dashed;
 }
 
-.nav-indicator {
-  display: none;
+/* ==================== ESTRUCTURA ==================== */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--ancho-lateral) minmax(0, 1fr);
+  min-height: 100vh;
 }
 
-/* ==================== PAGE CONTENT ==================== */
+.app-principal {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
 .page-content {
   flex: 1;
-  padding: 3rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
-  animation: fadeInUp 0.6s ease-out;
+  max-width: var(--ancho-contenido);
+  margin: 0 auto;
+  padding: var(--esp-7) var(--esp-7) var(--esp-8);
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ==================== FOOTER ==================== */
 .site-footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  padding: 2rem 1.5rem;
-  background: linear-gradient(90deg, var(--bg-primary), var(--bg-secondary));
-  border-top: 1px solid rgba(148, 163, 184, 0.1);
-  color: var(--text-secondary);
-  font-size: 0.9rem;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  padding: var(--esp-5) var(--esp-4);
+  border-top: var(--borde);
+  color: var(--color-texto-suave);
+  font-size: var(--texto-sm);
   text-align: center;
-  animation: slideUp 0.6s ease-out 0.3s both;
 }
 
-.footer-sep {
-  color: var(--text-muted);
-  opacity: 0.5;
+/* ==================== BARRA LATERAL ==================== */
+.lateral {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-5);
+  padding: var(--esp-5) var(--esp-4);
+  background: var(--color-superficie-2);
+  border-right: var(--borde);
 }
 
-.site-footer:hover {
-  border-top-color: rgba(148, 163, 184, 0.3);
+.lateral-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-2);
 }
 
-/* ==================== RESPONSIVE ==================== */
-@media (max-width: 768px) {
-  
-  .navbar {
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding: 0.5rem 1rem;
+.lateral-cerrar {
+  display: none;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  min-width: 0;
+}
+
+.marca-icono {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+  background: var(--color-acento);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
+}
+
+.marca-texto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.marca-titulo {
+  font-weight: var(--peso-fuerte);
+  font-size: var(--texto-base);
+  color: var(--color-principal);
+  line-height: 1.2;
+}
+
+.marca-sub {
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
+  line-height: 1.3;
+}
+
+.lateral-bloque ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+}
+
+.lateral-titulo {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-fuerte);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-texto-suave);
+  margin: 0 0 var(--esp-2) var(--esp-2);
+}
+
+.lateral-item,
+.lateral-modulo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-2) var(--esp-3);
+  background: transparent;
+  color: var(--color-principal);
+  border: var(--grosor-borde) solid transparent;
+  border-radius: var(--radio);
+  text-align: left;
+  font-weight: var(--peso-medio);
+  cursor: pointer;
+  transition: background var(--transicion), box-shadow var(--transicion);
+}
+
+.lateral-item:hover,
+.lateral-modulo:hover:not(:disabled) {
+  background: var(--color-acento-suave);
+  border-color: var(--color-tinta);
+}
+
+.lateral-item--activo,
+.lateral-item--activo:hover {
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
+  border-color: var(--color-tinta);
+  box-shadow: var(--sombra-sm);
+  font-weight: var(--peso-fuerte);
+}
+
+.lateral-modulo--activo {
+  font-weight: var(--peso-fuerte);
+  border-color: var(--color-tinta);
+  background: var(--color-superficie);
+}
+
+.lateral-modulo:disabled {
+  cursor: not-allowed;
+  color: var(--color-texto-suave);
+}
+
+.lateral-icono {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.lateral-texto {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+.lateral-modulo .lateral-texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.lateral-modulo .pildora {
+  font-size: 0.65rem;
+  padding: 0 0.45rem;
+}
+
+.lateral-pie {
+  margin-top: auto;
+}
+
+.lateral-feria {
+  width: 100%;
+}
+
+/* Barra superior y cajón (celular y tableta) */
+.barra-movil {
+  display: none;
+}
+
+.velo {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-velo);
+  background: var(--color-velo);
+}
+
+@media (max-width: 1023.98px) {
+  .app-shell {
+    grid-template-columns: minmax(0, 1fr);
   }
-  
-  .navbar-brand {
-    flex-basis: 100%;
-    gap: 0.5rem;
-    order: 1;
+
+  .barra-movil {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-barra);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--esp-3);
+    min-height: var(--alto-barra-movil);
+    padding: var(--esp-2) var(--esp-4);
+    background: var(--color-fondo);
+    border-bottom: var(--borde);
   }
-  
-  .brand-title {
-    font-size: 0.9rem;
+
+  .barra-movil-menu {
+    flex-shrink: 0;
   }
-  
-  .brand-subtitle {
-    font-size: 0.6rem;
+
+  .lateral {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--z-cajon);
+    width: min(85vw, 19rem);
+    height: auto;
+    border-right: var(--borde-grueso);
+    box-shadow: var(--sombra-lg);
+    transform: translateX(-110%);
+    visibility: hidden;
+    transition: transform 0.2s ease, visibility 0s linear 0.2s;
   }
-  
-  .brand-icon {
-    width: 28px;
-    height: 28px;
+
+  .lateral--abierta {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.2s ease, visibility 0s;
   }
-  
-  .navbar-nav {
-    flex-basis: 100%;
-    gap: 0.25rem;
-    order: 2;
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
+
+  .lateral-cerrar {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    background: var(--color-superficie);
+    color: var(--color-principal);
+    border: var(--borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-sm);
+    cursor: pointer;
   }
-  
-  .nav-item {
-    padding: 0.4rem 0.7rem;
-    font-size: 0.75rem;
-  }
-  
-  .nav-icon {
-    width: 16px;
-    height: 16px;
-  }
-  
+
   .page-content {
-    padding: 2rem 1rem;
+    padding: var(--esp-5) var(--esp-4) var(--esp-7);
   }
+}
+
+/* ==================== PÁGINA DE ESTADO (módulo en revisión) ==================== */
+.pagina-estado {
+  max-width: 46rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-5);
+}
+
+.pagina-estado-cabecera {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+}
+
+.pagina-estado-cabecera h1 {
+  font-size: var(--titulo-lg);
+}
+
+.pagina-estado-cuerpo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--esp-3);
+  padding: var(--esp-6);
 }
 
 /* ==================== MODO FERIA ==================== */
@@ -323,8 +453,10 @@ html.modo-feria .contenido {
   max-width: 100%;
 }
 
-html.modo-feria .editor-cuerpo {
-  grid-template-columns: minmax(0, 1fr) 320px;
+@media (min-width: 900px) {
+  html.modo-feria .editor-cuerpo {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
 }
 
 html.modo-feria .editor-mini {
@@ -335,39 +467,28 @@ html.modo-feria .hoja {
   font-size: 1.1rem;
 }
 
-.nav-feria {
-  flex-shrink: 0;
-  border: 1px dashed rgba(148, 163, 184, 0.4);
+/* En feria la barra lateral es más angosta para dejar espacio al montaje */
+@media (min-width: 1024px) {
+  html.modo-feria .app-shell {
+    grid-template-columns: 13.5rem minmax(0, 1fr);
+  }
 }
 
 .feria-contador {
   position: fixed;
-  right: 0.75rem;
-  bottom: 0.75rem;
-  z-index: 200;
-  background: rgba(15, 23, 42, 0.92);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  color: var(--text-secondary);
-  border-radius: 999px;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.8rem;
-  box-shadow: var(--shadow-lg);
+  right: var(--esp-3);
+  bottom: var(--esp-3);
+  z-index: var(--z-contador);
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio-pildora);
+  box-shadow: var(--sombra-sm);
+  padding: 0.3rem 0.85rem;
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
 }
 
 .feria-contador strong {
-  color: #fff;
-}
-
-html.modo-feria .navbar {
-  padding: 0.5rem 1rem;
-  gap: 0.75rem;
-}
-
-html.modo-feria .navbar-nav {
-  gap: 0.15rem;
-}
-
-html.modo-feria .nav-item {
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
+  font-weight: var(--peso-fuerte);
 }

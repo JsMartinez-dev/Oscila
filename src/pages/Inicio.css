@@ -1,510 +1,211 @@
-/* ==================== PÁGINA DE INICIO ==================== */
+/* Portada: título, cuadrícula de módulos y créditos. */
 
-.inicio-page {
-  min-height: calc(100vh - 120px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-  animation: fadeIn 0.6s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ─── Portada Container ─── */
-.portada-container {
+.inicio {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem;
-  max-width: 900px;
-  width: 100%;
-  position: relative;
+  gap: var(--esp-7);
 }
 
-/* ─── Universidad Logo ─── */
-.universidad-logo {
+.inicio-hero {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  animation: slideDown 0.7s ease-out;
-}
-
-.logo-placeholder {
-  width: 150px;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
-  border: 3px solid rgba(99, 102, 241, 0.3);
-  border-radius: 16px;
-  color: var(--primary-color);
-  box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
-  transition: var(--transition);
-  padding: 10px;
-  overflow: hidden;
-}
-
-.logo-placeholder:hover {
-  transform: scale(1.05) rotateY(5deg);
-  box-shadow: 0 30px 80px rgba(99, 102, 241, 0.25);
-}
-
-.logo-placeholder svg {
-  width: 100%;
-  height: 100%;
-  padding: 15px;
-  color: var(--primary-color);
-}
-
-.logo-placeholder img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  width: auto;
-  height: auto;
-}
-
-.logo-text {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--primary-color);
-  margin: 0;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-/* ─── Contenido Portada ─── */
-.contenido-portada {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  text-align: center;
-  width: 100%;
-  animation: slideUp 0.7s ease-out;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ─── Título Section ─── */
-.titulo-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.titulo-principal {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin: 0;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  animation: scaleIn 0.8s ease-out;
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.subtitulo-divider {
-  height: 3px;
-  width: 150px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  margin: 0 auto;
-  border-radius: 2px;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-}
-
-.subtitulo {
-  font-size: 2rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--secondary-color);
-  letter-spacing: 2px;
-  text-transform: capitalize;
-}
-
-/* ─── Section Integrantes ─── */
-.section-integrantes {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.04));
-  border: 2px solid rgba(99, 102, 241, 0.2);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-}
-
-.section-profesor {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(99, 102, 241, 0.04));
-  border: 2px solid rgba(139, 92, 246, 0.2);
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.section-titulo {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* ─── Integrantes List ─── */
-.integrantes-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  width: 100%;
-}
-
-.integrante-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: rgba(99, 102, 241, 0.05);
-  border-radius: 8px;
-  transition: var(--transition);
-  border-left: 3px solid transparent;
-}
-
-.integrante-item:hover {
-  background: rgba(99, 102, 241, 0.12);
-  border-left-color: var(--primary-color);
-  transform: translateX(8px);
-}
-
-.integrante-dot {
-  width: 10px;
-  height: 10px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
-}
-
-.integrante-nombre {
-  color: var(--text-primary);
-  font-size: 1rem;
-  font-weight: 500;
-  text-align: left;
-}
-
-/* ─── Profesor Info ─── */
-.profesor-info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(99, 102, 241, 0.05));
-  border-radius: 8px;
-  border: 1px solid rgba(139, 92, 246, 0.3);
-}
-
-.profesor-nombre {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--secondary-color);
-}
-
-/* ─── Créditos del Desarrollador ─── */
-.desarrollador-credits {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(139, 92, 246, 0.03));
-  border-radius: 12px;
-  border: 1px solid rgba(99, 102, 241, 0.15);
-  animation: slideUp 0.7s ease-out;
-  transition: var(--transition);
-}
-
-.desarrollador-credits:hover {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.06));
-  border-color: rgba(99, 102, 241, 0.3);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
-}
-
-.credits-label {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
-}
-
-.credits-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.developer-name {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--primary-color);
-}
-
-.github-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
-  border: 1.5px solid rgba(99, 102, 241, 0.3);
-  border-radius: 50%;
-  color: var(--primary-color);
-  transition: var(--transition);
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
-}
-
-.github-link:hover {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: white;
-  border-color: var(--primary-color);
-  transform: scale(1.1) translateY(-2px);
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-}
-
-.github-link svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* ─── Wave Decoration ─── */
-.portada-footer {
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.wave-decoration {
-  width: 100%;
-  height: 100%;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z' fill='%23634662' opacity='0.1'/%3E%3C/svg%3E");
-  background-size: 600px 120px;
-  background-repeat: repeat-x;
-  animation: wave 8s linear infinite;
-}
-
-@keyframes wave {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 600px 0;
-  }
-}
-
-/* ─── Responsive ─── */
-@media (max-width: 768px) {
-  .inicio-page {
-    padding: 1rem;
-    min-height: calc(100vh - 100px);
-  }
-
-  .portada-container {
-    gap: 2rem;
-  }
-
-  .titulo-principal {
-    font-size: 2.2rem;
-    letter-spacing: 2px;
-  }
-
-  .subtitulo {
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-  }
-
-  .logo-placeholder {
-    width: 120px;
-    height: 120px;
-  }
-
-  .section-integrantes,
-  .section-profesor {
-    padding: 1.5rem;
-  }
-
-  .integrantes-list {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  .section-titulo {
-    font-size: 1.1rem;
-  }
-
-  .integrante-nombre,
-  .profesor-nombre {
-    font-size: 0.95rem;
-  }
-
-  .desarrollador-credits {
-    padding: 1rem;
-    gap: 0.5rem;
-  }
-
-  .developer-name {
-    font-size: 0.9rem;
-  }
-
-  .github-link {
-    width: 36px;
-    height: 36px;
-  }
-
-  .github-link svg {
-    width: 18px;
-    height: 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .titulo-principal {
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-  }
-
-  .subtitulo {
-    font-size: 1.2rem;
-  }
-
-  .logo-placeholder {
-    width: 100px;
-    height: 100px;
-  }
-
-  .logo-placeholder svg {
-    width: 80%;
-    height: 80%;
-  }
-
-  .contenido-portada {
-    gap: 2rem;
-  }
-
-  .section-integrantes,
-  .section-profesor {
-    padding: 1rem;
-  }
-
-  .integrante-item {
-    padding: 0.75rem;
-  }
-
-  .portada-footer {
-    height: 40px;
-  }
-}
-
-/* ==================== CIRCUITOS EN VIVO ==================== */
-.inicio-lema {
-  margin-top: 0.75rem;
-  color: var(--text-secondary);
-  max-width: 640px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.inicio-accesos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.75rem;
-  margin: 1.5rem 0;
-}
-
-.inicio-acceso {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  text-align: left;
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.35);
-  border-radius: 12px;
-  padding: 0.9rem;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.inicio-acceso:hover {
-  background: rgba(99, 102, 241, 0.22);
-  transform: translateY(-2px);
-}
-
-.inicio-acceso span {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  align-items: flex-start;
+  gap: var(--esp-3);
 }
 
 .inicio-evento {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  margin-bottom: 0.5rem;
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
+  color: var(--color-texto-suave);
+}
+
+.inicio-titulo {
+  font-size: var(--titulo-xl);
+  letter-spacing: -0.02em;
+}
+
+.inicio-lema {
+  max-width: 44rem;
+  font-size: var(--texto-lg);
+  color: var(--color-texto);
+}
+
+.inicio-seccion {
+  font-size: var(--titulo-md);
+  margin-bottom: var(--esp-4);
+}
+
+/* Cuadrícula: el módulo principal ocupa dos columnas y dos filas */
+.inicio-modulos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: minmax(min-content, auto);
+  gap: var(--esp-6);
+  align-items: start;
+}
+
+.modulo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--esp-3);
+  padding: var(--esp-6);
+}
+
+.modulo--principal {
+  grid-column: span 2;
+  grid-row: span 2;
+  background: var(--color-acento-suave);
+  box-shadow: var(--sombra-lg);
+  gap: var(--esp-4);
+}
+
+.modulo-cabecera {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--esp-2) var(--esp-3);
+}
+
+.modulo-cabecera h3 {
+  font-size: var(--titulo-sm);
+}
+
+.modulo--principal .modulo-cabecera h3 {
+  font-size: var(--titulo-md);
+}
+
+.modulo-texto {
+  color: var(--color-texto);
+}
+
+.modulo--pronto {
+  background: var(--color-superficie-2);
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.modulo--pronto .modulo-texto,
+.modulo--pronto h3 {
+  color: var(--color-texto-suave);
+}
+
+.modulo-cta {
+  font-size: var(--texto-lg);
+  padding: var(--esp-3) var(--esp-5);
+}
+
+.modulo-accesos {
+  list-style: none;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--esp-3);
+}
+
+.modulo-acceso {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+  padding: var(--esp-3) var(--esp-4);
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+.modulo-acceso:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--sombra);
+}
+
+.modulo-acceso:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.modulo-acceso-titulo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  font-weight: var(--peso-fuerte);
+  font-size: var(--texto-lg);
+}
+
+.modulo-acceso-texto {
+  font-size: var(--texto-sm);
+  color: var(--color-texto-suave);
+}
+
+/* Créditos */
+.inicio-creditos {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--esp-6) var(--esp-8);
+  padding: var(--esp-5) var(--esp-6);
+}
+
+.inicio-universidad {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  font-weight: var(--peso-fuerte);
+  color: var(--color-principal);
+}
+
+.inicio-universidad img {
+  width: 3.5rem;
+  height: auto;
+}
+
+.inicio-personas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-4) var(--esp-8);
+}
+
+.inicio-creditos-titulo {
+  font-size: var(--texto-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-texto-suave);
+  margin-bottom: var(--esp-1);
+}
+
+.inicio-personas ul {
+  list-style: none;
+  font-weight: var(--peso-medio);
+}
+
+@media (max-width: 1100px) {
+  .inicio-modulos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .modulo--principal {
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .inicio-modulos,
+  .modulo-accesos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .modulo--principal {
+    grid-column: auto;
+  }
+  .modulo {
+    padding: var(--esp-5) var(--esp-4);
+  }
+  .modulo-cta {
+    width: 100%;
+  }
 }

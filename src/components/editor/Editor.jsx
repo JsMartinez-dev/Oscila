@@ -84,6 +84,7 @@ export function centrar(doc) {
   const dx = Math.round((ANCHO - (b.x1 - b.x0)) / 2) - b.x0;
   const dy = Math.max(2, Math.round((ALTO - (b.y1 - b.y0)) / 2)) - b.y0;
   return {
+    ...doc, // conserva campos extra, como `curso` en los ejemplos
     componentes: (doc.componentes ?? []).map((c) => ({ ...c, x: c.x + dx, y: c.y + dy })),
     cables: (doc.cables ?? []).map((w) => ({ ...w, x1: w.x1 + dx, y1: w.y1 + dy, x2: w.x2 + dx, y2: w.y2 + dy })),
     nodos: (doc.nodos ?? []).map((n) => ({ ...n, x: n.x + dx, y: n.y + dy })),

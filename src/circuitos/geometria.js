@@ -6,6 +6,7 @@
 //   cables:      [{ id, x1, y1, x2, y2 }],   // segmentos horizontales o verticales
 //   nodos:       [{ id, x, y }],             // punto de unión explícito (une cables que se cruzan)
 //   etiquetas:   [{ id, x, y, texto }],      // nombre de un punto (a, b, c…)
+//   curso:       { ejercicio, corrientes }   // opcional: corrientes de la solución del curso (ejemplos.js)
 // }
 // Coordenadas en unidades de cuadrícula; "y" crece hacia abajo (pantalla).
 // En la fuente, el terminal "a" es el − y el terminal "b" es el +.

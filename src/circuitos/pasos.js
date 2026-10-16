@@ -11,6 +11,7 @@ import { resolverConPasos, latexEcuacion } from './sistemas.js';
 import { n, q, qAmbas, nombreLatex } from './formato.js';
 import { dibujarReduccion } from './layout.js';
 import { SistemaSingular } from './lineal.js';
+import { terminales } from './geometria.js';
 
 const TOL = 0.01;
 
@@ -293,7 +294,32 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
   const alias = aliasNodos(geo);
   const nombreNodo = (x) => `$${x}$`;
 
+  // Elemento de la rama donde se dibuja la flecha y su sentido respecto a los terminales del dibujo
+  const flechaDe = (r) => {
+    const e = r.elems.find((x) => x.elem.tipo === 'resistencia') ?? r.elems[0];
+    const nodoA = e.elem.tipo === 'fuente' ? e.elem.neg : e.elem.a; // nodo del terminal "a" en el dibujo
+    return { e, sentido: e.desde === nodoA ? 'ab' : 'ba' };
+  };
+  // Sentido supuesto en el dibujo: de un nodo principal al otro; en un solo lazo, el de la flecha
+  const sentidoRama = (r) => {
+    const pos = geo?.posNodo ?? {};
+    if (r.desde !== r.hacia && pos[r.desde] && pos[r.hacia]) {
+      const d = direccion(pos[r.desde], pos[r.hacia]);
+      if (d) return d;
+    }
+    const { e, sentido } = flechaDe(r);
+    const c = doc?.componentes?.find((x) => x.id === e.elem.id);
+    if (!c) return null;
+    const t = terminales(c);
+    return sentido === 'ab' ? direccion(t.a, t.b) : direccion(t.b, t.a);
+  };
+  const fuenteDe = (r) => r.elems.find((x) => x.elem.tipo === 'fuente')?.elem;
+  const nombreRama = (r) => `la rama de $${nombreElem(fuenteDe(r) ?? r.elems.find((x) => x.elem.tipo === 'resistencia')?.elem ?? r.elems[0].elem)}$`;
+  const sentidos = new Map(ramas.map((r) => [r, sentidoRama(r)]));
+  const conDibujo = ramas.every((r) => sentidos.get(r));
+
   // Diagrama con corrientes y mallas
+  const mallasDibujadas = pl.origenMallas === 'dibujo';
   B.push({
     tipo: 'diagrama',
     titulo: 'Circuito original',
@@ -301,12 +327,17 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     anotaciones: doc
       ? {
           corrientes: ramas.map((r) => {
-            const e = r.elems.find((x) => x.elem.tipo === 'resistencia') ?? r.elems[0];
-            const nodoA = e.elem.tipo === 'fuente' ? e.elem.neg : e.elem.a; // nodo del terminal "a" en el dibujo
-            return { id: e.elem.id, sentido: e.desde === nodoA ? 'ab' : 'ba', etiqueta: `I${r.k}` };
+            const { e, sentido } = flechaDe(r);
+            return { id: e.elem.id, sentido, etiqueta: `I${r.k}` };
           }),
-          mallas: pl.origenMallas === 'dibujo' ? mallas.map((m, i) => ({ centro: m.centro, etiqueta: `M${i + 1}` })) : [],
+          mallas: mallasDibujadas ? mallas.map((m, i) => ({ centro: m.centro, etiqueta: `M${i + 1}` })) : [],
         }
+      : null,
+    leyenda: doc
+      ? 'Flechas verdes: sentido supuesto de cada corriente' +
+        (mallasDibujadas
+          ? ` · ${mallas.map((_, i) => `$M_{${i + 1}}$`).join(', ')}: ${mallas.length === 1 ? 'malla recorrida' : 'mallas recorridas'} en sentido horario`
+          : '')
       : null,
   });
 
@@ -320,17 +351,26 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
   } else {
     B.push({ tipo: 'texto', texto: 'El circuito es **un solo lazo**: no hay nodos principales y circula una sola corriente.' });
   }
+  const variasFuentes = ramas.some((r) => r.elems.filter((x) => x.elem.tipo === 'fuente').length > 1);
   B.push({
     tipo: 'texto',
     texto:
-      '**Sentidos supuestos:** ' +
-      ramas
-        .map((r) => `$${r.variable}$ va de ${nombreNodo(r.desde)} a ${nombreNodo(r.hacia)} por ${r.elems.map((x) => '$' + nombreElem(x.elem) + '$').join(', ')}`)
-        .join('; ') +
-      '. ' +
-      (pl.origenMallas === 'dibujo'
-        ? 'Las mallas son las ventanas del dibujo, recorridas en **sentido horario**.'
-        : 'El dibujo no permite tomar ventanas (tiene cruces o no hay dibujo): se usan lazos independientes, recorridos en sentido horario cuando hay posiciones.'),
+      `**Regla del sentido supuesto:** cada corriente sale por el $+$ de la fuente de su rama${variasFuentes ? ' (si hay varias, la primera)' : ''}; ` +
+      (conDibujo
+        ? 'en las ramas sin fuente, se supone que baja en el dibujo (o que va hacia la derecha si la rama es horizontal).'
+        : 'en las ramas sin fuente el sentido se elige libremente: si resulta al revés, la corriente da negativa.'),
+  });
+  const supuesto = (r) => {
+    const d = sentidos.get(r);
+    const donde = d ? `hacia ${d} por ${nombreRama(r)}` : `de ${nombreNodo(r.desde)} a ${nombreNodo(r.hacia)} por ${nombreRama(r)}`;
+    return `$${r.variable}$: ${donde}${fuenteDe(r) ? ' (sale por el $+$ de la fuente)' : ''}`;
+  };
+  B.push({ tipo: 'texto', texto: `**Sentidos supuestos:** ${ramas.map(supuesto).join('; ')}.` });
+  B.push({
+    tipo: 'texto',
+    texto: mallasDibujadas
+      ? 'Las mallas son las ventanas del dibujo, recorridas en **sentido horario**.'
+      : 'El dibujo no permite tomar ventanas (tiene cruces o no hay dibujo): se usan lazos independientes, recorridos en sentido horario cuando hay posiciones.',
   });
   if (pl.sinCorriente.length) {
     B.push({ tipo: 'texto', texto: `Sin corriente (condensadores en DC o ramas abiertas): ${pl.sinCorriente.map((id) => '$' + nombreLatex(id, net.elementos.find((e) => e.id === id).tipo) + '$').join(', ')}.` });
@@ -395,15 +435,6 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     v.igual(r.variable, solucion[r.variable], ref);
   }
 
-  // Signos negativos
-  const negativas = ramas.filter((r) => solucion[r.variable] < 0);
-  for (const r of negativas) {
-    B.push({
-      tipo: 'texto',
-      texto: `$${r.variable}<0$: en esa rama la corriente realmente va de ${nombreNodo(r.hacia)} a ${nombreNodo(r.desde)} ($${q(Math.abs(solucion[r.variable]), 'A')}$).`,
-    });
-  }
-
   // Tabla
   const filas = [];
   let disipada = 0;
@@ -443,6 +474,30 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
   }
   B.push({ tipo: 'tabla', encabezados: ['Elemento', '$I$ (A)', '$V$ (V)', '$P$ (W)'], filas });
 
+  // Sentido real de cada corriente
+  B.push({ tipo: 'titulo', texto: 'Sentido real de cada corriente' });
+  for (const r of ramas) {
+    const I = solucion[r.variable];
+    const Ia = Math.abs(I);
+    if (Ia < 1e-9) {
+      B.push({ tipo: 'texto', texto: `$${r.variable}=0$: no circula corriente por ${nombreRama(r)}.` });
+      continue;
+    }
+    const d = sentidos.get(r);
+    const real = d ? `hacia ${I > 0 ? d : CONTRARIO[d]}` : I > 0 ? `de ${nombreNodo(r.desde)} a ${nombreNodo(r.hacia)}` : `de ${nombreNodo(r.hacia)} a ${nombreNodo(r.desde)}`;
+    const circula = `${n(Ia) === '1.00' ? 'circula' : 'circulan'} $${q(Ia, 'A')}$ ${real}`;
+    B.push({
+      tipo: 'texto',
+      texto:
+        I > 0
+          ? `$${r.variable}=${q(I, 'A')}>0$: el supuesto era correcto; por ${nombreRama(r)} ${circula}.`
+          : `$${r.variable}=${q(I, 'A')}<0$: el sentido real es el contrario al supuesto; por ${nombreRama(r)} ${circula}.`,
+    });
+  }
+  if (coincideConCurso(doc?.curso, net, corrienteDe)) {
+    B.push({ tipo: 'check', texto: `Cada corriente, en valor y sentido real, es igual que en la solución del curso (Ejercicio ${doc.curso.ejercicio}). ✓` });
+  }
+
   // Comprobaciones
   for (const e of ecNodos) {
     const ent = e.entran.map((r) => solucion[r.variable]);
@@ -468,6 +523,36 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     ],
   });
   return B;
+}
+
+const CONTRARIO = { abajo: 'arriba', arriba: 'abajo', 'la derecha': 'la izquierda', 'la izquierda': 'la derecha' };
+
+/** Dirección en el dibujo de p a q, según el eje dominante (en el SVG, y crece hacia abajo). */
+function direccion(p, q) {
+  const dx = q.x - p.x;
+  const dy = q.y - p.y;
+  if (Math.hypot(dx, dy) < 1e-9) return null;
+  if (Math.abs(dy) >= Math.abs(dx)) return dy > 0 ? 'abajo' : 'arriba';
+  return dx > 0 ? 'la derecha' : 'la izquierda';
+}
+
+/**
+ * ¿Las corrientes calculadas son las de la solución del curso? curso.corrientes: { id: I } con
+ * I de a hacia b (resistencias) o I que sale por el + (fuentes). Exige los mismos elementos y 1 %.
+ */
+function coincideConCurso(curso, net, corrienteDe) {
+  if (!curso?.corrientes) return false;
+  const elems = net.elementos.filter((e) => e.tipo === 'resistencia' || e.tipo === 'fuente');
+  const ref = curso.corrientes;
+  if (elems.length !== Object.keys(ref).length || !elems.every((e) => e.id in ref)) return false;
+  return elems.every((e) => {
+    const { r, I } = corrienteDe(e.id);
+    const x = r?.elems.find((y) => y.elem.id === e.id);
+    if (!x) return Math.abs(ref[e.id]) < 1e-9;
+    const inicio = e.tipo === 'fuente' ? e.neg : e.a; // I de a hacia b, o la que sale por el +
+    const calc = x.desde === inicio ? I : -I;
+    return Math.abs(calc - ref[e.id]) <= Math.max(TOL * Math.abs(ref[e.id]), 1e-6);
+  });
 }
 
 function suma(lista, total) {

@@ -1,18 +1,22 @@
+/* Editor de circuitos en cuadrícula. Los valores salen de src/estilos/tokens.css.
+   El dibujo (Esquema.jsx) conserva sus propios colores: solo se ajustan aquí la cuadrícula y las guías. */
+
 .editor {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--esp-3);
 }
 
 .editor-barra {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  gap: 0.35rem;
-  padding: 0.5rem;
-  background: var(--bg-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 12px;
+  gap: var(--esp-1);
+  padding: var(--esp-2);
+  background: var(--color-superficie);
+  border: var(--borde);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra);
 }
 
 .editor-herr {
@@ -23,27 +27,32 @@
   gap: 0.15rem;
   min-width: 64px;
   padding: 0.35rem 0.5rem;
-  border-radius: 8px;
-  border: 1px solid transparent;
+  border-radius: var(--radio-sm);
+  border: var(--grosor-borde) solid transparent;
   background: transparent;
-  color: var(--text-secondary);
-  font-size: 0.75rem;
+  color: var(--color-principal);
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-medio);
   cursor: pointer;
 }
 
 .editor-herr:hover:not(:disabled) {
-  background: rgba(99, 102, 241, 0.12);
-  color: var(--text-primary);
+  background: var(--color-acento-suave);
+  border-color: var(--color-tinta);
 }
 
-.editor-herr.activa {
-  background: rgba(99, 102, 241, 0.22);
-  border-color: var(--primary-color);
-  color: #fff;
+.editor-herr.activa,
+.editor-herr.activa:hover {
+  background: var(--color-acento);
+  border-color: var(--color-tinta);
+  color: var(--color-sobre-acento);
+  box-shadow: var(--sombra-sm);
+  font-weight: var(--peso-fuerte);
 }
 
 .editor-herr:disabled {
-  opacity: 0.4;
+  color: var(--color-texto-suave);
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
@@ -60,34 +69,37 @@
 }
 
 .editor-sep {
-  width: 1px;
+  width: var(--grosor-borde);
   align-self: stretch;
-  background: rgba(148, 163, 184, 0.25);
-  margin: 0 0.25rem;
+  background: var(--color-linea-suave);
+  margin: 0 var(--esp-1);
 }
 
 .editor-select {
   align-self: center;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  border-radius: 8px;
-  padding: 0.45rem 0.5rem;
-  font-size: 0.85rem;
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio-sm);
+  padding: 0.4rem 0.5rem;
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
+  max-width: 100%;
 }
 
 .editor-cuerpo {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 0.75rem;
+  gap: var(--esp-4);
   align-items: start;
 }
 
+/* El lienzo va sin sombra encima del dibujo: solo el borde */
 .editor-lienzo-wrap {
   position: relative;
-  background: #fbfbf8;
-  border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: var(--color-fondo);
+  border-radius: var(--radio-lg);
+  border: var(--borde);
   overflow: hidden;
 }
 
@@ -113,19 +125,20 @@
   cursor: not-allowed;
 }
 
+/* Puntos de la cuadrícula: visibles sobre blanco (3:1) sin competir con los cables */
 .editor-punto {
-  fill: #cbd5e1;
+  fill: var(--color-cuadricula);
 }
 
 .editor-previa {
-  stroke: #2563eb;
+  stroke: var(--color-guia);
   stroke-width: 2;
   stroke-dasharray: 6 4;
 }
 
 .editor-cursor {
   fill: none;
-  stroke: #2563eb;
+  stroke: var(--color-guia);
   stroke-width: 1.5;
 }
 
@@ -137,9 +150,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  padding: 2rem;
+  padding: var(--esp-7);
   text-align: center;
-  color: #475569;
+  color: var(--color-texto-suave);
   pointer-events: none;
   font-size: 0.95rem;
 }
@@ -147,117 +160,149 @@
 .editor-panel {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--esp-3);
 }
 
 .editor-inspector,
 .editor-revisar {
-  background: var(--bg-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 12px;
-  padding: 0.85rem;
+  background: var(--color-superficie);
+  border: var(--borde);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-sm);
+  padding: var(--esp-3);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--esp-2);
 }
 
 .editor-revisar {
-  border-color: #facc15;
-  background: rgba(250, 204, 21, 0.08);
+  background: var(--color-aviso-fondo);
 }
 
 .editor-revisar ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--esp-1);
 }
 
 .editor-revisar button {
   width: 100%;
   text-align: left;
-  background: rgba(250, 204, 21, 0.18);
-  border: 1px solid rgba(250, 204, 21, 0.5);
-  color: var(--text-primary);
-  border-radius: 6px;
+  background: var(--color-superficie);
+  border: var(--borde);
+  color: var(--color-texto);
+  border-radius: var(--radio-sm);
   padding: 0.3rem 0.5rem;
   cursor: pointer;
+}
+
+.editor-revisar button:hover {
+  background: var(--color-acento-suave);
 }
 
 .editor-inspector h4,
 .editor-revisar h4 {
   font-size: 0.95rem;
-  color: var(--text-primary);
+  color: var(--color-principal);
 }
 
 .editor-campo {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
+  color: var(--color-texto-suave);
 }
 
 .editor-campo input {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 6px;
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  border: var(--borde);
+  border-radius: var(--radio-sm);
   padding: 0.45rem 0.55rem;
   font-size: 1rem;
 }
 
-.editor-campo input:focus {
-  outline: 2px solid var(--primary-color);
-  border-color: transparent;
-}
-
 .editor-mini {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
 }
 
-.editor-error,
+.editor-error {
+  font-size: var(--texto-sm);
+  color: var(--color-error);
+  font-weight: var(--peso-medio);
+}
+
 .editor-aviso {
-  font-size: 0.8rem;
-  color: #fca5a5;
+  font-size: var(--texto-sm);
+  color: var(--color-info);
+  font-weight: var(--peso-medio);
 }
 
 .editor-revisar-nota {
-  font-size: 0.8rem;
-  color: #fde68a;
+  font-size: var(--texto-sm);
+  color: var(--color-aviso);
+  background: var(--color-aviso-fondo);
+  border: var(--grosor-borde) solid var(--color-aviso-borde);
+  border-radius: var(--radio-sm);
+  padding: var(--esp-2);
 }
 
 .editor-revisar-nota button,
 .editor-botones button {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
-  border: none;
-  border-radius: 6px;
-  padding: 0.35rem 0.6rem;
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio-sm);
+  box-shadow: var(--sombra-sm);
+  padding: 0.3rem 0.6rem;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
+}
+
+.editor-revisar-nota button:hover,
+.editor-botones button:hover {
+  background: var(--color-acento-suave);
 }
 
 .editor-botones {
   display: flex;
-  gap: 0.4rem;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
 }
 
+/* Acción principal: mismo aspecto que .btn--acento */
 .editor-calcular {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: #fff;
-  border: none;
-  border-radius: 10px;
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
   padding: 0.8rem 1rem;
   font-size: 1.05rem;
-  font-weight: 700;
+  font-weight: var(--peso-fuerte);
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+  transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
+}
+
+.editor-calcular:hover:not(:disabled) {
+  background: var(--color-acento-hover);
+}
+
+.editor-calcular:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: none;
 }
 
 .editor-calcular:disabled {
-  opacity: 0.45;
+  background: var(--color-superficie-2);
+  color: var(--color-texto-suave);
+  border-style: dashed;
+  box-shadow: none;
   cursor: not-allowed;
 }
 

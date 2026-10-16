@@ -53,7 +53,8 @@ export async function reconocer(entrada, entorno) {
   }
 
   if (r.status === 429) return respuesta(429, { codigo: 'cuota', error: 'Se agotó la cuota gratuita de reconocimiento por ahora.' });
-  if (r.status === 401 || r.status === 403) return respuesta(502, { codigo: 'clave', error: 'La API key de Gemini no es válida o no tiene permiso para este modelo.' });
+  const claveInvalida = r.status === 400 && /API_KEY_INVALID|API key not valid/i.test(r.texto);
+  if (r.status === 401 || r.status === 403 || claveInvalida) return respuesta(502, { codigo: 'clave', error: 'La API key de Gemini no es válida o no tiene permiso para este modelo.' });
   if (r.status === 404) return respuesta(502, { codigo: 'modelo', error: `El modelo "${modelo}" no existe o no está disponible. Revisa GEMINI_MODEL.` });
   if (r.status !== 200 || !r.json) return respuesta(502, { codigo: 'servicio', error: `El servicio de reconocimiento respondió con un error (${r.status}).` });
 

@@ -1,7 +1,9 @@
+/* Reconocimiento desde una foto: entrada, resultado, galería y cámara. Valores de src/estilos/tokens.css. */
+
 .foto {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--esp-4);
 }
 
 .foto-entrada,
@@ -9,17 +11,18 @@
 .foto-galeria,
 .foto-procesando,
 .foto-error {
-  background: var(--bg-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 12px;
-  padding: 1.1rem 1.25rem;
+  background: var(--color-superficie);
+  border: var(--borde);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra);
+  padding: var(--esp-5);
 }
 
 .foto-botones,
 .foto-acciones {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: var(--esp-3);
 }
 
 .foto-boton {
@@ -27,20 +30,41 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 10px;
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
   padding: 0.65rem 1rem;
   font-size: 0.95rem;
+  font-weight: var(--peso-medio);
   cursor: pointer;
 }
 
+.foto-boton:hover {
+  background: var(--color-acento-suave);
+}
+
+.foto-boton:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* El input de archivo es invisible: el foco se muestra en su etiqueta */
+.foto-boton:focus-within {
+  outline: var(--foco);
+  outline-offset: var(--foco-separacion);
+}
+
 .foto-boton.principal {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  border-color: transparent;
-  color: #fff;
-  font-weight: 600;
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
+  font-weight: var(--peso-fuerte);
+  box-shadow: var(--sombra);
+}
+
+.foto-boton.principal:hover {
+  background: var(--color-acento-hover);
 }
 
 .foto-boton input[type='file'] {
@@ -51,57 +75,62 @@
 }
 
 .foto-ayuda {
-  margin-top: 0.75rem;
-  color: var(--text-secondary);
+  margin-top: var(--esp-3);
+  color: var(--color-texto);
   font-size: 0.9rem;
 }
 
 .foto-mini {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  font-size: var(--texto-sm);
+  color: var(--color-texto-suave);
   margin-top: 0.4rem;
 }
 
 .foto-aviso {
-  color: #fde68a;
-  background: rgba(245, 158, 11, 0.12);
-  border-left: 3px solid var(--warning-color);
+  color: var(--color-aviso);
+  background: var(--color-aviso-fondo);
+  border: var(--grosor-borde) solid var(--color-aviso-borde);
+  border-left-width: 6px;
   padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  border-radius: var(--radio-sm);
   margin: 0.5rem 0;
 }
 
 .foto-procesando,
 .foto-error {
   display: flex;
-  gap: 1rem;
+  gap: var(--esp-4);
   align-items: center;
 }
 
 .foto-procesando img,
 .foto-error img {
   width: 160px;
-  border-radius: 8px;
+  border-radius: var(--radio-sm);
+  border: var(--borde-fino);
 }
 
 .foto-error {
-  border-color: rgba(239, 68, 68, 0.5);
+  background: var(--color-error-fondo);
+  color: var(--color-error);
 }
 
 .foto-error button {
-  margin-top: 0.5rem;
-  background: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
+  margin-top: var(--esp-2);
+  background: var(--color-principal);
+  color: var(--color-sobre-principal);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
   padding: 0.45rem 0.9rem;
+  font-weight: var(--peso-medio);
   cursor: pointer;
 }
 
 .foto-comparar {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: var(--esp-4);
 }
 
 .foto-comparar figure {
@@ -111,20 +140,22 @@
 }
 
 .foto-comparar figcaption {
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-weight: var(--peso-fuerte);
+  color: var(--color-principal);
 }
 
 .foto-comparar img {
   width: 100%;
-  border-radius: 8px;
-  background: #fff;
+  border-radius: var(--radio-sm);
+  border: var(--borde-fino);
+  background: var(--color-fondo);
 }
 
 .foto-esquema,
 .foto-reemplazo {
-  background: #fbfbf8;
-  border-radius: 8px;
+  background: var(--color-fondo);
+  border: var(--borde-fino);
+  border-radius: var(--radio-sm);
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -133,7 +164,7 @@
 }
 
 .foto-reemplazo small {
-  color: #92400e;
+  color: var(--color-aviso);
   font-size: 0.72rem;
   text-align: center;
 }
@@ -147,85 +178,102 @@
 
 .foto-tabla th,
 .foto-tabla td {
-  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  border-bottom: var(--borde-fino);
   padding: 0.4rem 0.5rem;
   text-align: left;
 }
 
+.foto-tabla th {
+  color: var(--color-principal);
+  border-bottom: var(--borde);
+}
+
 .foto-tabla tr.baja td {
-  background: rgba(250, 204, 21, 0.14);
+  background: var(--color-aviso-fondo);
 }
 
 .foto-tipo {
-  color: var(--text-muted);
+  color: var(--color-texto-suave);
   font-size: 0.8rem;
 }
 
 .foto-galeria h3 {
-  font-size: 1.1rem;
+  font-size: var(--titulo-sm);
 }
 
 .foto-galeria-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 0.75rem;
-  margin-top: 0.75rem;
+  gap: var(--esp-4);
+  margin-top: var(--esp-3);
 }
 
 .foto-tarjeta {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  background: var(--bg-primary);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 10px;
+  background: var(--color-acento-suave);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
   padding: 0.6rem;
-  color: var(--text-primary);
+  color: var(--color-principal);
+  font-weight: var(--peso-medio);
   cursor: pointer;
   text-align: center;
+  transition: transform var(--transicion), box-shadow var(--transicion);
 }
 
 .foto-tarjeta:hover {
-  border-color: var(--primary-color);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--sombra);
 }
 
 .foto-tarjeta img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 6px;
-  background: #fff;
+  border-radius: var(--radio-sm);
+  border: var(--borde);
+  background: var(--color-fondo);
 }
 
 .foto-camara {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.75);
+  background: var(--color-velo);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .foto-camara-caja {
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  padding: 1rem;
+  background: var(--color-superficie);
+  border: var(--borde-grueso);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-lg);
+  padding: var(--esp-4);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--esp-3);
   max-width: 92vw;
 }
 
 .foto-camara video {
   max-width: 80vw;
   max-height: 70vh;
-  border-radius: 8px;
+  border-radius: var(--radio-sm);
   background: #000;
 }
 
 @media (max-width: 800px) {
   .foto-comparar {
     grid-template-columns: 1fr;
+  }
+  .foto-procesando,
+  .foto-error {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
