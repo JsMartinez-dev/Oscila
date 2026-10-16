@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 400" width="550" height="400" font-family="system-ui, 'Segoe UI', Roboto, sans-serif">
+<title>Oscilación simple de un péndulo</title>
+<rect width="550" height="400" fill="#ffffff"/>
+
+<g>
+  <animateTransform attributeName="transform" type="rotate" values="40 275 57;-40 275 57;40 275 57" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.37 0 0.63 1;0.37 0 0.63 1" dur="2.4s" repeatCount="indefinite"/>
+  <line x1="275" y1="57" x2="275" y2="235" stroke="#160b26" stroke-width="3"/>
+  <circle cx="275" cy="265" r="30" fill="#cd9a68" stroke="#160b26" stroke-width="3"/>
+</g>
+<rect x="232" y="33" width="86" height="24" fill="#cd9a68" stroke="#160b26" stroke-width="3"/>
+</svg>

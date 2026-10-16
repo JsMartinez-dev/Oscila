@@ -65,6 +65,20 @@ const SECCIONES = [
   },
 ];
 
+const SECCIONES_CALOR_ONDAS = [
+  { id: 'co-inicio', label: 'Inicio', descripcion: 'Portada del proyecto', icon: SECCIONES[0].icon },
+  { id: 'co-teoria', label: 'Marco Conceptual', descripcion: 'Teoría y fundamentos', icon: SECCIONES[1].icon },
+  { id: 'co-aplicaciones', label: 'Aplicaciones', descripcion: 'Ingeniería aplicada', icon: SECCIONES[2].icon },
+  { id: 'co-laboratorio', label: 'Laboratorio', descripcion: 'Simulaciones interactivas', icon: SECCIONES[3].icon },
+  { id: 'co-ejercicios', label: 'Ejercicios', descripcion: 'Práctica guiada', icon: SECCIONES[4].icon },
+  { id: 'co-test', label: 'Test Interactivo', descripcion: 'Evaluación de conocimientos', icon: SECCIONES[5].icon },
+];
+
+const SECCIONES_MODULO = {
+  electricidad: { titulo: 'Electricidad y Magnetismo', secciones: SECCIONES },
+  'calor-ondas': { titulo: 'Calor y Ondas', secciones: SECCIONES_CALOR_ONDAS },
+};
+
 const ICONO_MODULO = {
   electricidad: svg(<path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />),
   'calor-ondas': svg(<path d="M2 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0" />),
@@ -121,7 +135,8 @@ export default function BarraLateral({ id, activePage, onNavigate, feria, abiert
     return () => window.removeEventListener('keydown', tecla);
   }, [abierto, onCerrar]);
 
-  const moduloActivo = activePage === 'calor-ondas' ? 'calor-ondas' : 'electricidad';
+  const moduloActivo = activePage.startsWith('co-') ? 'calor-ondas' : 'electricidad';
+  const { titulo, secciones } = SECCIONES_MODULO[moduloActivo];
 
   return (
     <aside id={id} ref={ref} className={`lateral${abierto ? ' lateral--abierta' : ''}`} aria-label="Navegación principal">
@@ -159,10 +174,10 @@ export default function BarraLateral({ id, activePage, onNavigate, feria, abiert
 
       <nav className="lateral-bloque" aria-labelledby="lateral-secciones">
         <h2 id="lateral-secciones" className="lateral-titulo">
-          Electricidad y Magnetismo
+          {titulo}
         </h2>
         <ul>
-          {SECCIONES.map((s) => (
+          {secciones.map((s) => (
             <li key={s.id}>
               <button
                 type="button"

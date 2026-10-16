@@ -1,5 +1,4 @@
 // Módulos de la plataforma. estado: 'activo' | 'revision' (oculto en modo feria) | 'pronto' (deshabilitado).
-// La Tarea 5 ampliará cada módulo con sus secciones y créditos.
 
 export const MODULOS = [
   {
@@ -13,8 +12,8 @@ export const MODULOS = [
     id: 'calor-ondas',
     nombre: 'Calor y Ondas',
     estado: 'revision',
-    ruta: 'calor-ondas',
-    descripcion: 'El contenido del equipo de Calor y Ondas se está restaurando para esta plataforma.',
+    ruta: 'co-inicio',
+    descripcion: 'Oscilaciones y ondas mecánicas: marco conceptual, aplicaciones, laboratorio de simulaciones, ejercicios y test. Módulo original del equipo de Calor y Ondas, en revisión.',
   },
   {
     id: 'mecanica',

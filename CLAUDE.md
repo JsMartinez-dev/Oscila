@@ -18,6 +18,15 @@
 - `.env.local` (la API key de Gemini) ni ningún otro `.env*` con secretos; solo `.env.example`.
 - `docs/referencias/` (capturas de otras aplicaciones usadas como referencia visual).
 
+## Comentarios en el código
+- Nada de comentarios largos ni explicativos, ni emojis. Como máximo, separadores cortos del tipo `// Nombre de sección`.
+
+## Imágenes y multimedia
+- Toda imagen, GIF o video que no hayamos hecho nosotros lleva su crédito: autor, fuente y licencia.
+- Si no se conoce la fuente o la licencia no permite usarla, se reemplaza por una de dominio público o con licencia libre (CC0, CC BY o CC BY-SA; por ejemplo de Wikimedia Commons, NASA, Pixabay o Unsplash) o por un dibujo propio en SVG.
+- Nunca inventar ni suponer una licencia: si no se puede verificar, se pone en una lista y se le pregunta al usuario.
+- Todo se sirve desde el proyecto (`public/` o `src/`); nada por CDN ni enlazado desde otro sitio, para que la app funcione sin internet.
+
 ## Comandos
 - `npm test`: pruebas (Vitest).
 - `npm run build`: versión de producción en `dist/`.

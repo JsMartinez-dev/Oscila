@@ -401,33 +401,6 @@ textarea {
   }
 }
 
-/* ==================== PÁGINA DE ESTADO (módulo en revisión) ==================== */
-.pagina-estado {
-  max-width: 46rem;
-  display: flex;
-  flex-direction: column;
-  gap: var(--esp-5);
-}
-
-.pagina-estado-cabecera {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--esp-3);
-}
-
-.pagina-estado-cabecera h1 {
-  font-size: var(--titulo-lg);
-}
-
-.pagina-estado-cuerpo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--esp-3);
-  padding: var(--esp-6);
-}
-
 /* ==================== KATEX EN PANTALLAS ANGOSTAS ==================== */
 /* El número de ecuación de KaTeX (posición absoluta) se encima con ecuaciones largas:
    se pone a continuación de la ecuación y entra en el desplazamiento horizontal del bloque. */
