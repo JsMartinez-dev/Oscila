@@ -1,0 +1,64 @@
+/* Créditos */
+
+.creditos-bloque {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+  padding: var(--esp-5) var(--esp-6);
+}
+
+.creditos-bloque h2 {
+  font-size: var(--titulo-sm);
+}
+
+.creditos-bloque h3 {
+  margin-top: var(--esp-2);
+  font-size: var(--texto-base);
+}
+
+.creditos-bloque a {
+  color: var(--color-info);
+}
+
+.creditos-datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--esp-4);
+}
+
+.creditos-datos dt {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-fuerte);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-texto-suave);
+}
+
+.creditos-datos dd {
+  font-weight: var(--peso-medio);
+}
+
+.creditos-datos ul,
+.creditos-columnas {
+  list-style: none;
+}
+
+.creditos-columnas {
+  columns: 3 14rem;
+  column-gap: var(--esp-6);
+  font-weight: var(--peso-medio);
+}
+
+.creditos-lista {
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  font-size: var(--texto-sm);
+}
+
+@media (max-width: 700px) {
+  .creditos-bloque {
+    padding: var(--esp-4);
+  }
+}

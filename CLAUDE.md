@@ -28,6 +28,12 @@
 - Nunca inventar ni suponer una licencia: si no se puede verificar, se pone en una lista y se le pregunta al usuario.
 - Todo se sirve desde el proyecto (`public/` o `src/`); nada por CDN ni enlazado desde otro sitio, para que la app funcione sin internet.
 
+## Nombre y créditos
+- La plataforma se llama **Oscila** (en `package.json`: `oscila`). El laboratorio de Electricidad sigue llamándose "Montaje virtual de circuitos".
+- Desarrolladores de Electricidad y Magnetismo, en este orden: Juan Sebastian Martinez, Juan David Rivera y Eduardo Enrique Vergara. Profesor: Jarvin Mestra Páez. Universidad del Magdalena, II Foro Internacional de Física.
+- Calor y Ondas conserva los créditos de su equipo original (`src/contenido/calor-ondas/creditos.js`); en modo feria no se muestran.
+- Los créditos se editan en un solo lugar: `src/contenido/creditos.js` (portada, página Créditos y PDF del test leen de ahí). Cada imagen nueva debe quedar en el inventario con su crédito; la prueba `src/contenido/creditos.test.js` falla si falta.
+
 ## Comandos
 - `npm test`: pruebas (Vitest).
 - `npm run build`: versión de producción en `dist/`.

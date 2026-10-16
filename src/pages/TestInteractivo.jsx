@@ -2,6 +2,7 @@ import { useState } from "react";
 import jsPDF from "jspdf";
 import "../pages/TestInteractivo.css";
 import { PREGUNTAS as QUESTIONS } from "../contenido/test.js";
+import { EYM, PLATAFORMA, listaNombres } from "../contenido/creditos.js";
 
 export default function TestInteractivo() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -76,11 +77,11 @@ export default function TestInteractivo() {
     const fecha = new Date().toLocaleDateString("es-ES");
     doc.text(`Fecha: ${fecha}`, margin, yPosition);
     yPosition += 6;
-    doc.text("Electricidad y Magnetismo - Universidad del Magdalena", margin, yPosition);
+    doc.text(`${EYM.modulo} - ${EYM.universidad}`, margin, yPosition);
     yPosition += 5;
-    doc.text("Profesor: Jarvin Mestra Páez", margin, yPosition);
+    doc.text(`Profesor: ${EYM.profesor}`, margin, yPosition);
     yPosition += 5;
-    doc.text("Desarrollado por: Juan Sebastian Martinez y Juan David Rivera", margin, yPosition);
+    doc.text(`Desarrollado por: ${listaNombres(EYM.desarrolladores)}`, margin, yPosition);
     yPosition += 8;
 
     // Línea separadora
@@ -177,7 +178,7 @@ export default function TestInteractivo() {
     doc.setFontSize(9);
     doc.setTextColor(150, 150, 150);
     doc.text(
-      "Circuitos en Vivo - Test de Electricidad y Magnetismo",
+      `${PLATAFORMA.nombre} - Test de ${EYM.modulo}`,
       pageWidth / 2,
       pageHeight - 10,
       { align: "center" }

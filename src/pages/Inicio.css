@@ -26,7 +26,8 @@
 
 .inicio-lema {
   max-width: 44rem;
-  font-size: var(--texto-lg);
+  font-size: var(--titulo-sm);
+  font-weight: var(--peso-medio);
   color: var(--color-texto);
 }
 
@@ -173,10 +174,21 @@
 /* Créditos */
 .inicio-creditos {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--esp-4);
+  padding: var(--esp-5) var(--esp-6);
+}
+
+.inicio-creditos .inicio-seccion {
+  margin-bottom: 0;
+}
+
+.inicio-creditos-cuerpo {
+  display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: var(--esp-6) var(--esp-8);
-  padding: var(--esp-5) var(--esp-6);
 }
 
 .inicio-universidad {
@@ -187,12 +199,25 @@
   color: var(--color-principal);
 }
 
+.inicio-universidad span {
+  display: flex;
+  flex-direction: column;
+}
+
+.inicio-universidad small {
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
+  color: var(--color-texto-suave);
+}
+
 .inicio-universidad img {
   height: 72px;
   width: auto;
 }
 
 .inicio-personas {
+  flex: 1;
+  min-width: min(100%, 20rem);
   display: flex;
   flex-wrap: wrap;
   gap: var(--esp-4) var(--esp-8);
@@ -209,6 +234,12 @@
 .inicio-personas ul {
   list-style: none;
   font-weight: var(--peso-medio);
+}
+
+.inicio-creditos-co {
+  flex-basis: 100%;
+  font-size: var(--texto-sm);
+  color: var(--color-texto);
 }
 
 @media (max-width: 1100px) {

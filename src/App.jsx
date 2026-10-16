@@ -12,6 +12,7 @@ import COAplicaciones from "./pages/calor-ondas/Aplicaciones";
 import COLaboratorio from "./pages/calor-ondas/Laboratorio";
 import COEjercicios from "./pages/calor-ondas/Ejercicios";
 import COTest from "./pages/calor-ondas/Test";
+import Creditos from "./pages/Creditos";
 import { useModoFeria } from "./components/ModoFeria";
 
 const PAGES = {
@@ -27,6 +28,7 @@ const PAGES = {
   "co-laboratorio": COLaboratorio,
   "co-ejercicios": COEjercicios,
   "co-test": COTest,
+  creditos: Creditos,
 };
 
 // Desde este ancho la barra lateral queda fija; por debajo es un cajón (igual que en index.css)

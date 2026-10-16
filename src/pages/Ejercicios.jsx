@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Markdown from '../components/Markdown.jsx';
 import { TextoMat } from '../components/Tex.jsx';
 import { EJERCICIOS, SECCIONES, figuras } from '../contenido/ejercicios.js';
+import { IMAGENES_EYM } from '../contenido/creditos.js';
 import './Ejercicios.css';
 
 export default function Ejercicios() {
@@ -121,6 +122,7 @@ export default function Ejercicios() {
           </div>
         </article>
       </div>
+      <p className="ejer-credito">{IMAGENES_EYM.find((g) => g.carpeta).credito}</p>
     </div>
   );
 }

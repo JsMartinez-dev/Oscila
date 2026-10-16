@@ -4,6 +4,7 @@
 import { useEffect, useRef } from 'react';
 import { ETIQUETA_ESTADO, modulosVisibles } from '../contenido/modulos.js';
 import { ContadorFeria } from './ModoFeria.jsx';
+import { PLATAFORMA } from '../contenido/creditos.js';
 
 const svg = (hijos) => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -90,14 +91,28 @@ const ICONO_MODULO = {
   ),
 };
 
+export const ICONO_MARCA = svg(
+  <>
+    <path d="M2 13c2 0 3-5 5-5s3 5 5 5 3 5 5 5 3-5 5-5" />
+    <circle cx="7" cy="8" r="2" fill="currentColor" />
+  </>,
+);
+
+const ICONO_CREDITOS = svg(
+  <>
+    <circle cx="12" cy="8" r="5" />
+    <path d="M8.5 12.5L7 22l5-3 5 3-1.5-9.5" />
+  </>,
+);
+
 export function Marca() {
   return (
     <div className="marca">
       <span className="marca-icono" aria-hidden="true">
-        {ICONO_MODULO.electricidad}
+        {ICONO_MARCA}
       </span>
       <span className="marca-texto">
-        <span className="marca-titulo">Circuitos en Vivo</span>
+        <span className="marca-titulo">{PLATAFORMA.nombre}</span>
         <span className="marca-sub">Plataforma de física</span>
       </span>
     </div>
@@ -194,15 +209,25 @@ export default function BarraLateral({ id, activePage, onNavigate, feria, abiert
         </ul>
       </nav>
 
-      {feria && (
-        <div className="lateral-pie">
-          {/* En feria, el contador va aquí y no fijo sobre la página, para no tapar la hoja de solución */}
-          {feria.activo && <ContadorFeria />}
+      <div className="lateral-pie">
+        <button
+          type="button"
+          className={`lateral-item${activePage === 'creditos' ? ' lateral-item--activo' : ''}`}
+          onClick={() => onNavigate('creditos')}
+          title="Equipos, profesores, tecnologías e imágenes"
+          aria-current={activePage === 'creditos' ? 'page' : undefined}
+        >
+          <span className="lateral-icono">{ICONO_CREDITOS}</span>
+          <span className="lateral-texto">Créditos</span>
+        </button>
+        {/* En feria, el contador va aquí y no fijo sobre la página, para no tapar la hoja de solución */}
+        {feria?.activo && <ContadorFeria />}
+        {feria && (
           <button type="button" className="btn lateral-feria" onClick={feria.alternar} title="Pantalla completa y letra grande (tecla F)" aria-pressed={feria.activo}>
             <span aria-hidden="true">⛶</span> {feria.activo ? 'Salir de feria' : 'Modo feria'}
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </aside>
   );
 }
