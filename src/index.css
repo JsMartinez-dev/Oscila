@@ -168,19 +168,6 @@ textarea {
   padding: var(--esp-7) var(--esp-7) var(--esp-8);
 }
 
-.site-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--esp-2);
-  padding: var(--esp-5) var(--esp-4);
-  border-top: var(--borde);
-  color: var(--color-texto-suave);
-  font-size: var(--texto-sm);
-  text-align: center;
-}
-
 /* ==================== BARRA LATERAL ==================== */
 .lateral {
   position: sticky;
@@ -330,6 +317,9 @@ textarea {
 
 .lateral-pie {
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
 }
 
 .lateral-feria {
@@ -438,18 +428,26 @@ textarea {
   padding: var(--esp-6);
 }
 
+/* ==================== KATEX EN PANTALLAS ANGOSTAS ==================== */
+/* El número de ecuación de KaTeX (posición absoluta) se encima con ecuaciones largas:
+   se pone a continuación de la ecuación y entra en el desplazamiento horizontal del bloque. */
+@media (max-width: 700px) {
+  .katex-display > .katex > .katex-html > .tag {
+    position: static;
+    display: inline-block;
+    margin-left: 1.5em;
+  }
+}
+
 /* ==================== MODO FERIA ==================== */
 html.modo-feria {
   font-size: 125%;
 }
 
-html.modo-feria .site-footer {
-  display: none;
-}
-
 html.modo-feria .montaje,
 html.modo-feria .ejer,
-html.modo-feria .contenido {
+html.modo-feria .contenido,
+html.modo-feria .test-container {
   max-width: 100%;
 }
 
@@ -467,18 +465,17 @@ html.modo-feria .hoja {
   font-size: 1.1rem;
 }
 
-/* En feria la barra lateral es más angosta para dejar espacio al montaje */
+/* En feria la letra crece: la barra lateral se ensancha para que la marca y el botón quepan en una línea */
 @media (min-width: 1024px) {
   html.modo-feria .app-shell {
-    grid-template-columns: 13.5rem minmax(0, 1fr);
+    grid-template-columns: var(--ancho-lateral-feria) minmax(0, 1fr);
   }
 }
 
+/* Contador de reconocimientos: en la barra lateral, encima del botón de feria */
 .feria-contador {
-  position: fixed;
-  right: var(--esp-3);
-  bottom: var(--esp-3);
-  z-index: var(--z-contador);
+  display: block;
+  text-align: center;
   background: var(--color-superficie);
   color: var(--color-principal);
   border: var(--borde);

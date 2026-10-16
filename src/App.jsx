@@ -7,7 +7,7 @@ import Teoria from "./pages/Teoria";
 import Aplicaciones from "./pages/Aplicaciones";
 import TestInteractivo from "./pages/TestInteractivo";
 import CalorOndas from "./pages/CalorOndas";
-import { ContadorFeria, useModoFeria } from "./components/ModoFeria";
+import { useModoFeria } from "./components/ModoFeria";
 
 const PAGES = {
   inicio: Inicio,
@@ -86,13 +86,7 @@ export default function App() {
         <main className="page-content">
           <PageComponent onNavigate={navegar} feria={feria.activo} />
         </main>
-        <footer className="site-footer">
-          <span>Circuitos en Vivo</span>
-          <span className="footer-sep" aria-hidden="true">·</span>
-          <span>Universidad del Magdalena</span>
-        </footer>
       </div>
-      {feria.activo && <ContadorFeria />}
     </div>
   );
 }

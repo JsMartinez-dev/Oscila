@@ -45,7 +45,12 @@ export default function Ejercicios() {
               <ul>
                 {EJERCICIOS.filter((e) => e.seccion === s).map((e) => (
                   <li key={e.numero}>
-                    <button type="button" className={e.numero === actual ? 'activo' : ''} onClick={() => setActual(e.numero)}>
+                    <button
+                      type="button"
+                      className={e.numero === actual ? 'activo' : ''}
+                      aria-current={e.numero === actual ? 'true' : undefined}
+                      onClick={() => setActual(e.numero)}
+                    >
                       Ejercicio {e.numero}
                     </button>
                   </li>

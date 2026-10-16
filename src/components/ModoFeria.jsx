@@ -1,5 +1,5 @@
 // Modo feria: pantalla completa y letra grande para la mesa del foro. Tecla F o botón de la barra.
-// En una esquina muestra las solicitudes de reconocimiento hechas hoy desde este equipo.
+// En la barra lateral muestra las solicitudes de reconocimiento hechas hoy desde este equipo.
 
 import { useCallback, useEffect, useState } from 'react';
 import { EVENTO_SOLICITUDES, solicitudesHoy } from './foto/almacen.js';

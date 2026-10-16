@@ -15,7 +15,13 @@ export default function Teoria({ onNavigate }) {
       </header>
       <div className="contenido-indice">
         {TEORIA.map((t, i) => (
-          <button key={t.id} type="button" className={abierta === t.id ? 'activa' : ''} onClick={() => setAbierta(t.id)}>
+          <button
+            key={t.id}
+            type="button"
+            className={abierta === t.id ? 'activa' : ''}
+            aria-current={abierta === t.id ? 'true' : undefined}
+            onClick={() => setAbierta(t.id)}
+          >
             <span className="contenido-num">{i + 1}</span>
             <span>
               <strong>{t.titulo}</strong>

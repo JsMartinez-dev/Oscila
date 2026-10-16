@@ -3,6 +3,7 @@
 
 import { useEffect, useRef } from 'react';
 import { ETIQUETA_ESTADO, modulosVisibles } from '../contenido/modulos.js';
+import { ContadorFeria } from './ModoFeria.jsx';
 
 const svg = (hijos) => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -180,8 +181,10 @@ export default function BarraLateral({ id, activePage, onNavigate, feria, abiert
 
       {feria && (
         <div className="lateral-pie">
+          {/* En feria, el contador va aquí y no fijo sobre la página, para no tapar la hoja de solución */}
+          {feria.activo && <ContadorFeria />}
           <button type="button" className="btn lateral-feria" onClick={feria.alternar} title="Pantalla completa y letra grande (tecla F)" aria-pressed={feria.activo}>
-            <span aria-hidden="true">⛶</span> {feria.activo ? 'Salir del modo feria' : 'Modo feria'}
+            <span aria-hidden="true">⛶</span> {feria.activo ? 'Salir de feria' : 'Modo feria'}
           </button>
         </div>
       )}

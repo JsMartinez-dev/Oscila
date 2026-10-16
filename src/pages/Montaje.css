@@ -173,7 +173,9 @@
 .montaje-clase-tipo {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   min-width: 150px;
+  max-width: 15rem;
 }
 
 .montaje-clase-tipo span {
@@ -267,11 +269,17 @@
   padding-bottom: 0.25rem;
 }
 
+/* El circuito original (y cualquier diagrama que no quepa en media columna a la escala común)
+   ocupa la fila completa; las demás reducciones van debajo en dos columnas */
 .pasos-diagramas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--esp-4);
   margin-top: var(--esp-2);
+}
+
+.pasos-figura--fila {
+  grid-column: 1 / -1;
 }
 
 .pasos-figura {
@@ -283,6 +291,14 @@
   flex-direction: column;
   gap: 0.4rem;
   align-items: center;
+}
+
+/* Ancho de cada dibujo: lo calcula Pasos.jsx con un solo factor para todos los diagramas de la solución
+   (misma escala, tope de 1.5× y de 420 px de alto). La regla manda sobre el atributo width que pone Esquema. */
+.pasos-figura svg {
+  width: var(--ancho-dibujo, 100%);
+  max-width: 100%;
+  height: auto;
 }
 
 .pasos-figura figcaption {
@@ -382,11 +398,7 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  /* En pantallas angostas el número de ecuación de KaTeX (posición absoluta) se encima con
-     ecuaciones largas: se pone a continuación de la ecuación y entra en el desplazamiento horizontal. */
-  .tex-bloque .katex-display > .katex > .katex-html > .tag {
-    position: static;
-    display: inline-block;
-    margin-left: 1.5em;
+  .pasos-diagramas-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
