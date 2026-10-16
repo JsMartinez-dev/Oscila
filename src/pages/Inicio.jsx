@@ -53,7 +53,7 @@ export default function Inicio({ onNavigate, feria = false }) {
                     <li key={a.id}>
                       <button type="button" className="modulo-acceso" onClick={() => onNavigate?.(a.id)}>
                         <span className="modulo-acceso-titulo">
-                          {a.titulo}
+                          <span className="modulo-acceso-nombre">{a.titulo}</span>
                           <span className="pildora">{a.cantidad}</span>
                         </span>
                         <span className="modulo-acceso-texto">{a.texto}</span>

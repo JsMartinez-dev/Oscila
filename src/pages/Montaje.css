@@ -173,7 +173,9 @@
 .montaje-clase-tipo {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   min-width: 150px;
+  max-width: 15rem;
 }
 
 .montaje-clase-tipo span {
@@ -269,7 +271,7 @@
 
 .pasos-diagramas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   gap: var(--esp-4);
   margin-top: var(--esp-2);
 }
@@ -283,6 +285,18 @@
   flex-direction: column;
   gap: 0.4rem;
   align-items: center;
+}
+
+/* El diagrama usa el ancho disponible (la regla manda sobre el atributo width que pone Esquema),
+   con tope de 760 px de ancho y 420 px de alto para que un circuito pequeño no quede con letras gigantes.
+   !important: Esquema.jsx pone max-width: 100% en línea y no se toca. Donde el navegador entiende
+   attr() con tipo (Chromium), además se limita a 1.5 veces el ancho natural del dibujo (atributo width). */
+.pasos-figura svg {
+  width: 100%;
+  max-width: min(100%, 760px) !important;
+  max-width: min(100%, 760px, calc(attr(width px) * 1.5)) !important;
+  height: auto;
+  max-height: 420px;
 }
 
 .pasos-figura figcaption {
@@ -381,12 +395,5 @@
   .montaje-clase {
     flex-direction: column;
     align-items: flex-start;
-  }
-  /* En pantallas angostas el número de ecuación de KaTeX (posición absoluta) se encima con
-     ecuaciones largas: se pone a continuación de la ecuación y entra en el desplazamiento horizontal. */
-  .tex-bloque .katex-display > .katex > .katex-html > .tag {
-    position: static;
-    display: inline-block;
-    margin-left: 1.5em;
   }
 }

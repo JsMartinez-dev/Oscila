@@ -20,6 +20,7 @@
   --color-texto-suave: #5b4a73;
   --color-linea-suave: #d9d0e4; /* separadores finos dentro de una tarjeta */
   --color-velo: rgba(22, 11, 38, 0.55); /* fondo detrás del cajón */
+  --color-video: #000000; /* fondo de la vista de la cámara */
 
   /* Estados (texto oscuro sobre fondo claro; todos AA) */
   --color-ok: #0f6b3f;
@@ -94,32 +95,11 @@
 
   /* Estructura */
   --ancho-lateral: 15.5rem;
+  --ancho-lateral-feria: 16.5rem; /* con la letra al 125 % */
   --alto-barra-movil: 3.5rem;
   --ancho-contenido: 1200px;
   --z-barra: 100;
   --z-velo: 150;
   --z-cajon: 160;
-  --z-contador: 200;
   --transicion: 0.15s ease;
-
-  /* Puente temporal (se quita en la Fase B): variables del tema oscuro anterior,
-     redirigidas a valores claros para que las páginas aún no rediseñadas se lean sobre blanco. */
-  --primary-color: var(--color-principal);
-  --secondary-color: var(--color-principal-hover);
-  --accent-color: var(--color-principal);
-  --success-color: var(--color-ok);
-  --warning-color: var(--color-aviso-borde);
-  --danger-color: var(--color-error);
-  --bg-primary: var(--color-fondo);
-  --bg-secondary: var(--color-superficie-2);
-  --bg-tertiary: var(--color-acento-suave);
-  --bg-light: var(--color-superficie-2);
-  --text-primary: var(--color-texto);
-  --text-secondary: var(--color-texto-suave);
-  --text-muted: var(--color-texto-suave);
-  --shadow-sm: var(--sombra-sm);
-  --shadow-md: var(--sombra-sm);
-  --shadow-lg: var(--sombra);
-  --shadow-xl: var(--sombra-lg);
-  --transition: all var(--transicion);
 }

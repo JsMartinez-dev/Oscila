@@ -1,102 +1,117 @@
+/* Ejercicios resueltos: índice por sección, enunciado e incisos colapsables. Valores de src/estilos/tokens.css. */
+
 .ejer {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 3rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--esp-5);
+}
+
+.ejer-cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
 }
 
 .ejer-cabecera h1 {
-  font-size: 1.8rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: var(--titulo-lg);
+  letter-spacing: -0.01em;
 }
 
 .ejer-cabecera p {
-  color: var(--text-secondary);
+  color: var(--color-texto-suave);
+  max-width: 50rem;
 }
 
 .ejer-cuerpo {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
-  gap: 1.25rem;
+  gap: var(--esp-5);
   align-items: start;
 }
 
 .ejer-indice {
   position: sticky;
-  top: 90px;
+  top: var(--esp-5);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  background: var(--bg-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 12px;
-  padding: 1rem;
+  gap: var(--esp-4);
+  background: var(--color-superficie-2);
+  border: var(--borde);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra);
+  padding: var(--esp-4);
 }
 
 .ejer-indice h2 {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-fuerte);
+  color: var(--color-texto-suave);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.35rem;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--esp-2);
 }
 
 .ejer-indice ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  gap: var(--esp-2);
 }
 
 .ejer-indice button {
-  background: var(--bg-primary);
-  color: var(--text-secondary);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 8px;
-  padding: 0.3rem 0.6rem;
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio-sm);
+  padding: 0.25rem 0.6rem;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
 }
 
-.ejer-indice button.activo {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: #fff;
+.ejer-indice button:hover {
+  background: var(--color-acento-suave);
+}
+
+.ejer-indice button.activo,
+.ejer-indice button.activo:hover {
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
+  font-weight: var(--peso-fuerte);
+  box-shadow: var(--sombra-sm);
 }
 
 .ejer-hoja {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--esp-3);
   line-height: 1.65;
 }
 
 .ejer-seccion {
-  font-size: 0.8rem;
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-fuerte);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #6366f1;
+  color: var(--color-texto-suave);
 }
 
 .ejer-titulo {
-  font-size: 1.6rem;
-  color: #1e1b4b;
+  font-size: var(--titulo-md);
+  color: var(--color-principal);
 }
 
 .ejer-hoja h3 {
   font-size: 1.1rem;
-  color: #312e81;
+  color: var(--color-principal);
 }
 
 .ejer-enunciado {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
+  background: var(--color-superficie-2);
+  border: var(--borde-fino);
+  border-radius: var(--radio);
   padding: 0.9rem 1.1rem;
 }
 
@@ -107,50 +122,76 @@
 .ejer-controles {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  margin-top: var(--esp-2);
 }
 
 .ejer-controles h3 {
   margin-right: auto;
 }
 
+/* Botones secundarios: mismo aspecto que .btn */
 .ejer-controles button,
 .ejer-navegar button {
-  background: #eef2ff;
-  color: #3730a3;
-  border: 1px solid #c7d2fe;
-  border-radius: 8px;
-  padding: 0.35rem 0.75rem;
+  background: var(--color-superficie);
+  color: var(--color-principal);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
+  padding: 0.35rem 0.8rem;
+  font-weight: var(--peso-medio);
   cursor: pointer;
 }
 
+.ejer-controles button:hover,
+.ejer-navegar button:hover:not(:disabled) {
+  background: var(--color-acento-suave);
+}
+
+.ejer-controles button:active,
+.ejer-navegar button:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
 .ejer-navegar button:disabled {
-  opacity: 0.4;
+  color: var(--color-texto-suave);
+  border-style: dashed;
+  box-shadow: none;
   cursor: not-allowed;
 }
 
 .ejer-inciso {
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  background: #ffffff;
+  border: var(--borde);
+  border-radius: var(--radio);
+  background: var(--color-fondo);
 }
 
 .ejer-inciso > summary {
   cursor: pointer;
   padding: 0.65rem 1rem;
-  font-weight: 600;
-  color: #1e1b4b;
+  font-weight: var(--peso-fuerte);
+  color: var(--color-principal);
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--esp-2);
+  border-radius: calc(var(--radio) - 2px);
+}
+
+.ejer-inciso > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ejer-inciso > summary:hover {
+  background: var(--color-acento-suave);
 }
 
 .ejer-inciso > summary::before {
   content: '▸';
-  color: #6366f1;
-  transition: transform 0.15s;
+  color: var(--color-principal);
+  transition: transform var(--transicion);
 }
 
 .ejer-inciso[open] > summary::before {
@@ -158,7 +199,8 @@
 }
 
 .ejer-inciso[open] > summary {
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: var(--borde);
+  border-radius: calc(var(--radio) - 2px) calc(var(--radio) - 2px) 0 0;
 }
 
 .ejer-inciso-cuerpo {
@@ -171,10 +213,10 @@
 }
 
 .ejer-inciso-cuerpo blockquote {
-  background: #eef2ff;
-  border-left: 4px solid #6366f1;
+  background: var(--color-acento-suave);
+  border-left: 4px solid var(--color-principal);
   padding: 0.5rem 0.9rem;
-  border-radius: 8px;
+  border-radius: var(--radio-sm);
   margin: 0.5rem 0;
 }
 
@@ -182,9 +224,11 @@
   margin-top: 0.6rem;
 }
 
+/* Figuras SVG del paquete de ejercicios: nunca más anchas que la hoja */
 .md-figura {
   display: block;
   max-width: min(100%, 520px);
+  height: auto;
   margin: 0.5rem auto;
 }
 
@@ -199,13 +243,14 @@
 
 .md-tabla-wrap th,
 .md-tabla-wrap td {
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--color-hoja-linea);
   padding: 0.3rem 0.7rem;
   text-align: center;
 }
 
 .md-tabla-wrap th {
-  background: #f3f4f6;
+  background: var(--color-superficie-2);
+  color: var(--color-principal);
 }
 
 .ejer-hoja .katex-display {
@@ -217,7 +262,15 @@
 .ejer-navegar {
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
+  gap: var(--esp-3);
+  margin-top: var(--esp-4);
+}
+
+/* Entre 900 y 1023 px hay barra superior fija: el índice se pega debajo de ella */
+@media (max-width: 1023.98px) {
+  .ejer-indice {
+    top: calc(var(--alto-barra-movil) + var(--esp-3));
+  }
 }
 
 @media (max-width: 900px) {
@@ -226,5 +279,17 @@
   }
   .ejer-indice {
     position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .ejer-cabecera h1 {
+    font-size: var(--titulo-md);
+  }
+  .ejer-hoja.hoja {
+    padding: var(--esp-4);
+  }
+  .ejer-inciso-cuerpo {
+    padding: 0.6rem 0.75rem 0.85rem;
   }
 }

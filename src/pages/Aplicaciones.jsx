@@ -17,7 +17,13 @@ export default function Aplicaciones({ onNavigate }) {
       </header>
       <div className="contenido-indice">
         {APLICACIONES.map((a, i) => (
-          <button key={a.id} type="button" className={abierta === a.id ? 'activa' : ''} onClick={() => setAbierta(a.id)}>
+          <button
+            key={a.id}
+            type="button"
+            className={abierta === a.id ? 'activa' : ''}
+            aria-current={abierta === a.id ? 'true' : undefined}
+            onClick={() => setAbierta(a.id)}
+          >
             <span className="contenido-num">{i + 1}</span>
             <span>
               <strong>{a.titulo}</strong>

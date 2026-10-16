@@ -117,12 +117,38 @@
   box-shadow: var(--sombra-sm);
   text-align: left;
   cursor: pointer;
-  transition: transform var(--transicion), box-shadow var(--transicion);
+  transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
 }
 
 .modulo-acceso:hover {
-  transform: translate(-1px, -1px);
+  transform: translate(-2px, -2px);
   box-shadow: var(--sombra);
+}
+
+/* La tarjeta grande ya es lila suave: al pasar el cursor, el título se subraya (además de la sombra y la flecha) */
+.modulo-acceso:hover .modulo-acceso-nombre,
+.modulo-acceso:focus-visible .modulo-acceso-nombre {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* Flecha que indica que toda la tarjeta lleva a la sección */
+.modulo-acceso-titulo::after {
+  content: '→';
+  content: '→' / ''; /* decorativa: sin texto alternativo para lectores de pantalla */
+  margin-left: auto;
+  font-size: var(--titulo-sm);
+  line-height: 1;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--transicion), transform var(--transicion);
+}
+
+.modulo-acceso:hover .modulo-acceso-titulo::after,
+.modulo-acceso:focus-visible .modulo-acceso-titulo::after {
+  opacity: 1;
+  transform: none;
 }
 
 .modulo-acceso:active {
@@ -162,8 +188,8 @@
 }
 
 .inicio-universidad img {
-  width: 3.5rem;
-  height: auto;
+  height: 72px;
+  width: auto;
 }
 
 .inicio-personas {
