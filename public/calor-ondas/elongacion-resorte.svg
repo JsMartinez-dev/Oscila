@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 222" width="630" height="222" font-family="system-ui, 'Segoe UI', Roboto, sans-serif">
+<title>Elongación de una masa unida a un resorte</title>
+<rect width="630" height="222" fill="#ffffff"/>
+
+<defs>
+  <pattern id="rayado" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#f97316"/><line x1="0" y1="0" x2="0" y2="8" stroke="#7c2d12" stroke-width="3"/></pattern>
+  <marker id="fe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#160b26"/></marker>
+</defs>
+<rect x="38" y="20" width="14" height="108" fill="#9ca3af" stroke="#160b26" stroke-width="2"/>
+<rect x="38" y="125" width="540" height="10" fill="url(#rayado)" stroke="#160b26" stroke-width="1"/>
+<line x1="20" y1="137" x2="598" y2="137" stroke="#160b26" stroke-width="1.2"/>
+<text x="602" y="156" font-size="20" font-family="'Times New Roman', Times, serif" font-style="italic" fill="#160b26">x</text>
+<g transform="translate(52 0)">
+  <g>
+    <animateTransform attributeName="transform" type="scale" values="0.51 1;1.49 1;0.51 1" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.37 0 0.63 1;0.37 0 0.63 1" dur="3s" repeatCount="indefinite"/>
+    <path d="M0 85 C2 67 19.09 67 11.09 85 C3.09 103 -4 103 13.09 85 C15.09 67 32.18 67 24.18 85 C16.18 103 9.09 103 26.18 85 C28.18 67 45.27 67 37.27 85 C29.27 103 22.18 103 39.27 85 C41.27 67 58.36 67 50.36 85 C42.36 103 35.27 103 52.36 85 C54.36 67 71.45 67 63.45 85 C55.45 103 48.36 103 65.45 85 C67.45 67 84.55 67 76.55 85 C68.55 103 61.45 103 78.55 85 C80.55 67 97.64 67 89.64 85 C81.64 103 74.55 103 91.64 85 C93.64 67 110.73 67 102.73 85 C94.73 103 87.64 103 104.73 85 C106.73 67 123.82 67 115.82 85 C107.82 103 100.73 103 117.82 85 C119.82 67 136.91 67 128.91 85 C120.91 103 113.82 103 130.91 85 C132.91 67 150 67 142 85 C134 103 126.91 103 144 85 C146 67 163.09 67 155.09 85 C147.09 103 140 103 157.09 85 C159.09 67 176.18 67 168.18 85 C160.18 103 153.09 103 170.18 85 C172.18 67 189.27 67 181.27 85 C173.27 103 166.18 103 183.27 85 C185.27 67 202.36 67 194.36 85 C186.36 103 179.27 103 196.36 85 C198.36 67 215.45 67 207.45 85 C199.45 103 192.36 103 209.45 85 C211.45 67 228.55 67 220.55 85 C212.55 103 205.45 103 222.55 85 C224.55 67 241.64 67 233.64 85 C225.64 103 218.55 103 235.64 85 C237.64 67 254.73 67 246.73 85 C238.73 103 231.64 103 248.73 85 C250.73 67 267.82 67 259.82 85 C251.82 103 244.73 103 261.82 85 C263.82 67 280.91 67 272.91 85 C264.91 103 257.82 103 274.91 85 C276.91 67 294 67 286 85 C278 103 270.91 103 288 85" fill="none" stroke="#6b7280" stroke-width="2.2" vector-effect="non-scaling-stroke"/>
+  </g>
+</g>
+<g>
+  <animateTransform attributeName="transform" type="translate" values="-142 0;140 0;-142 0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.37 0 0.63 1;0.37 0 0.63 1" dur="3s" repeatCount="indefinite"/>
+  <rect x="340" y="45" width="80" height="80" fill="#f2e6b8" stroke="#160b26" stroke-width="2.5"/>
+  <line x1="380" y1="53" x2="380" y2="117" stroke="#160b26" stroke-width="1.2" marker-start="url(#fe)" marker-end="url(#fe)"/>
+  <text x="386" y="93" font-size="24" font-family="'Times New Roman', Times, serif" font-style="italic" fill="#160b26">m</text>
+</g>
+<text x="125" y="48" font-size="18" font-family="'Times New Roman', Times, serif" font-style="italic" fill="#160b26">k</text>
+<text x="330" y="16" font-size="12" text-anchor="middle" fill="#160b26">Posición</text>
+<text x="330" y="30" font-size="12" text-anchor="middle" fill="#160b26">de equilibrio</text>
+<line x1="380" y1="12" x2="380" y2="36" stroke="#160b26" stroke-width="1.2" marker-end="url(#fe)"/>
+<line x1="215" y1="170" x2="545" y2="170" stroke="#160b26" stroke-width="1.2"/>
+<line x1="238" y1="150" x2="238" y2="190" stroke="#160b26" stroke-width="1.2"/>
+<line x1="520" y1="150" x2="520" y2="190" stroke="#160b26" stroke-width="1.2"/>
+<line x1="380" y1="195" x2="380" y2="146" stroke="#160b26" stroke-width="1.2" marker-end="url(#fe)"/>
+<text x="230" y="210" font-size="19" font-family="'Times New Roman', Times, serif" text-anchor="middle" fill="#160b26">− <tspan font-style="italic">A</tspan></text>
+<text x="380" y="210" font-size="17" font-family="'Times New Roman', Times, serif" text-anchor="middle" fill="#160b26"><tspan font-style="italic">x</tspan> = 0</text>
+<text x="520" y="210" font-size="19" font-family="'Times New Roman', Times, serif" font-style="italic" text-anchor="middle" fill="#160b26">A</text>
+</svg>

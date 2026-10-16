@@ -6,7 +6,12 @@ import Ejercicios from "./pages/Ejercicios";
 import Teoria from "./pages/Teoria";
 import Aplicaciones from "./pages/Aplicaciones";
 import TestInteractivo from "./pages/TestInteractivo";
-import CalorOndas from "./pages/CalorOndas";
+import COPortada from "./pages/calor-ondas/Portada";
+import COMarco from "./pages/calor-ondas/MarcoConceptual";
+import COAplicaciones from "./pages/calor-ondas/Aplicaciones";
+import COLaboratorio from "./pages/calor-ondas/Laboratorio";
+import COEjercicios from "./pages/calor-ondas/Ejercicios";
+import COTest from "./pages/calor-ondas/Test";
 import { useModoFeria } from "./components/ModoFeria";
 
 const PAGES = {
@@ -16,7 +21,12 @@ const PAGES = {
   montaje: Montaje,
   ejercicios: Ejercicios,
   test: TestInteractivo,
-  "calor-ondas": CalorOndas,
+  "co-inicio": COPortada,
+  "co-teoria": COMarco,
+  "co-aplicaciones": COAplicaciones,
+  "co-laboratorio": COLaboratorio,
+  "co-ejercicios": COEjercicios,
+  "co-test": COTest,
 };
 
 // Desde este ancho la barra lateral queda fija; por debajo es un cajón (igual que en index.css)
@@ -43,7 +53,7 @@ export default function App() {
 
   // Calor y Ondas está en revisión: no se muestra en modo feria
   useEffect(() => {
-    if (feria.activo && activePage === "calor-ondas") setActivePage("inicio");
+    if (feria.activo && activePage.startsWith("co-")) setActivePage("inicio");
   }, [feria.activo, activePage]);
 
   // Si la ventana pasa a escritorio con el cajón abierto, se cierra
