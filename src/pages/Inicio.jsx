@@ -112,14 +112,7 @@ export default function Inicio({ onNavigate, feria = false }) {
                 <li>{EYM.profesor}</li>
               </ul>
             </div>
-            {!feria && (
-              <div className="inicio-creditos-co">
-                <h3 className="inicio-creditos-titulo">Calor y Ondas</h3>
-                <p>
-                  Módulo original desarrollado por {CO.integrantes.join(', ')}. Profesor: {CO.profesor}.
-                </p>
-              </div>
-            )}
+
           </div>
         </div>
         <button type="button" className="btn" onClick={() => onNavigate?.('creditos')}>
