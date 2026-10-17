@@ -1,4 +1,4 @@
-// Barra lateral: módulos de la plataforma y secciones de Electricidad y Magnetismo.
+  // Barra lateral: módulos de la plataforma y secciones de Electricidad y Magnetismo.
 // En escritorio queda fija a la izquierda; en celular y tableta es un cajón que abre el botón "Menú".
 
 import { useEffect, useRef } from 'react';
@@ -108,9 +108,7 @@ const ICONO_CREDITOS = svg(
 export function Marca() {
   return (
     <div className="marca">
-      <span className="marca-icono" aria-hidden="true">
-        {ICONO_MARCA}
-      </span>
+      <img className="marca-icono" src="/logotipos/logotipo-cuadro.svg" alt="" aria-hidden="true" />
       <span className="marca-texto">
         <span className="marca-titulo">{PLATAFORMA.nombre}</span>
         <span className="marca-sub">Plataforma de física</span>

@@ -1,8 +1,23 @@
-# Oscila — Plataforma de física
+<p align="center">
+  <img src="public/logotipos/LOGOTIPO-NOMBRE.svg" alt="Oscila — Plataforma de física" width="300">
+</p>
 
-*Física que se ve y se calcula.*
+<p align="center"><em>Física que se ve y se calcula.</em></p>
 
-Plataforma educativa de la Universidad del Magdalena, preparada para el **II Foro Internacional de Física**. Tiene tres módulos:
+<p align="center">
+  <img src="https://img.shields.io/badge/estado-en%20desarrollo-orange" alt="Estado: en desarrollo">
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-18-61DAFB" alt="React 18"></a>
+  <a href="https://vite.dev/"><img src="https://img.shields.io/badge/Vite-5-646CFF" alt="Vite 5"></a>
+  <a href="#sin-internet-d%C3%ADa-del-foro"><img src="https://img.shields.io/badge/funciona%20sin%20internet-parcialmente-2E7D32" alt="Funciona parcialmente sin internet"></a>
+  <a href="#secciones"><img src="https://img.shields.io/badge/m%C3%B3dulo%20principal-Electricidad%20y%20Magnetismo-6A1B9A" alt="Módulo principal: Electricidad y Magnetismo"></a>
+  <a href="#cr%C3%A9ditos"><img src="https://img.shields.io/badge/proyecto-educativo-1565C0" alt="Proyecto educativo"></a>
+</p>
+
+<p align="center">
+  Plataforma educativa de la Universidad del Magdalena para aprender, visualizar y resolver problemas de física.
+</p>
+
+Preparada para el **II Foro Internacional de Física**. Tiene tres módulos:
 
 - **Electricidad y Magnetismo** (principal).
 - **Calor y Ondas** (en revisión; restaurado de la versión anterior, oculto en modo feria).

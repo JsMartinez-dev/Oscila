@@ -201,16 +201,11 @@ textarea {
 }
 
 .marca-icono {
-  display: grid;
-  place-items: center;
+  display: block;
   width: 2.4rem;
   height: 2.4rem;
   flex-shrink: 0;
-  background: var(--color-acento);
-  color: var(--color-principal);
-  border: var(--borde);
-  border-radius: var(--radio);
-  box-shadow: var(--sombra-sm);
+  object-fit: contain;
 }
 
 .marca-texto {
