@@ -1,5 +1,4 @@
 import { useState } from "react";
-import jsPDF from "jspdf";
 import "../pages/TestInteractivo.css";
 import { PREGUNTAS as QUESTIONS } from "../contenido/test.js";
 import { EYM, PLATAFORMA, listaNombres } from "../contenido/creditos.js";
@@ -55,137 +54,19 @@ export default function TestInteractivo() {
     setIncorrectTopics([]);
   };
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-    let yPosition = 20;
-    const margin = 15;
-    const maxWidth = pageWidth - 2 * margin;
-
-    // Título
-    doc.setFontSize(18);
-    doc.setTextColor(25, 118, 210);
-    doc.text("Plan de Estudio Personalizado", pageWidth / 2, yPosition, {
-      align: "center",
+  // El PDF se carga solo al descargarlo: así jsPDF no pesa en la carga inicial.
+  const generatePDF = async () => {
+    const { generarPlanPDF } = await import("../contenido/planEstudioPdf.js");
+    await generarPlanPDF({
+      puntaje: score,
+      total: QUESTIONS.length,
+      temasFallados: incorrectTopics,
+      modulo: EYM.modulo,
+      universidad: EYM.universidad,
+      profesor: EYM.profesor,
+      desarrolladores: listaNombres(EYM.desarrolladores),
+      plataforma: PLATAFORMA.nombre,
     });
-    yPosition += 15;
-
-    // Fecha
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    const fecha = new Date().toLocaleDateString("es-ES");
-    doc.text(`Fecha: ${fecha}`, margin, yPosition);
-    yPosition += 6;
-    doc.text(`${EYM.modulo} - ${EYM.universidad}`, margin, yPosition);
-    yPosition += 5;
-    doc.text(`Profesor: ${EYM.profesor}`, margin, yPosition);
-    yPosition += 5;
-    doc.text(`Desarrollado por: ${listaNombres(EYM.desarrolladores)}`, margin, yPosition);
-    yPosition += 8;
-
-    // Línea separadora
-    doc.setDrawColor(200, 200, 200);
-    doc.line(margin, yPosition, pageWidth - margin, yPosition);
-    yPosition += 8;
-
-    // Resultados
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Resultados del Test:", margin, yPosition);
-    yPosition += 7;
-
-    doc.setFontSize(10);
-    const percentage = Math.round((score / QUESTIONS.length) * 100);
-    doc.text(
-      `Puntuación: ${score}/${QUESTIONS.length} (${percentage}%)`,
-      margin,
-      yPosition
-    );
-    yPosition += 10;
-
-    // Temas a estudiar
-    if (incorrectTopics.length > 0) {
-      doc.setFontSize(12);
-      doc.setTextColor(210, 25, 25);
-      doc.text("Temas que debes repasar:", margin, yPosition);
-      yPosition += 8;
-
-      // Temas únicos
-      const uniqueTopics = [...new Set(incorrectTopics)];
-
-      doc.setFontSize(10);
-      doc.setTextColor(0, 0, 0);
-      uniqueTopics.forEach((topic, index) => {
-        const text = `${index + 1}. ${topic}`;
-        doc.text(text, margin + 5, yPosition);
-        yPosition += 7;
-
-        // Verificar si se necesita una nueva página
-        if (yPosition > pageHeight - 20) {
-          doc.addPage();
-          yPosition = 20;
-        }
-      });
-
-      yPosition += 5;
-    } else {
-      doc.setFontSize(12);
-      doc.setTextColor(25, 150, 25);
-      doc.text(
-        "¡Felicidades! No hay temas que repasar. ¡Excelente desempeño!",
-        margin,
-        yPosition
-      );
-      yPosition += 12;
-    }
-
-    // Línea separadora
-    doc.setDrawColor(200, 200, 200);
-    doc.line(margin, yPosition, pageWidth - margin, yPosition);
-    yPosition += 8;
-
-    // Sugerencias
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Sugerencias de Estudio:", margin, yPosition);
-    yPosition += 7;
-
-    doc.setFontSize(10);
-    const suggestions = [
-      "- Repasa la sección de Teoría: potencial, capacitancia, circuitos y Kirchhoff",
-      "- Dibuja circuitos en el Montaje virtual y revisa la solución paso a paso",
-      "- Resuelve los Ejercicios resueltos, abriendo cada inciso solo después de intentarlo",
-      "- Mira las Aplicaciones en ingeniería para conectar las fórmulas con casos reales",
-      "- Vuelve a hacer el test después de estudiar",
-    ];
-
-    suggestions.forEach((suggestion) => {
-      const lines = doc.splitTextToSize(suggestion, maxWidth - 5);
-      lines.forEach((line) => {
-        if (yPosition > pageHeight - 20) {
-          doc.addPage();
-          yPosition = 20;
-        }
-        doc.text(line, margin + 5, yPosition);
-        yPosition += 6;
-      });
-    });
-
-    yPosition += 5;
-
-    // Pie de página
-    doc.setFontSize(9);
-    doc.setTextColor(150, 150, 150);
-    doc.text(
-      `${PLATAFORMA.nombre} - Test de ${EYM.modulo}`,
-      pageWidth / 2,
-      pageHeight - 10,
-      { align: "center" }
-    );
-
-    // Descargar PDF
-    doc.save("Plan_de_Estudio.pdf");
   };
 
   if (testFinished) {
