@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PREGUNTAS as QUESTIONS } from "../../contenido/calor-ondas/test.js";
 import { CREDITOS_CALOR_ONDAS as CREDITOS } from "../../contenido/calor-ondas/creditos.js";
-import { PLATAFORMA } from "../../contenido/creditos.js";
+import { EYM, PLATAFORMA, listaNombres } from "../../contenido/creditos.js";
 import BannerRevision from "./BannerRevision.jsx";
 import "../TestInteractivo.css";
 import "./CalorOndas.css";
@@ -56,10 +56,6 @@ export default function Test() {
     setIncorrectTopics([]);
   };
 
-  // "A, B y C": une los nombres como se lee en español.
-  const unirNombres = (lista) =>
-    lista.length > 1 ? `${lista.slice(0, -1).join(", ")} y ${lista[lista.length - 1]}` : lista[0] || "";
-
   // El PDF se carga solo al descargarlo: así jsPDF no pesa en la carga inicial.
   const generatePDF = async () => {
     const { generarPlanPDF } = await import("../../contenido/planEstudioPdf.js");
@@ -70,7 +66,7 @@ export default function Test() {
       modulo: "Calor y Ondas",
       universidad: CREDITOS.universidad,
       profesor: CREDITOS.profesor,
-      desarrolladores: unirNombres(CREDITOS.integrantes),
+      desarrolladores: listaNombres(EYM.desarrolladores),
       plataforma: PLATAFORMA.nombre,
       pie: `${PLATAFORMA.nombre} - Test de Oscilaciones y Movimiento Armónico Simple`,
       sugerencias: [
