@@ -193,6 +193,38 @@ textarea {
   display: none;
 }
 
+.boton-inicio {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0.55rem;
+  background: var(--color-acento);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-sm);
+  cursor: pointer;
+  margin-bottom: var(--esp-5);
+  transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
+}
+
+.boton-inicio:hover {
+  background: var(--color-acento-hover);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--sombra);
+}
+
+.boton-inicio:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+
+.boton-inicio img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .marca {
   display: flex;
   align-items: center;
