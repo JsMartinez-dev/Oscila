@@ -1,6 +1,7 @@
 import { useState } from "react";
-import jsPDF from "jspdf";
 import { PREGUNTAS as QUESTIONS } from "../../contenido/calor-ondas/test.js";
+import { CREDITOS_CALOR_ONDAS as CREDITOS } from "../../contenido/calor-ondas/creditos.js";
+import { PLATAFORMA } from "../../contenido/creditos.js";
 import BannerRevision from "./BannerRevision.jsx";
 import "../TestInteractivo.css";
 import "./CalorOndas.css";
@@ -55,130 +56,31 @@ export default function Test() {
     setIncorrectTopics([]);
   };
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-    let yPosition = 20;
-    const margin = 15;
-    const maxWidth = pageWidth - 2 * margin;
+  // "A, B y C": une los nombres como se lee en español.
+  const unirNombres = (lista) =>
+    lista.length > 1 ? `${lista.slice(0, -1).join(", ")} y ${lista[lista.length - 1]}` : lista[0] || "";
 
-    // Título
-    doc.setFontSize(18);
-    doc.setTextColor(25, 118, 210);
-    doc.text("Plan de Estudio Personalizado", pageWidth / 2, yPosition, {
-      align: "center",
+  // El PDF se carga solo al descargarlo: así jsPDF no pesa en la carga inicial.
+  const generatePDF = async () => {
+    const { generarPlanPDF } = await import("../../contenido/planEstudioPdf.js");
+    await generarPlanPDF({
+      puntaje: score,
+      total: QUESTIONS.length,
+      temasFallados: incorrectTopics,
+      modulo: "Calor y Ondas",
+      universidad: CREDITOS.universidad,
+      profesor: CREDITOS.profesor,
+      desarrolladores: unirNombres(CREDITOS.integrantes),
+      plataforma: PLATAFORMA.nombre,
+      pie: `${PLATAFORMA.nombre} - Test de Oscilaciones y Movimiento Armónico Simple`,
+      sugerencias: [
+        "Revisa los conceptos fundamentales en el Marco Conceptual.",
+        "Utiliza los Ejemplos de Ingeniería para ver aplicaciones prácticas.",
+        "Practica con los Simuladores de Péndulo y Resorte.",
+        "Completa los Ejercicios prácticos del tema.",
+        "Realiza el test nuevamente después de estudiar.",
+      ],
     });
-    yPosition += 15;
-
-    // Fecha
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    const fecha = new Date().toLocaleDateString("es-ES");
-    doc.text(`Fecha: ${fecha}`, margin, yPosition);
-    yPosition += 10;
-
-    // Línea separadora
-    doc.setDrawColor(200, 200, 200);
-    doc.line(margin, yPosition, pageWidth - margin, yPosition);
-    yPosition += 8;
-
-    // Resultados
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Resultados del Test:", margin, yPosition);
-    yPosition += 7;
-
-    doc.setFontSize(10);
-    const percentage = Math.round((score / QUESTIONS.length) * 100);
-    doc.text(
-      `Puntuación: ${score}/${QUESTIONS.length} (${percentage}%)`,
-      margin,
-      yPosition
-    );
-    yPosition += 10;
-
-    // Temas a estudiar
-    if (incorrectTopics.length > 0) {
-      doc.setFontSize(12);
-      doc.setTextColor(210, 25, 25);
-      doc.text("Temas que debes repasar:", margin, yPosition);
-      yPosition += 8;
-
-      // Temas únicos
-      const uniqueTopics = [...new Set(incorrectTopics)];
-
-      doc.setFontSize(10);
-      doc.setTextColor(0, 0, 0);
-      uniqueTopics.forEach((topic, index) => {
-        const text = `${index + 1}. ${topic}`;
-        doc.text(text, margin + 5, yPosition);
-        yPosition += 7;
-
-        if (yPosition > pageHeight - 20) {
-          doc.addPage();
-          yPosition = 20;
-        }
-      });
-
-      yPosition += 5;
-    } else {
-      doc.setFontSize(12);
-      doc.setTextColor(25, 150, 25);
-      doc.text(
-        "¡Felicidades! No hay temas que repasar. ¡Excelente desempeño!",
-        margin,
-        yPosition
-      );
-      yPosition += 12;
-    }
-
-    // Línea separadora
-    doc.setDrawColor(200, 200, 200);
-    doc.line(margin, yPosition, pageWidth - margin, yPosition);
-    yPosition += 8;
-
-    // Sugerencias
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Sugerencias de Estudio:", margin, yPosition);
-    yPosition += 7;
-
-    doc.setFontSize(10);
-    const suggestions = [
-      "• Revisa los conceptos fundamentales en el Marco Conceptual",
-      "• Utiliza los Ejemplos de Ingeniería para ver aplicaciones prácticas",
-      "• Practica con los Simuladores de Péndulo y Resorte",
-      "• Completa los Ejercicios prácticos del tema",
-      "• Realiza el test nuevamente después de estudiar",
-    ];
-
-    suggestions.forEach((suggestion) => {
-      const lines = doc.splitTextToSize(suggestion, maxWidth - 5);
-      lines.forEach((line) => {
-        if (yPosition > pageHeight - 20) {
-          doc.addPage();
-          yPosition = 20;
-        }
-        doc.text(line, margin + 5, yPosition);
-        yPosition += 6;
-      });
-    });
-
-    yPosition += 5;
-
-    // Pie de página
-    doc.setFontSize(9);
-    doc.setTextColor(150, 150, 150);
-    doc.text(
-      "Test Interactivo - Oscilaciones y Movimiento Armónico Simple",
-      pageWidth / 2,
-      pageHeight - 10,
-      { align: "center" }
-    );
-
-    // Descargar PDF
-    doc.save("Plan_de_Estudio.pdf");
   };
 
   if (testFinished) {
