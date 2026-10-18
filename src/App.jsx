@@ -96,6 +96,11 @@ export default function App() {
           </button>
         </header>
         <main className="page-content">
+          {activePage !== "inicio" && activePage !== "co-inicio" && (
+            <button type="button" className="boton-inicio" onClick={() => navegar("inicio")} title="Ir al inicio" aria-label="Ir al inicio">
+              <img src="/logotipos/house-logo.svg" alt="" aria-hidden="true" />
+            </button>
+          )}
           <PageComponent onNavigate={navegar} feria={feria.activo} />
         </main>
       </div>

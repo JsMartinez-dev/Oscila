@@ -13,6 +13,24 @@
   gap: var(--esp-3);
 }
 
+.inicio-marca {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+}
+
+.inicio-marca img {
+  width: clamp(4.5rem, 10vw, 6.5rem);
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+}
+
+.inicio-marca h1 {
+  color: var(--color-principal);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1;
+}
+
 .inicio-evento {
   font-size: var(--texto-sm);
   font-weight: var(--peso-medio);

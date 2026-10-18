@@ -72,4 +72,14 @@ export const IMAGENES_EYM = [
     archivos: ['favicon.svg'],
     credito: 'Dibujo propio (SVG) de Oscila.',
   },
+  {
+    titulo: 'Icono de inicio',
+    archivos: ['logotipos/house-logo.svg'],
+    credito: 'Icono de casa de Font Awesome Free. Licencia y atribución: https://fontawesome.com/license/free.',
+  },
+  {
+    titulo: 'Logotipos de Oscila',
+    archivos: ['logotipos/logotipo-cuadro.svg', 'logotipos/LOGOTIPO-NOMBRE.png', 'logotipos/LOGOTIPO-NOMBRE.svg', 'logotipos/LOGOTIPO.png', 'logotipos/LOGOTIPO.svg'],
+    credito: 'Dibujos propios (SVG/PNG) de la identidad visual de Oscila.',
+  },
 ];

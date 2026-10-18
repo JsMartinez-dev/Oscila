@@ -24,7 +24,10 @@ export default function Inicio({ onNavigate, feria = false }) {
   return (
     <div className="inicio">
       <header className="inicio-hero">
-        <h1 className="inicio-titulo">{PLATAFORMA.nombre}</h1>
+        <div className="inicio-marca" aria-label={PLATAFORMA.nombre}>
+          <img src="/logotipos/logotipo-cuadro.svg" alt="" />
+          <h1>{PLATAFORMA.nombre}</h1>
+        </div>
         <p className="inicio-lema">{PLATAFORMA.lema}</p>
         <p className="inicio-evento">
           {EYM.evento} · {EYM.universidad}
