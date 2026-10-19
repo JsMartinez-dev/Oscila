@@ -104,13 +104,16 @@ function rotar(c) {
 /** Cable ortogonal en L: primero horizontal y luego vertical. */
 function tramosL(a, b) {
   const tramos = [];
-  if (a.x !== b.x) tramos.push({ x1: a.x, y1: a.y, x2: b.x, y2: a.y });
-  if (a.y !== b.y) tramos.push({ x1: b.x, y1: a.y, x2: b.x, y2: b.y });
+  if (a.x !== b.x) 
+    tramos.push({ x1: a.x, y1: a.y, x2: b.x, y2: a.y });
+  if (a.y !== b.y)
+     tramos.push({ x1: b.x, y1: a.y, x2: b.x, y2: b.y });
   return tramos;
 }
 
 export default function Editor({ historial, onCalcular, avisoArriba = null }) {
   const { doc, cambiar, temporal, confirmar, deshacer, rehacer, puedeDeshacer, puedeRehacer } = historial;
+  
   const [herramienta, setHerramienta] = useState('seleccionar');
   const [rotFantasma, setRotFantasma] = useState(0);
   const [seleccion, setSeleccion] = useState(null); // { clase, id }
