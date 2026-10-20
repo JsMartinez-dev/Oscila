@@ -74,6 +74,8 @@ export function resolverCircuito(net) {
   const fuentes = net.elementos.filter((e) => e.tipo === 'fuente');
   const Rs = net.elementos.filter((e) => e.tipo === 'resistencia');
   const Cs = net.elementos.filter((e) => e.tipo === 'condensador');
+  const cables = net.elementos.filter((e) => e.tipo === 'cable');
+  const fuentesYCables = [...fuentes, ...cables.map((c) => ({ id: c.id, pos: c.a, neg: c.b, valor: 0 }))];
   const tierra = net.tierra && nodos.includes(net.tierra) ? net.tierra : fuentes[0].neg;
   const modo = Rs.length && Cs.length ? 'RC' : Rs.length ? 'R' : 'C';
 
@@ -81,15 +83,15 @@ export function resolverCircuito(net) {
   let J;
   try {
     if (modo === 'C') {
-      ({ V, J } = nodal({ nodos, conocidos: { [tierra]: 0 }, ramas: Cs.map((c) => ({ a: c.a, b: c.b, y: c.valor })), fuentes }));
+      ({ V, J } = nodal({ nodos, conocidos: { [tierra]: 0 }, ramas: Cs.map((c) => ({ a: c.a, b: c.b, y: c.valor })), fuentes: fuentesYCables }));
     } else {
       // Fase A: parte unida por resistencias y fuentes
-      const aristasA = [...Rs, ...fuentes].map(extremos);
+      const aristasA = [...Rs, ...fuentes, ...cables].map(extremos);
       const comp = componentes(nodos, aristasA);
       const cT = comp.get(tierra);
       const nodosA = nodos.filter((n) => comp.get(n) === cT);
-      const fuentesA = fuentes.filter((f) => comp.get(f.pos) === cT);
-      if (fuentesA.length !== fuentes.length) {
+      const fuentesA = fuentesYCables.filter((f) => comp.get(f.pos) === cT);
+      if (fuentes.some((f) => comp.get(f.pos) !== cT)) {
         return { ok: false, error: 'Hay una fuente unida al resto solo por condensadores; ese caso no está soportado.', avisos: val.avisos };
       }
       ({ V, J } = nodal({
@@ -130,6 +132,8 @@ export function resolverCircuito(net) {
     } else if (e.tipo === 'condensador') {
       const vab = V[e.a] - V[e.b];
       porElemento[e.id] = { tipo: e.tipo, Vab: vab, V: Math.abs(vab), Q: e.valor * Math.abs(vab), U: 0.5 * e.valor * vab * vab };
+    } else if (e.tipo === 'cable') {
+      porElemento[e.id] = { tipo: e.tipo, I: modo === 'C' ? 0 : -(J[e.id] ?? 0), Q: modo === 'C' ? -(J[e.id] ?? 0) : 0 };
     } else if (modo === 'C') {
       const Q = J[e.id];
       porElemento[e.id] = { tipo: e.tipo, Q, U: e.valor * Q, rol: Q >= 0 ? 'entrega' : 'absorbe' };

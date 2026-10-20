@@ -29,7 +29,7 @@ const otroExtremo = (e, v) => {
  * Analiza la topología. geo (opcional) permite usar las ventanas del dibujo como mallas.
  * Devuelve { ok, error, ramas, principales, ecNodos, mallas, origenMallas, sinCorriente }.
  */
-export function plantearKirchhoff(net, geo) {
+export function plantearKirchhoff(net, geo, opciones = {}) {
   const activos = elementosActivos(net);
   const idsActivos = new Set(activos.map((e) => e.id));
   const sinCorriente = net.elementos.filter((e) => !idsActivos.has(e.id)).map((e) => e.id);
@@ -82,7 +82,18 @@ export function plantearKirchhoff(net, geo) {
     const pts = r.elems.flatMap((x) => [pos[x.desde], pos[x.hacia]]).filter(Boolean);
     r.cx = pts.length ? pts.reduce((s, p) => s + p.x, 0) / pts.length : 0;
   }
-  if (geo) ramas.sort((a, b) => a.cx - b.cx);
+  const fijadas = ramas.map((r) => r.elems.map((x) => opciones.ramas?.[x.elem.id]).find(Boolean));
+  const conCurso = fijadas.every(Boolean) && new Set(fijadas.map((f) => f.k)).size === ramas.length;
+  if (conCurso) {
+    ramas.forEach((r, i) => {
+      r.fija = fijadas[i];
+      if (r.hacia !== r.fija.hacia && r.desde === r.fija.hacia) {
+        r.elems = r.elems.reverse().map((x) => ({ elem: x.elem, desde: x.hacia, hacia: x.desde }));
+        [r.desde, r.hacia] = [r.hacia, r.desde];
+      }
+    });
+    ramas.sort((a, b) => a.fija.k - b.fija.k);
+  } else if (geo) ramas.sort((a, b) => a.cx - b.cx);
   ramas.forEach((r, i) => {
     r.k = i + 1;
     r.variable = `I_{${i + 1}}`;
@@ -91,9 +102,10 @@ export function plantearKirchhoff(net, geo) {
   for (const r of ramas) for (const x of r.elems) ramaDe.set(x.elem.id, { rama: r, desde: x.desde });
 
   // --- Ecuaciones de nodo: todos los nodos principales menos uno (el último, de abajo a la derecha)
+  const esquina = geo?.esquinaNodo ?? pos;
   const ordenNodos = [...principales].sort((a, b) => {
-    const pa = pos[a];
-    const pb = pos[b];
+    const pa = esquina[a];
+    const pb = esquina[b];
     if (pa && pb) return pa.y - pb.y || pa.x - pb.x;
     return 0;
   });
@@ -118,10 +130,11 @@ export function plantearKirchhoff(net, geo) {
 
   // Cada malla: términos en el orden del recorrido
   for (const m of mallas) {
-    m.terminos = m.recorrido.map(({ id, desde }) => {
+    m.terminos = m.recorrido.flatMap(({ id, desde }) => {
       const { rama, desde: d0 } = ramaDe.get(id);
       const elem = rama.elems.find((x) => x.elem.id === id).elem;
       const aFavor = desde === d0;
+      if (elem.tipo === 'cable') return [];
       if (elem.tipo === 'fuente') {
         const deMenosAMas = desde === elem.neg;
         return { tipo: 'fuente', elem, valor: deMenosAMas ? elem.valor : -elem.valor };
@@ -130,7 +143,7 @@ export function plantearKirchhoff(net, geo) {
     });
   }
 
-  return { ok: true, ramas, principales: ordenNodos, ecNodos, mallas, origenMallas, sinCorriente, necesarias };
+  return { ok: true, ramas, principales: ordenNodos, ecNodos, mallas, origenMallas, sinCorriente, necesarias, conCurso };
 }
 
 /** Lazos fundamentales de un árbol generador sobre el grafo de ramas, orientados en horario si hay posiciones. */

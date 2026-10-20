@@ -25,7 +25,7 @@ c) Para cada uno de los condensadores, determine el voltaje aplicado, así como 
 
 ![Ejercicio 9 – figura 4](figuras/ej09_fig4.svg)
 
-> **Fórmulas:** serie: $\dfrac1{C_{eq}}=\dfrac1{C_a}+\dfrac1{C_b}$ ;  paralelo: $C_{eq}=C_a+C_b$ ;  $Q=C\,\Delta V$ ;  $U=\tfrac12Q\,V$
+> **Fórmulas:** serie: $\dfrac1{C_{eq}}=\dfrac1{C_a}+\dfrac1{C_b}$ ;  paralelo: $C_{eq}=C_a+C_b$ ;  $Q=C\,\Delta V$ ;  $U=\tfrac12Q\,\Delta V$
 
 **Datos SI:** $C_4=4.0\times10^{-6}\,\mathrm{F}$,  $C_7=7.0\times10^{-6}\,\mathrm{F}$,  $C_5=5.0\times10^{-6}\,\mathrm{F}$,  $C_6=6.0\times10^{-6}\,\mathrm{F}$,  $V_{ab}=10\,\mathrm{V}$.
 
@@ -53,7 +53,7 @@ $$
 
 $Q_{75}=C_{75}V_{ab}=(2.917\times10^{-6})(10)=2.917\times10^{-5}\,\mathrm{C}$  para $C_7$ y $C_5$;   $V_7=\dfrac{Q_{75}}{C_7}$,  $V_5=\dfrac{Q_{75}}{C_5}$.
 
-|  | $V$ (V) | $Q=CV$ (C) | $U=\tfrac12QV$ (J) |
+|  | $\Delta V$ (V) | $Q=C\,\Delta V$ (C) | $U=\tfrac12Q\,\Delta V$ (J) |
 |---|---|---|---|
 | $4.0\,\mu\mathrm{F}$ | $10.0$ | $4.00\times10^{-5}$ | $2.00\times10^{-4}$ |
 | $7.0\,\mu\mathrm{F}$ | $4.17$ | $2.92\times10^{-5}$ | $6.08\times10^{-5}$ |

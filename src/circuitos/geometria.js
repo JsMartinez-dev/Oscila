@@ -6,7 +6,8 @@
 //   cables:      [{ id, x1, y1, x2, y2 }],   // segmentos horizontales o verticales
 //   nodos:       [{ id, x, y }],             // punto de unión explícito (une cables que se cruzan)
 //   etiquetas:   [{ id, x, y, texto }],      // nombre de un punto (a, b, c…)
-//   curso:       { ejercicio, corrientes }   // opcional: corrientes de la solución del curso (ejemplos.js)
+//   curso:       { ejercicio, corrientes, ramas }   // opcional: solución del curso (ejemplos.js)
+//   ramasCable:  [['b', 'c']]
 // }
 // Coordenadas en unidades de cuadrícula; "y" crece hacia abajo (pantalla).
 // En la fuente, el terminal "a" es el − y el terminal "b" es el +.
@@ -63,7 +64,7 @@ class UnionFind {
 /**
  * Analiza el documento: parte cada cable en los puntos que tiene encima (terminales, extremos de
  * otros cables, nodos explícitos) y agrupa los puntos conectados.
- * Devuelve { segmentos, uf, puntosTerminal, terminalesPorComp }.
+ * Devuelve { segmentos, uf, puntosTerminal, terminalesPorComp, cortes }.
  */
 export function analizarGeometria(doc) {
   const componentes = doc.componentes ?? [];
@@ -99,6 +100,10 @@ export function analizarGeometria(doc) {
     uf.agregar(clave(e.x, e.y));
   }
 
+  const textoEn = new Map((doc.etiquetas ?? []).map((e) => [clave(e.x, e.y), e.texto.trim()]));
+  const pares = new Set((doc.ramasCable ?? []).flatMap(([a, b]) => [`${a}|${b}`, `${b}|${a}`]));
+  const esCorte = (p, q) => pares.has(`${textoEn.get(clave(p.x, p.y))}|${textoEn.get(clave(q.x, q.y))}`);
+  const cortes = [];
   const segmentos = [];
   for (const w of cables) {
     const encima = [...puntosEspeciales.values()].filter((p) => sobreSegmento(p, w));
@@ -107,7 +112,8 @@ export function analizarGeometria(doc) {
     for (let i = 0; i < encima.length - 1; i++) {
       const p = encima[i];
       const q = encima[i + 1];
-      uf.unir(clave(p.x, p.y), clave(q.x, q.y));
+      if (esCorte(p, q)) cortes.push({ p, q, de: textoEn.get(clave(p.x, p.y)), a: textoEn.get(clave(q.x, q.y)) });
+      else uf.unir(clave(p.x, p.y), clave(q.x, q.y));
       segmentos.push({ tipo: 'cable', cable: w.id, p, q });
     }
   }
@@ -116,7 +122,7 @@ export function analizarGeometria(doc) {
     segmentos.push({ tipo: 'componente', elemento: c.id, p: t.a, q: t.b });
   }
 
-  return { segmentos, uf, terminalesPorComp, puntosEspeciales };
+  return { segmentos, uf, terminalesPorComp, puntosEspeciales, cortes };
 }
 
 /** Intersección propia de dos segmentos (no cuenta extremos compartidos ni puntos sobre extremos). */

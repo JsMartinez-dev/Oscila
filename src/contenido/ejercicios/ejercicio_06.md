@@ -7,14 +7,14 @@ Un disco de radio $R$ tiene una densidad de carga superficial no uniforme dada p
 ## Solución
 ![Ejercicio 6 – figura 1](figuras/ej06_fig1.svg)
 
-> **Fórmulas:** $V=\displaystyle\int_0^R\frac{{K_e}\,\sigma(r)\,2\pi r\,dr}{\sqrt{r^2+x^2}}$ ;   $\displaystyle\int\frac{dr}{\sqrt{r^2+x^2}}=\ln\!\left(r+\sqrt{r^2+x^2}\right)$ ;   $E_x=-\dfrac{\partial V}{\partial x}$ ;   partes: $\displaystyle\int u\,dv=uv-\int v\,du$
+> **Fórmulas:** $V=\displaystyle\int_0^R\frac{{K_e}\,\sigma(r)\,2\pi r\,dr}{\sqrt{r^2+x^2}}$ ;   $\displaystyle\int\frac{dr}{\sqrt{r^2+x^2}}=\ln\!\left(r+\sqrt{r^2+x^2}\right)$ ;   $E_x=-\dfrac{\partial V}{\partial x}$ ;   partes: $\displaystyle\int f\,dg=f\,g-\int g\,df$
 
 ### Potencial en $P$
 
 **Paso 1. Elemento de carga (anillo).**  Un anillo de radio $r$ y ancho $dr$ tiene área $dA=(\text{perímetro})\cdot(\text{ancho})=2\pi r\,dr$, y su carga es
 
 $$
-dq=\sigma\,dA=(Cr)(2\pi r\,dr)=2\pi C\,r^2\,dr
+dq=\sigma\,dA=(C\,r)\cdot(2\pi r\,dr)=2\pi C\,r^2\,dr
 $$
 
 **Paso 2. Distancia a $P$.**  Por Pitágoras, todos los puntos del anillo están a la misma distancia de $P$:  $\sqrt{r^2+x^2}$.
@@ -31,19 +31,19 @@ $$
 **Paso 4. Integral por partes**  (primero sin límites):
 
 $$
-u=r\ \Rightarrow\ du=dr,\qquad\qquad dv=\frac{r\,dr}{\sqrt{r^2+x^2}}\ \Rightarrow\ v=\int\frac{r\,dr}{\sqrt{r^2+x^2}}
+f=r\ \Rightarrow\ df=dr,\qquad\qquad dg=\frac{r\,dr}{\sqrt{r^2+x^2}}\ \Rightarrow\ g=\int\frac{r\,dr}{\sqrt{r^2+x^2}}
 $$
 
-Para hallar $v$ se usa la sustitución $w=r^2+x^2$,  $dw=2r\,dr$ $\Rightarrow$ $r\,dr=\dfrac{dw}{2}$:
+Para hallar $g$ se usa la sustitución $w=r^2+x^2$,  $dw=2r\,dr$ $\Rightarrow$ $r\,dr=\dfrac{dw}{2}$:
 
 $$
-v=\int\frac{dw/2}{\sqrt w}=\frac12\int w^{-1/2}\,dw=\frac12\cdot\frac{w^{1/2}}{1/2}=\sqrt w=\sqrt{r^2+x^2}
+g=\int\frac{dw/2}{\sqrt w}=\frac12\int w^{-1/2}\,dw=\frac12\cdot\frac{w^{1/2}}{1/2}=\sqrt w=\sqrt{r^2+x^2}
 $$
 
 Entonces:
 
 $$
-\int\frac{r^2\,dr}{\sqrt{r^2+x^2}}=uv-\int v\,du=r\sqrt{r^2+x^2}-\int\sqrt{r^2+x^2}\,dr
+\int\frac{r^2\,dr}{\sqrt{r^2+x^2}}=f\,g-\int g\,df=r\sqrt{r^2+x^2}-\int\sqrt{r^2+x^2}\,dr
 \tag{2}
 $$
 

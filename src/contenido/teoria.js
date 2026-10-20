@@ -6,7 +6,7 @@ export const TEORIA = [
     titulo: 'Potencial eléctrico',
     resumen: 'Diferencia de potencial, potencial de cargas puntuales y distribuciones, energía y campo a partir del potencial.',
     md: String.raw`
-> **Notación estándar:** En los libros de texto de física se utiliza $V$ mayúscula para el potencial eléctrico y $\Delta V$ para la diferencia de potencial (voltaje), reservando la $v$ minúscula para la rapidez o velocidad de las partículas, evitando confusiones en problemas donde conviven ambas variables (como en conservación de la energía, $q\Delta V = \frac12 m v^2$).
+> **Notación estándar:** En los libros de texto de física se utiliza $V$ mayúscula para el potencial eléctrico y $\Delta V$ para la diferencia de potencial (voltaje), reservando la $v$ minúscula para la rapidez o velocidad de las partículas, evitando confusiones en problemas donde conviven ambas variables (como en conservación de la energía, partiendo del reposo: $\tfrac12mv^2=-q\,\Delta V$).
 
 **Definición.** La diferencia de potencial entre $a$ y $b$ es el trabajo por unidad de carga que hace falta contra el campo:
 
@@ -23,25 +23,27 @@ $$
 **Carga puntual:**
 
 $$
-\Delta V=-K_eq\int_{r_a}^{r_b}\frac{dr}{r^2}=K_eq\left(\frac1{r_b}-\frac1{r_a}\right)
+\Delta V=-K_e\,q\int_{r_a}^{r_b}\frac{dr}{r^2}=K_e\,q\left(\frac1{r_b}-\frac1{r_a}\right)
 $$
 
 Con $V=0$ en el infinito:
 
 $$
-V=\frac{K_eq}{r},\qquad K_e=\frac1{4\pi\varepsilon_0}\approx9\times10^9\ \mathrm{N\,m^2/C^2}
+V=\frac{K_e\,q}{r},\qquad K_e=\frac1{4\pi\varepsilon_0}\approx9\times10^9\ \mathrm{N\,m^2/C^2}
 $$
 
 **Sistema de cargas puntuales y distribuciones continuas** (superposición):
 
 $$
-V(\vec r)=\sum_{i=1}^N\frac{K_eq_i}{r_i},\qquad V(\vec r)=\int\frac{K_e\,dq}{r},\qquad dq=\lambda\,dl=\sigma\,dA=\rho\,dV
+V(\vec r)=\sum_{i=1}^N\frac{K_e\,q_i}{r_i},\qquad V(\vec r)=\int\frac{K_e\,dq}{r},\qquad dq=\lambda\,dl=\sigma\,dA=\rho\,d\tau
 $$
+
+Aquí $d\tau$ es el elemento de volumen (para no confundirlo con el potencial $V$).
 
 **Energía y trabajo.** El potencial es energía por unidad de carga:
 
 $$
-V=\frac{U}{q},\qquad U=qV,\qquad W_{a\to b}=-\Delta U=q(V_a-V_b)
+V=\frac{U}{q},\qquad U=q\,V,\qquad W_{a\to b}=-\Delta U=q\,(V_a-V_b)
 $$
 
 **Campo a partir del potencial:**
@@ -54,7 +56,7 @@ En coordenadas polares: $E_r=-\dfrac{\partial V}{\partial r}$ y $E_\theta=-\dfra
 
 > El campo $\vec E$ siempre es perpendicular a las superficies equipotenciales: mover una carga sobre una de ellas no cuesta trabajo.
 
-**Casos útiles.** Dipolo ($p=2qa$): $V=\dfrac{K_ep\cos\theta}{r^2}$, $E_r=\dfrac{2K_ep\cos\theta}{r^3}$, $E_\theta=\dfrac{K_ep\sin\theta}{r^3}$. Arco de radio $R$ con $\lambda$ uniforme, en su centro: $V=\dfrac{K_eQ}{R}$.
+**Casos útiles.** Dipolo ($p=2qa$): $V=\dfrac{K_e\,p\cos\theta}{r^2}$, $E_r=\dfrac{2K_e\,p\cos\theta}{r^3}$, $E_\theta=\dfrac{K_e\,p\sin\theta}{r^3}$. Arco de radio $R$ con $\lambda$ uniforme, en su centro: $V=\dfrac{K_e\,Q}{R}$.
 `,
   },
   {
@@ -71,7 +73,7 @@ $$
 **Energía almacenada:**
 
 $$
-U=\tfrac12Q\,V=\tfrac12C\,V^2=\tfrac12\frac{Q^2}{C}
+U=\tfrac12Q\,\Delta V=\tfrac12C\,(\Delta V)^2=\tfrac12\frac{Q^2}{C}
 $$
 
 **Serie** (misma carga $Q$ en todos):
@@ -86,7 +88,7 @@ $$
 C_{eq}=C_a+C_b
 $$
 
-**Redes de condensadores** (6 pasos): se combina hasta un equivalente, $Q_t=C_{eq}V_{AB}$, $U_t=\tfrac12Q_tV_{AB}$ y se regresa por cada diagrama (serie: misma $Q$; paralelo: mismo $V$).
+**Redes de condensadores** (6 pasos): se combina hasta un equivalente, $Q_t=C_{eq}\,V_{ab}$, $U_t=\tfrac12Q_t\,V_{ab}$ y se regresa por cada diagrama (serie: misma $Q$; paralelo: mismo $V$).
 
 **Método de capacitancia** (4 pasos): dibujo; $\vec E$ con Gauss; $\Delta V=-\int\vec E\cdot d\vec s$; $C=Q/\Delta V$.
 
@@ -136,7 +138,7 @@ $$
 
 En una fuente, $P=\varepsilon I$: **entrega** potencia si la corriente sale por su terminal $+$ y **absorbe** si entra por el $+$.
 
-**Redes de resistencias** (6 pasos): se combina hasta $R_{eq}$, $I_t=\dfrac{V_{AB}}{R_{eq}}$, $P_t=I_tV_{AB}$ y se regresa por cada diagrama (serie: misma $I$; paralelo: mismo $V$).
+**Redes de resistencias** (6 pasos): se combina hasta $R_{eq}$, $I_t=\dfrac{V_{ab}}{R_{eq}}$, $P_t=I_t\,V_{ab}$ y se regresa por cada diagrama (serie: misma $I$; paralelo: mismo $V$).
 
 **Clasificación** que usa el montaje virtual:
 

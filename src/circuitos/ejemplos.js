@@ -111,7 +111,7 @@ export const DOC_EJ14_CRUCE = {
   etiquetas: [],
 };
 
-// Ejercicio 15: tres fuentes, cuatro ramas (360 V con + abajo)
+// Ejercicio 15: tres fuentes, cinco corrientes con el cable b–c como rama (360 V con + abajo)
 export const DOC_EJ15 = {
   componentes: [
     comp('R200', 'resistencia', 0, 6, 90, 200),
@@ -135,7 +135,12 @@ export const DOC_EJ15 = {
   ],
   nodos: [],
   etiquetas: [et('a', 0, 0), et('b', 10, 0), et('c', 20, 0), et('d', 30, 0), et('e', 30, 16), et('f', 20, 16), et('g', 10, 16), et('h', 0, 16)],
-  curso: { ejercicio: 15, corrientes: { R200: -1, E40: 3, R80: -3, E360: 8, R20: 8, E80: 4, R70: -4 } },
+  ramasCable: [['b', 'c']],
+  curso: {
+    ejercicio: 15,
+    corrientes: { R200: -1, E40: 3, R80: -3, E360: 8, R20: 8, E80: 4, R70: -4 },
+    ramas: { R200: { k: 1, hacia: 'b' }, R80: { k: 2, hacia: 'f' }, Wbc: { k: 3, hacia: 'c' }, E80: { k: 4, hacia: 'f' }, R20: { k: 5, hacia: 'f' } },
+  },
 };
 
 // Ejercicio 9: red de 4 condensadores (C4, C7+C5, C6 en paralelo entre a y b) con 10 V
@@ -165,6 +170,6 @@ export const EJEMPLOS = [
   { id: 'ej12', titulo: 'Ej. 12 — R₁ con R₂ ∥ R₃ ∥ R₄', doc: DOC_EJ12 },
   { id: 'ej13', titulo: 'Ej. 13 — Red con fuente de 25 V', doc: DOC_EJ13 },
   { id: 'ej14', titulo: 'Ej. 14 — Dos fuentes, tres ramas', doc: DOC_EJ14 },
-  { id: 'ej15', titulo: 'Ej. 15 — Tres fuentes, cuatro ramas', doc: DOC_EJ15 },
+  { id: 'ej15', titulo: 'Ej. 15 — Tres fuentes, cinco corrientes', doc: DOC_EJ15 },
   { id: 'ej9', titulo: 'Ej. 9 — Red de 4 condensadores', doc: DOC_EJ9 },
 ];

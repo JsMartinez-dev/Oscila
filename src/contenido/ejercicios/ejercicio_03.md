@@ -32,7 +32,7 @@ $$
 Se integra de $x=R$ a $x=3R$. ${K_e}$ y $\lambda$ son constantes y salen de la integral:
 
 $$
-V_{der}=\int_R^{3R}\frac{{K_e}\lambda\,dx}{x}={K_e}\lambda\int_R^{3R}\frac{dx}{x}={K_e}\lambda\Big[\ln x\Big]_R^{3R}={K_e}\lambda\big(\ln 3R-\ln R\big)
+V_{der}=\int_R^{3R}\frac{{K_e}\lambda\,dx}{x}={K_e}\lambda\int_R^{3R}\frac{dx}{x}={K_e}\lambda\Big[\ln x\Big]_R^{3R}={K_e}\lambda\big(\ln(3R)-\ln R\big)
 $$
 
 Con la propiedad $\ln A-\ln B=\ln\dfrac AB$:
@@ -80,7 +80,7 @@ $$
 V_O={K_e}\lambda\ln3+\pi{K_e}\lambda+{K_e}\lambda\ln3={K_e}\lambda\,(\pi+2\ln3)
 $$
 
-Valor numérico del paréntesis: $\pi+2\ln3=3.1416+2(1.0986)=3.1416+2.1972=5.3388$.
+Valor numérico del paréntesis: $\pi+2\ln3=3.1416+2\times1.0986=3.1416+2.1972=5.3388$.
 
 $$
 \boxed{V_O={K_e}\lambda\,(\pi+2\ln3)\approx5.34\,{K_e}\lambda=\frac{\lambda\,(\pi+2\ln3)}{4\pi\varepsilon_0}}
@@ -122,7 +122,7 @@ $$
 $$
 \vec E_{izq}=+\frac{2{K_e}\lambda}{3R}\,\hat\imath
 \qquad\Rightarrow\qquad
-\vec E_{izq}+\vec E_{der}=\frac{2{K_e}\lambda}{3R}\hat\imath-\frac{2{K_e}\lambda}{3R}\hat\imath=\vec 0
+\vec E_{izq}+\vec E_{der}=\frac{2{K_e}\lambda}{3R}\,\hat\imath-\frac{2{K_e}\lambda}{3R}\,\hat\imath=\vec 0
 $$
 
 Los dos tramos rectos se anulan (son iguales y están a lados opuestos de $O$).

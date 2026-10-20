@@ -6,7 +6,9 @@ import { clasificar } from './clasificacion.js';
 import { resolverPasoAPaso } from './pasos.js';
 import { docANetlist } from './netlist.js';
 import { plantearKirchhoff, ecuacionesLineales } from './kirchhoff.js';
-import { DOC_EJ11, DOC_EJ12, DOC_EJ13, DOC_EJ14, DOC_EJ15, DOC_EJ14_CRUCE } from './ejemplos.js';
+import { resolverLineal } from './lineal.js';
+import { DOC_EJ11, DOC_EJ12, DOC_EJ13, DOC_EJ14, DOC_EJ15, DOC_EJ14_CRUCE, EJEMPLOS } from './ejemplos.js';
+import { cajasDibujo } from './Esquema.jsx';
 
 const datos = JSON.parse(readFileSync(resolve(process.cwd(), 'paquete_EyM/casos/casos_prueba_circuitos.json'), 'utf8'));
 const caso = (n) => datos.casos.find((c) => c.ejercicio === n);
@@ -120,10 +122,14 @@ describe('Mallas a partir del dibujo', () => {
     comprobarElementos(s.mna, caso(14).esperado);
   });
 
-  it('Ej. 15: tres ventanas en horario y Gauss con 4 incógnitas', () => {
+  it('Ej. 15: cable b–c como rama, 2 nodos y 3 mallas con 5 corrientes (como en clase)', () => {
     const { netlist, geo } = docANetlist(DOC_EJ15);
-    const pl = plantearKirchhoff(netlist, geo);
+    expect(netlist.elementos.find((e) => e.tipo === 'cable')).toEqual({ id: 'Wbc', tipo: 'cable', a: 'b', b: 'c' });
+    const pl = plantearKirchhoff(netlist, geo, { ramas: DOC_EJ15.curso.ramas });
     expect(pl.origenMallas).toBe('dibujo');
+    expect(pl.principales).toEqual(['b', 'c', 'f']);
+    expect(pl.ramas).toHaveLength(5);
+    expect(pl.ecNodos).toHaveLength(2);
     expect(pl.mallas).toHaveLength(3);
     expect(pl.mallas.map((m) => m.ruta)).toEqual([
       ['a', 'b', 'g', 'h', 'a'],
@@ -132,8 +138,34 @@ describe('Mallas a partir del dibujo', () => {
     ]);
     const s = resolverPasoAPaso(netlist, { doc: DOC_EJ15, geo });
     expect(s.ok, `${s.error} ${(s.fallas ?? []).join('; ')}`).toBe(true);
+    const ecs = s.bloques.filter((b) => b.tipo === 'ecuacion').map((b) => b.latex);
+    expect(ecs).toContain(String.raw`\text{Nodo } N_{1}:\quad I_{1}=I_{2}+I_{3}`);
+    expect(ecs).toContain(String.raw`\text{Nodo } N_{2}:\quad I_{3}=I_{4}+I_{5}`);
     expect(JSON.stringify(s.bloques)).toContain('eliminación de Gauss');
+    const diag = s.bloques.find((b) => b.tipo === 'diagrama');
+    expect(diag.anotaciones.nodos.map((n) => [n.etiqueta, n.x, n.y])).toEqual([['N1', 10, 0], ['N2', 20, 0], ['N3', 20, 16]]);
+    expect(diag.anotaciones.corrientes.map((c) => c.etiqueta)).toEqual(['I1', 'I2', 'I3', 'I4', 'I5']);
     comprobarElementos(s.mna, caso(15).esperado);
+    cerca(s.mna.porElemento.Wbc.I, 4, 'I del cable b→c');
+  });
+
+  it('Ej. 15: el sistema 5×5 de la solución escrita da los valores de MNA', () => {
+    const A = [
+      [1, -1, -1, 0, 0],
+      [0, 0, 1, -1, -1],
+      [-200, -80, 0, 0, 0],
+      [0, 80, 0, 0, -20],
+      [0, 0, 0, -70, 20],
+    ];
+    const b = [0, 0, 40, -400, 440];
+    const [I1, I2, I3, I4, I5] = resolverLineal(A, b);
+    const m = resolverCircuito(caso(15)).porElemento;
+    cerca(I1, -m.R200.I, 'I1 (sube por 200 Ω)');
+    cerca(I2, -m.E40.I, 'I2 (baja por la rama de 40 V)');
+    cerca(I3, I1 - I2, 'I3');
+    cerca(I4, -m.E80.I, 'I4 (baja por la rama de 80 V)');
+    cerca(I5, m.E360.I, 'I5 (baja por la rama de 360 V)');
+    expect([I1, I2, I3, I4, I5].map((x) => Math.round(x))).toEqual([1, -3, 4, -4, 8]);
   });
 
   it('dibujo con cruce sin nodo: usa lazos fundamentales y la solución sigue verificada', () => {
@@ -182,11 +214,12 @@ describe('Sentidos de corriente en Kirchhoff', () => {
   it('Ej. 15: regla, sentido supuesto en palabras, leyenda y sentido real', () => {
     const s = resolverDoc(DOC_EJ15);
     const t = textos(s);
-    expect(t).toContain('**Regla del sentido supuesto:** cada corriente sale por el $+$ de la fuente de su rama');
-    expect(t).toContain(String.raw`hacia abajo por la rama de $360\,\mathrm{V}$ (sale por el $+$ de la fuente)`);
-    expect(t).toContain(String.raw`hacia abajo por la rama de $200\,\Omega$`);
+    expect(t).toContain('**Numeración y sentidos:** se usan los de la solución del curso');
+    expect(t).toContain(String.raw`$I_{5}$: hacia abajo por la rama de $360\,\mathrm{V}$ (sale por el $+$ de la fuente)`);
+    expect(t).toContain(String.raw`$I_{1}$: hacia arriba por la rama de $200\,\Omega$`);
+    expect(t).toContain(String.raw`$I_{3}$: hacia la derecha por el cable de $N_{1}$ a $N_{2}$`);
     expect(t).toContain(String.raw`por la rama de $360\,\mathrm{V}$ circulan $8.00\,\mathrm{A}$ hacia abajo`);
-    expect(t).toContain(String.raw`el sentido real es el contrario al supuesto; por la rama de $200\,\Omega$ circula $1.00\,\mathrm{A}$ hacia arriba`);
+    expect(t).toContain(String.raw`el supuesto era correcto; por la rama de $200\,\Omega$ circula $1.00\,\mathrm{A}$ hacia arriba`);
     expect(t).toContain(`${FRASE_CURSO} (Ejercicio 15)`);
     expect(t).not.toContain('realmente va de');
     const diagrama = s.bloques.find((b) => b.tipo === 'diagrama');
@@ -221,4 +254,33 @@ describe('Sentidos de corriente en Kirchhoff', () => {
     expect(t).not.toContain(FRASE_CURSO);
     expect(s.bloques.find((b) => b.tipo === 'diagrama')?.leyenda ?? null).toBeNull();
   });
+});
+
+describe('Etiquetas de los dibujos sin encimarse', () => {
+  const solapa = (a, b) => a.x0 + 1 < b.x1 && b.x0 + 1 < a.x1 && a.y0 + 1 < b.y1 && b.y0 + 1 < a.y1;
+  const rectCable = (c) => ({ x0: Math.min(c.x1, c.x2) - 1, x1: Math.max(c.x1, c.x2) + 1, y0: Math.min(c.y1, c.y2) - 1, y1: Math.max(c.y1, c.y2) + 1 });
+  const choques = (doc, anotaciones) => {
+    const { textos, cuerpos, cables } = cajasDibujo(doc, anotaciones);
+    const lista = [];
+    textos.forEach((t, i) => {
+      for (const c of cables) if (solapa(t, rectCable(c))) lista.push(`${t.que} sobre un cable`);
+      for (const c of cuerpos) if (solapa(t, c)) lista.push(`${t.que} sobre ${c.que}`);
+      for (const u of textos.slice(i + 1)) if (solapa(t, u)) lista.push(`${t.que} sobre ${u.que}`);
+    });
+    return [...new Set(lista)];
+  };
+
+  for (const ej of EJEMPLOS) {
+    it(`${ej.titulo}: diagramas de la solución`, () => {
+      const { netlist, geo } = docANetlist(ej.doc);
+      const metodos = ej.id === 'ej9' ? [null] : [null, 'kirchhoff'];
+      for (const metodo of metodos) {
+        const s = resolverPasoAPaso(netlist, { doc: ej.doc, geo, metodo });
+        expect(s.ok, s.error).toBe(true);
+        for (const b of s.bloques.filter((x) => x.tipo === 'diagrama')) {
+          expect(choques(b.doc, b.anotaciones), `${metodo ?? 'auto'} · ${b.titulo}`).toEqual([]);
+        }
+      }
+    });
+  }
 });

@@ -19,11 +19,11 @@ c) el trabajo realizado por el campo eléctrico sobre una carga de $2.50\,\mathr
 
 $$
 V_A=\frac{{K_e} q_1}{r_{1A}}+\frac{{K_e} q_2}{r_{2A}}=\frac{{K_e}\,(q_1+q_2)}{r_{1A}}
-=\frac{(9\times10^9)(2.40\times10^{-9}-6.50\times10^{-9})}{0.050}
+=\frac{(9\times10^9)\cdot(2.40\times10^{-9}-6.50\times10^{-9})}{0.050}
 $$
 
 $$
-V_A=\frac{(9\times10^9)(-4.10\times10^{-9})}{0.050}=\frac{-36.9}{0.050}
+V_A=\frac{(9\times10^9)\cdot(-4.10\times10^{-9})}{0.050}=\frac{-36.9}{0.050}
 \ \Rightarrow\ \boxed{V_A=-738\,\mathrm{V}}
 $$
 
@@ -31,17 +31,17 @@ $$
 
 $$
 V_B={K_e}\left(\frac{q_1}{r_{1B}}+\frac{q_2}{r_{2B}}\right)
-=(9\times10^9)\left(\frac{2.40\times10^{-9}}{0.080}-\frac{6.50\times10^{-9}}{0.060}\right)
+=(9\times10^9)\cdot\left(\frac{2.40\times10^{-9}}{0.080}-\frac{6.50\times10^{-9}}{0.060}\right)
 $$
 
 $$
-V_B=(9\times10^9)\left(3.00\times10^{-8}-1.083\times10^{-7}\right)=(9\times10^9)(-7.833\times10^{-8})\ \Rightarrow\ \boxed{V_B=-705\,\mathrm{V}}
+V_B=(9\times10^9)\cdot\left(3.00\times10^{-8}-1.083\times10^{-7}\right)=(9\times10^9)\cdot(-7.833\times10^{-8})\ \Rightarrow\ \boxed{V_B=-705\,\mathrm{V}}
 $$
 
 ### c) Trabajo del campo sobre $q$ de $B$ a $A$
 
 $$
-W_{B\to A}=q\,(V_B-V_A)=(2.50\times10^{-9})\big[-705-(-738)\big]=(2.50\times10^{-9})(33.0)
+W_{B\to A}=q\,(V_B-V_A)=(2.50\times10^{-9})\cdot\big[-705-(-738)\big]=(2.50\times10^{-9})\cdot(33.0)
 $$
 
 $$

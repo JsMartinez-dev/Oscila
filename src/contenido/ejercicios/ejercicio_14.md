@@ -8,7 +8,7 @@ Determine la corriente, el voltaje y la potencia disipada en cada una de las res
 ## Solución
 ![Ejercicio 14 – figura 1](figuras/ej14_fig1.svg)
 
-Nodos: $b$ (une $a$–$b$) y $e$ (une $d$–$e$–$f$). Sentidos supuestos: $I_1$ baja por $8\,\Omega$; $I_2$ sube por la rama central; $I_3$ sube por la derecha y va de $c$ a $b$ por $3\,\Omega$. Mallas en sentido horario.
+Nodos: $N_1$ (punto $b$, une $a$–$b$) y $N_2$ (punto $e$, une $d$–$e$–$f$). Sentidos supuestos: $I_1$ baja por $8\,\Omega$; $I_2$ sube por la rama central; $I_3$ sube por la derecha y va de $c$ a $b$ por $3\,\Omega$. Mallas en sentido horario.
 
 > **Fórmulas:** Nodos: $\sum I_{entra}=\sum I_{sale}$ ;  Mallas: $\sum V=0$ ;  $R$ con $I$: $-IR$, contra $I$: $+IR$ ; fuente $-\to+$: $+\varepsilon$,  $+\to-$: $-\varepsilon$ ;  $P=I^2R$ ;  $P=\varepsilon I$
 >
@@ -17,7 +17,7 @@ Nodos: $b$ (une $a$–$b$) y $e$ (une $d$–$e$–$f$). Sentidos supuestos: $I_1
 ### Sistema de ecuaciones
 
 $$
-\text{Nodo } b: \quad I_2+I_3=I_1 \tag{1}
+N_1: \quad I_2+I_3=I_1 \tag{1}
 $$
 $$
 \text{Malla 1 } (f\to a\to b\to e\to f): \quad +8.00I_1+5.00I_2+1.00I_2-4.00=0\ \Rightarrow\ 8I_1+6I_2=4 \tag{2}
@@ -43,7 +43,7 @@ $$
 
 $I_2<0$: en la rama central la corriente realmente **baja** ($0.462\,\mathrm{A}$).
 
-| Elemento | $I$ (A) | $V$ (V) | $P$ (W) |
+| Elemento | $I$ (A) | $\Delta V$ (V) | $P$ (W) |
 |---|---|---|---|
 | $8.00\,\Omega$ | $0.846$ | $6.77$ | $5.73$ |
 | $5.00\,\Omega$ | $0.462$ | $2.31$ | $1.07$ |
@@ -54,5 +54,5 @@ $I_2<0$: en la rama central la corriente realmente **baja** ($0.462\,\mathrm{A}$
 | Fuente $12.0\,\mathrm{V}$: $I$ sale por $+$ $\Rightarrow$ **entrega** | $1.31$ | $12.0$ | $15.7$ |
 | Fuente $4.00\,\mathrm{V}$: $I$ entra por $+$ $\Rightarrow$ **absorbe** | $0.462$ | $4.00$ | $1.85$ |
 
-**Carga:** en el nodo $b$, $I_3=1.31\,\mathrm{A}$ se reparte en $I_1=0.846$ y $0.462\,\mathrm{A}$ (que baja por el centro). ✓  
+**Carga:** en el nodo $N_1$, $I_3=1.31\,\mathrm{A}$ se reparte en $I_1=0.846$ y $0.462\,\mathrm{A}$ (que baja por el centro). ✓  
 **Energía:** entregada $15.7\,\mathrm{W}$ $=$ disipada $13.8\,\mathrm{W}$ $+$ absorbida $1.85\,\mathrm{W}$. ✓
