@@ -103,6 +103,8 @@ export function analizarGeometria(doc) {
   const textoEn = new Map((doc.etiquetas ?? []).map((e) => [clave(e.x, e.y), e.texto.trim()]));
   const pares = new Set((doc.ramasCable ?? []).flatMap(([a, b]) => [`${a}|${b}`, `${b}|${a}`]));
   const esCorte = (p, q) => pares.has(`${textoEn.get(clave(p.x, p.y))}|${textoEn.get(clave(q.x, q.y))}`);
+  const uniones = new Set(puntosDeUnion(doc).map(([x, y]) => clave(x, y)));
+  const entreUniones = (p, q) => uniones.has(clave(p.x, p.y)) && uniones.has(clave(q.x, q.y));
   const cortes = [];
   const segmentos = [];
   for (const w of cables) {
@@ -112,8 +114,11 @@ export function analizarGeometria(doc) {
     for (let i = 0; i < encima.length - 1; i++) {
       const p = encima[i];
       const q = encima[i + 1];
-      if (esCorte(p, q)) cortes.push({ p, q, de: textoEn.get(clave(p.x, p.y)), a: textoEn.get(clave(q.x, q.y)) });
-      else uf.unir(clave(p.x, p.y), clave(q.x, q.y));
+      if (esCorte(p, q) || (w.rama && entreUniones(p, q))) {
+        const de = textoEn.get(clave(p.x, p.y));
+        const a = textoEn.get(clave(q.x, q.y));
+        cortes.push({ id: de && a ? `W${de}${a}` : `W${w.id}_${i}`, p, q });
+      } else uf.unir(clave(p.x, p.y), clave(q.x, q.y));
       segmentos.push({ tipo: 'cable', cable: w.id, p, q });
     }
   }

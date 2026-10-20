@@ -149,6 +149,32 @@ describe('Mallas a partir del dibujo', () => {
     cerca(s.mna.porElemento.Wbc.I, 4, 'I del cable b→c');
   });
 
+  it('Ej. 15 dibujado a mano: con el cable de arriba marcado como rama salen 5 corrientes; sin marcar, 4', () => {
+    const { ramasCable, curso, ...base } = DOC_EJ15;
+    const resolver = (doc) => {
+      const { netlist, geo } = docANetlist(doc);
+      const s = resolverPasoAPaso(netlist, { doc, geo });
+      expect(s.ok, `${s.error} ${(s.fallas ?? []).join('; ')}`).toBe(true);
+      comprobarElementos(s.mna, caso(15).esperado);
+      return { s, pl: plantearKirchhoff(netlist, geo) };
+    };
+    const sinMarca = resolver(base);
+    expect(sinMarca.pl.ramas).toHaveLength(4);
+    expect(sinMarca.pl.ecNodos).toHaveLength(1);
+
+    const conMarca = { ...base, cables: base.cables.map((w) => (w.y1 === 0 && w.y2 === 0 ? { ...w, rama: true } : w)) };
+    const { s, pl } = resolver(conMarca);
+    expect(pl.ramas).toHaveLength(5);
+    expect(pl.ecNodos).toHaveLength(2);
+    expect(pl.mallas).toHaveLength(3);
+    const rCable = pl.ramas.find((r) => r.elems[0].elem.tipo === 'cable');
+    expect([rCable.desde, rCable.hacia]).toEqual(['b', 'c']);
+    expect(s.mna.porElemento.Wbc).toBeDefined();
+    cerca(Math.abs(s.mna.porElemento.Wbc.I), 4, 'I del cable b–c');
+    const diag = s.bloques.find((b) => b.tipo === 'diagrama');
+    expect(diag.anotaciones.corrientes.some((c) => c.tramo)).toBe(true);
+  });
+
   it('Ej. 15: el sistema 5×5 de la solución escrita da los valores de MNA', () => {
     const A = [
       [1, -1, -1, 0, 0],

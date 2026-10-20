@@ -149,7 +149,7 @@ export function docANetlist(doc) {
   for (const c of g.cortes) {
     const a = nodoDe(c.p);
     const b = nodoDe(c.q);
-    if (a && b && a !== b) elementos.push({ id: `W${c.de}${c.a}`, tipo: 'cable', a, b });
+    if (a && b && a !== b) elementos.push({ id: c.id, tipo: 'cable', a, b });
   }
 
   const fuente = elementos.find((e) => e.tipo === 'fuente');
@@ -163,7 +163,7 @@ export function docANetlist(doc) {
   }
 
   const esquinaNodo = Object.fromEntries(lista.filter((x) => nombre.has(x.r)).map((x) => [nombre.get(x.r), { x: x.minX, y: x.minY }]));
-  const cablesRama = g.cortes.map((c) => ({ id: `W${c.de}${c.a}`, p: c.p, q: c.q }));
+  const cablesRama = g.cortes.map((c) => ({ id: c.id, p: c.p, q: c.q }));
 
   const etiquetaPunto = new Map((doc.etiquetas ?? []).map((e) => [clave(e.x, e.y), e.texto.trim()]));
   const etiquetasPorNodo = {};

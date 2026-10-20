@@ -574,6 +574,19 @@ function Inspector({ seleccion, sel, doc, cambiar, borrar, rotar }) {
     <section className="editor-inspector">
       <h4>{seleccion.clase === 'cable' ? 'Cable' : 'Nodo'}</h4>
       <p className="editor-mini">{seleccion.clase === 'cable' ? 'Arrástralo para moverlo.' : 'Un nodo une los cables que se cruzan en ese punto.'}</p>
+      {seleccion.clase === 'cable' && sel && (
+        <>
+          <label className="editor-campo editor-casilla">
+            <input
+              type="checkbox"
+              checked={Boolean(sel.rama)}
+              onChange={(e) => cambiar({ ...doc, cables: doc.cables.map((w) => (w.id === sel.id ? { ...w, rama: e.target.checked } : w)) })}
+            />
+            Contar este tramo como rama (corriente propia)
+          </label>
+          <p className="editor-mini">Así lo cuenta el curso: el tramo entre dos uniones lleva su propia corriente y separa los nodos.</p>
+        </>
+      )}
       <div className="editor-botones">
         <button type="button" onClick={borrar}>
           ✕ Borrar
