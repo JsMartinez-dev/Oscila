@@ -10,9 +10,9 @@ b) A partir del potencial obtenido, calcule el campo eléctrico y analice su coh
 ## Solución
 ![Ejercicio 5 – figura 1](figuras/ej05_fig1.svg)
 
-> **Fórmulas:** $v=\displaystyle\int\frac{{K_e}\,dq}{r}$,  $dq=\lambda\,dx$ ;   $\displaystyle\int\frac{dx}{\sqrt{x^2+b^2}}=\ln\!\left(x+\sqrt{x^2+b^2}\right)$ 
+> **Fórmulas:** $V=\displaystyle\int\frac{{K_e}\,dq}{r}$,  $dq=\lambda\,dx$ ;   $\displaystyle\int\frac{dx}{\sqrt{x^2+b^2}}=\ln\!\left(x+\sqrt{x^2+b^2}\right)$ 
 >
-> $E_x=-\dfrac{\partial v}{\partial x}$,  $E_y=-\dfrac{\partial v}{\partial y}$
+> $E_x=-\dfrac{\partial V}{\partial x}$,  $E_y=-\dfrac{\partial V}{\partial y}$
 
 ### a) Potencial en $P$
 

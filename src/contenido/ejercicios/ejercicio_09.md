@@ -25,7 +25,7 @@ c) Para cada uno de los condensadores, determine el voltaje aplicado, así como 
 
 ![Ejercicio 9 – figura 4](figuras/ej09_fig4.svg)
 
-> **Fórmulas:** serie: $\dfrac1{C_{eq}}=\dfrac1{C_a}+\dfrac1{C_b}$ ;  paralelo: $C_{eq}=C_a+C_b$ ;  $Q=C\,\Delta v$ ;  $U=\tfrac12Q\,v$
+> **Fórmulas:** serie: $\dfrac1{C_{eq}}=\dfrac1{C_a}+\dfrac1{C_b}$ ;  paralelo: $C_{eq}=C_a+C_b$ ;  $Q=C\,\Delta V$ ;  $U=\tfrac12Q\,V$
 
 **Datos SI:** $C_4=4.0\times10^{-6}\,\mathrm{F}$,  $C_7=7.0\times10^{-6}\,\mathrm{F}$,  $C_5=5.0\times10^{-6}\,\mathrm{F}$,  $C_6=6.0\times10^{-6}\,\mathrm{F}$,  $V_{ab}=10\,\mathrm{V}$.
 

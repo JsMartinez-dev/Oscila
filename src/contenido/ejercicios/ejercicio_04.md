@@ -13,7 +13,7 @@ c) A partir del potencial obtenido, calcule el campo eléctrico y analice su coh
 
 $A$ está sobre el eje $x$, en $x_A=-d$. El punto $B$ aparece en la figura original, pero no se pregunta por él.
 
-> **Fórmulas:** $v=\displaystyle\int\frac{{K_e}\,dq}{r}$,  $dq=\lambda\,dx$ ;   $\displaystyle\int\frac{du}{u}=\ln u$ ;   $E_x=-\dfrac{\partial v}{\partial x}$ ;   $\ln A-\ln B=\ln\dfrac AB$
+> **Fórmulas:** $V=\displaystyle\int\frac{{K_e}\,dq}{r}$,  $dq=\lambda\,dx$ ;   $\displaystyle\int\frac{du}{u}=\ln u$ ;   $E_x=-\dfrac{\partial V}{\partial x}$ ;   $\ln A-\ln B=\ln\dfrac AB$
 
 ### a) Unidades de $\alpha$
 

@@ -18,7 +18,7 @@ Corte transversal
 
 Vista lateral ($b-a\ll L$)
 
-> **Fórmulas:** Gauss: $\oint\vec E\cdot d\vec A=\dfrac{q_{enc}}{\varepsilon_0}$ ;  $E=0$ dentro del metal ;  $\Delta v=-\displaystyle\int\vec E\cdot d\vec s$,  es decir $v(r)=-\displaystyle\int E\,dr$ ;  $C=\dfrac{Q}{\Delta v}$
+> **Fórmulas:** Gauss: $\oint\vec E\cdot d\vec A=\dfrac{q_{enc}}{\varepsilon_0}$ ;  $E=0$ dentro del metal ;  $\Delta V=-\displaystyle\int\vec E\cdot d\vec s$,  es decir $V(r)=-\displaystyle\int E\,dr$ ;  $C=\dfrac{Q}{\Delta V}$
 
 ### a) Campo eléctrico con la Ley de Gauss
 

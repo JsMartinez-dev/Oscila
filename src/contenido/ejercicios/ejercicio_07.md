@@ -21,7 +21,7 @@ c) Exprese $V$, $E_x$ y $E_y$ en coordenadas cartesianas para $r\gg a$.
 - **Polares:** como $\theta$ se mide desde el eje $y$, en el triángulo rectángulo queda $y=r\cos\theta$ y $x=r\sin\theta$.
 > 
 
-> **Fórmulas:** $v=\displaystyle\sum\frac{{K_e} q_i}{r_i}$ ;  $E_r=-\dfrac{\partial v}{\partial r}$,  $E_\theta=-\dfrac1r\dfrac{\partial v}{\partial\theta}$ ;  $E_x=-\dfrac{\partial v}{\partial x}$,  $E_y=-\dfrac{\partial v}{\partial y}$ 
+> **Fórmulas:** $V=\displaystyle\sum\frac{{K_e} q_i}{r_i}$ ;  $E_r=-\dfrac{\partial V}{\partial r}$,  $E_\theta=-\dfrac1r\dfrac{\partial V}{\partial\theta}$ ;  $E_x=-\dfrac{\partial V}{\partial x}$,  $E_y=-\dfrac{\partial V}{\partial y}$ 
 >
 > **Anexo:**  cosenos $c^2=a^2+b^2-2ab\cos\gamma$ ;  binomial $(1+\varepsilon)^n\approx1+n\varepsilon$  ($|\varepsilon|\ll1$) ;  $\cos\theta=\dfrac yr$,  $r=\sqrt{x^2+y^2}$
 

@@ -145,6 +145,18 @@ describe('Mallas a partir del dibujo', () => {
     expect(s.ok, `${s.error} ${(s.fallas ?? []).join('; ')}`).toBe(true);
     comprobarElementos(s.mna, caso(14).esperado);
   });
+
+  it('circuito sin etiquetas explícitas: ubica y anota los nodos en el diagrama', () => {
+    const docSin = { ...DOC_EJ14, etiquetas: [] };
+    const { netlist, geo } = docANetlist(docSin);
+    const s = resolverPasoAPaso(netlist, { doc: docSin, geo, metodo: 'kirchhoff' });
+    expect(s.ok).toBe(true);
+    const diag = s.bloques.find((b) => b.tipo === 'diagrama');
+    expect(diag.anotaciones.nodos.length).toBeGreaterThanOrEqual(2);
+    expect(diag.leyenda).toContain('Puntos azules: nodos');
+    const ecMalla = s.bloques.find((b) => b.tipo === 'ecuacion' && b.latex.includes('Malla 1'));
+    expect(ecMalla.latex).toMatch(/N_\{?\d+\}?/);
+  });
 });
 
 describe('Sentidos de corriente en Kirchhoff', () => {

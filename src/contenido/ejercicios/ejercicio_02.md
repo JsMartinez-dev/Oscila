@@ -11,7 +11,7 @@ c) el trabajo realizado por el campo eléctrico sobre una carga de $2.50\,\mathr
 ## Solución
 ![Ejercicio 2 – figura 1](figuras/ej02_fig1.svg)
 
-> **Fórmulas:** $v=\displaystyle\sum_i\frac{{K_e} q_i}{r_i}$ ;   $W_{B\to A}=q\,(v_B-v_A)$ ;   ${K_e}=9\times10^9\,\mathrm{N\,m^2/C^2}$
+> **Fórmulas:** $V=\displaystyle\sum_i\frac{{K_e} q_i}{r_i}$ ;   $W_{B\to A}=q\,(V_B-V_A)$ ;   ${K_e}=9\times10^9\,\mathrm{N\,m^2/C^2}$
 
 **Datos SI:** $q_1=2.40\,\mathrm{nC}=2.40\times10^{-9}\,\mathrm{C}$;  $q_2=-6.50\,\mathrm{nC}=-6.50\times10^{-9}\,\mathrm{C}$;  $q=2.50\,\mathrm{nC}=2.50\times10^{-9}\,\mathrm{C}$.
 

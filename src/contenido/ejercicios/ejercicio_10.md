@@ -29,7 +29,7 @@ c) Con $500\,\mathrm{V}$ aplicados entre los puntos $a$ y $b$, calcule $V_{cd}$ 
 
 ![Ejercicio 10 – figura 5](figuras/ej10_fig5.svg)
 
-> **Fórmulas:** serie: $\dfrac1{C_{eq}}=\sum\dfrac1{C_i}$ ;  paralelo: $C_{eq}=\sum C_i$ ;  $Q=C\,\Delta v$ ;  $U=\tfrac12Q\,v$   ($C_1=10\times10^{-6}\,\mathrm{F}$,  $C_2=5\times10^{-6}\,\mathrm{F}$)
+> **Fórmulas:** serie: $\dfrac1{C_{eq}}=\sum\dfrac1{C_i}$ ;  paralelo: $C_{eq}=\sum C_i$ ;  $Q=C\,\Delta V$ ;  $U=\tfrac12Q\,V$   ($C_1=10\times10^{-6}\,\mathrm{F}$,  $C_2=5\times10^{-6}\,\mathrm{F}$)
 
 ### a) Capacitancia equivalente  (de derecha a izquierda)
 

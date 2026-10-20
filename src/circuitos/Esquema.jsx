@@ -2,9 +2,11 @@
 // Lo usan el editor (capa interactiva encima) y los diagramas automáticos de la solución.
 
 import { forwardRef } from 'react';
-import { LARGO, terminales, clave } from './geometria.js';
+import { LARGO, terminales, clave, puntosDeUnion } from './geometria.js';
 import { nombreLatex } from './formato.js';
 import { formatearValor } from './unidades.js';
+
+export { puntosDeUnion };
 
 export const G = 20; // píxeles por unidad de cuadrícula
 
@@ -14,9 +16,19 @@ const COLOR = {
   suave: 'var(--esq-suave, #6b7280)',
   corriente: 'var(--esq-corriente, #059669)',
   malla: 'var(--esq-malla, #7c3aed)',
+  nodo: 'var(--esq-nodo, #2563eb)',
   seleccion: 'var(--esq-seleccion, #2563eb)',
   revisar: 'var(--esq-revisar, #facc15)',
 };
+
+export function partirNombreNodo(etiqueta) {
+  const s = String(etiqueta).trim();
+  const mSub = s.match(/^([A-Za-z]+)_\{?(\d+)\}?$/);
+  if (mSub) return { base: mSub[1], sub: mSub[2] };
+  const mNum = s.match(/^([A-Za-z]+)(\d+)$/);
+  if (mNum) return { base: mNum[1], sub: mNum[2] };
+  return { base: s, sub: '' };
+}
 
 /** "R_{13}" → { base: 'R', sub: '13' };  "\varepsilon" → { base: 'ε' } */
 export function partirNombre(nombre) {
@@ -108,34 +120,6 @@ function Flecha({ x, y, ang, color, tam = 7 }) {
   const p = (dx, dy) => [x + dx * Math.cos(ang) - dy * Math.sin(ang), y + dx * Math.sin(ang) + dy * Math.cos(ang)];
   const pts = [p(tam, 0), p(-tam * 0.7, tam * 0.65), p(-tam * 0.7, -tam * 0.65)];
   return <polygon points={pts.map((q) => q.join(',')).join(' ')} fill={color} />;
-}
-
-/** Puntos de unión: donde llegan 3 o más segmentos, o nodos explícitos. */
-export function puntosDeUnion(doc) {
-  const grado = new Map();
-  const sumar = (x, y) => grado.set(clave(x, y), (grado.get(clave(x, y)) ?? 0) + 1);
-  for (const w of doc.cables ?? []) {
-    sumar(w.x1, w.y1);
-    sumar(w.x2, w.y2);
-  }
-  for (const c of doc.componentes ?? []) {
-    const t = terminales(c);
-    sumar(t.a.x, t.a.y);
-    sumar(t.b.x, t.b.y);
-  }
-  // un extremo que cae en medio de otro cable también es unión (T)
-  for (const w of doc.cables ?? []) {
-    for (const [k] of grado) {
-      const [x, y] = k.split(',').map(Number);
-      const enMedio =
-        (w.x1 === w.x2 && x === w.x1 && y > Math.min(w.y1, w.y2) && y < Math.max(w.y1, w.y2)) ||
-        (w.y1 === w.y2 && y === w.y1 && x > Math.min(w.x1, w.x2) && x < Math.max(w.x1, w.x2));
-      if (enMedio) grado.set(k, grado.get(k) + 2);
-    }
-  }
-  const pts = [...grado].filter(([, g]) => g >= 3).map(([k]) => k.split(',').map(Number));
-  for (const n of doc.nodos ?? []) pts.push([n.x, n.y]);
-  return pts;
 }
 
 /** Caja que encierra el dibujo (en unidades de cuadrícula). */
@@ -295,6 +279,40 @@ export function CapaEsquema({ doc, anotaciones = null, resaltados = null, selecc
               <tspan dy={4} fontSize={10} fontStyle="normal">
                 {m.etiqueta.slice(1)}
               </tspan>
+            </text>
+          </g>
+        );
+      })}
+
+      {anotaciones?.nodos?.map((n) => {
+        const nx = n.x * G;
+        const ny = n.y * G;
+        const { base, sub } = partirNombreNodo(n.etiqueta);
+        const dx = n.x === 0 ? 8 : -8;
+        const dy = n.y === 0 ? 16 : -8;
+        const anchor = n.x === 0 ? 'start' : 'end';
+        return (
+          <g key={`nodo-${n.etiqueta}-${n.x}-${n.y}`}>
+            <circle cx={nx} cy={ny} r={4.5} fill={COLOR.nodo} stroke="var(--esq-fondo, #ffffff)" strokeWidth={1.5} />
+            <text
+              x={nx + dx}
+              y={ny + dy}
+              textAnchor={anchor}
+              fontSize={14}
+              fontWeight="600"
+              fontStyle="italic"
+              fill={COLOR.nodo}
+              paintOrder="stroke"
+              stroke="var(--esq-fondo, #ffffff)"
+              strokeWidth={3}
+              strokeLinejoin="round"
+            >
+              {base}
+              {sub && (
+                <tspan dy={3} fontSize={10} fontStyle="normal" fontWeight="bold">
+                  {sub}
+                </tspan>
+              )}
             </text>
           </g>
         );
