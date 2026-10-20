@@ -44,7 +44,7 @@ $$
 
 ### b) Cada resistencia  (regreso: $V_p=IR_p=(1.932)(2.941)=5.68\,\mathrm{V}$ en las tres ramas)
 
-| Resistencia | $I$ (A) | $V$ (V) | $P$ (W) |
+| Resistencia | $I$ (A) | $\Delta V$ (V) | $P$ (W) |
 |---|---|---|---|
 | $10.0\,\Omega$ (con la fuente) | $1.93$ | $19.3$ | $37.3$ |
 | $10.0\,\Omega$ (centro) | $5.68/10.0=0.568$ | $5.68$ | $3.23$ |

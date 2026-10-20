@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="91.5" height="73.58" viewBox="0 0 91.5 73.58">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="146.40" height="117.73" viewBox="0 0 91.5 73.58">
 <defs>
 <g>
 <g id="glyph-0-0">
@@ -22,24 +22,24 @@
 </g>
 </g>
 </defs>
-<path fill="none" stroke-width="0.3985" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00144798 61.227324 L 0.00144798 33.676423 M 0.00144798 27.551818 L 0.00144798 0.000916384 " transform="matrix(0.994324, 0, 0, -0.994324, 31.127466, 67.020442)"/>
-<path fill="none" stroke-width="0.3985" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00144798 29.602519 L 0.00144798 27.551818 M 0.00144798 31.625721 L 0.00144798 33.676423 " transform="matrix(0.994324, 0, 0, -0.994324, 31.127466, 67.020442)"/>
+<path fill="none" stroke-width="0.6" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00144798 61.227324 L 0.00144798 33.676423 M 0.00144798 27.551818 L 0.00144798 0.000916384 " transform="matrix(0.994324, 0, 0, -0.994324, 31.127466, 67.020442)"/>
+<path fill="none" stroke-width="0.6" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00144798 29.602519 L 0.00144798 27.551818 M 0.00144798 31.625721 L 0.00144798 33.676423 " transform="matrix(0.994324, 0, 0, -0.994324, 31.127466, 67.020442)"/>
 <path fill="none" stroke-width="0.797" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 3.061786 29.602519 L -3.062819 29.602519 M 6.122124 31.625721 L -6.123157 31.625721 " transform="matrix(0.994324, 0, 0, -0.994324, 31.127466, 67.020442)"/>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
-<use xlink:href="#glyph-0-0" x="7.707827" y="38.263191"/>
-<use xlink:href="#glyph-0-1" x="11.612814" y="38.263191"/>
+<use xlink:href="#glyph-0-0" x="7.1245" y="38.2632"/>
+<use xlink:href="#glyph-0-1" x="11.0295" y="38.2632"/>
 </g>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
-<use xlink:href="#glyph-1-0" x="16.819259" y="38.263191"/>
+<use xlink:href="#glyph-1-0" x="16.2359" y="38.2632"/>
 </g>
-<path fill="none" stroke-width="0.3985" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00144798 61.227324 L 28.573771 61.227324 L 28.573771 38.779605 M 28.573771 22.452563 L 28.573771 0.000916384 L 0.00144798 0.000916384 " transform="matrix(0.994324, 0, 0, -0.994324, 31.127466, 67.020442)"/>
+<path fill="none" stroke-width="0.6" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0.00144798 61.227324 L 28.573771 61.227324 L 28.573771 38.779605 M 28.573771 22.452563 L 28.573771 0.000916384 L 0.00144798 0.000916384 " transform="matrix(0.994324, 0, 0, -0.994324, 31.127466, 67.020442)"/>
 <path fill="none" stroke-width="0.797" stroke-linecap="butt" stroke-linejoin="bevel" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 28.573771 39.176389 L 31.63411 37.384971 L 25.513433 34.595703 L 31.63411 31.810363 L 25.513433 29.021094 L 31.63411 26.235754 L 25.513433 23.446486 L 28.573771 22.051852 " transform="matrix(0.994324, 0, 0, -0.994324, 31.127466, 67.020442)"/>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
-<use xlink:href="#glyph-0-2" x="64.64085" y="38.263191"/>
-<use xlink:href="#glyph-0-3" x="68.545836" y="38.263191"/>
-<use xlink:href="#glyph-0-3" x="72.450822" y="38.263191"/>
+<use xlink:href="#glyph-0-2" x="64.9789" y="38.2632"/>
+<use xlink:href="#glyph-0-3" x="68.8839" y="38.2632"/>
+<use xlink:href="#glyph-0-3" x="72.7889" y="38.2632"/>
 </g>
 <g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
-<use xlink:href="#glyph-0-4" x="77.652263" y="38.263191"/>
+<use xlink:href="#glyph-0-4" x="77.9903" y="38.2632"/>
 </g>
 </svg>

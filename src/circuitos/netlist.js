@@ -3,7 +3,8 @@
 // Formato (el mismo de paquete_EyM/casos/casos_prueba_circuitos.json):
 // { nodos: [...], tierra?: 'G', elementos: [
 //     { id, tipo: 'fuente', valor, pos, neg },          // V; pos = nodo del terminal +
-//     { id, tipo: 'resistencia' | 'condensador', valor, a, b } ] }   // Ω o F
+//     { id, tipo: 'resistencia' | 'condensador', valor, a, b },     // Ω o F
+//     { id, tipo: 'cable', a, b } ] }
 
 import { z } from 'zod';
 import { analizarGeometria, clave } from './geometria.js';
@@ -14,6 +15,7 @@ export const esquemaElemento = z.discriminatedUnion('tipo', [
   z.object({ id, tipo: z.literal('fuente'), valor: z.number().positive(), pos: id, neg: id }),
   z.object({ id, tipo: z.literal('resistencia'), valor: z.number().positive(), a: id, b: id }),
   z.object({ id, tipo: z.literal('condensador'), valor: z.number().positive(), a: id, b: id }),
+  z.object({ id, tipo: z.literal('cable'), a: id, b: id }),
 ]);
 
 export const esquemaNetlist = z.object({
@@ -47,7 +49,7 @@ export function validarNetlist(net) {
     if (p === q) avisos.push(`${e.id} tiene sus dos terminales en el mismo nodo (está en cortocircuito).`);
   }
   if (!net.elementos.some((e) => e.tipo === 'fuente')) errores.push('El circuito necesita al menos una fuente.');
-  if (!net.elementos.some((e) => e.tipo !== 'fuente')) errores.push('El circuito necesita al menos una resistencia o un condensador.');
+  if (!net.elementos.some((e) => e.tipo === 'resistencia' || e.tipo === 'condensador')) errores.push('El circuito necesita al menos una resistencia o un condensador.');
 
   // Conectividad
   const nodos = nodosDe(net);
@@ -144,6 +146,12 @@ export function docANetlist(doc) {
     else elementos.push({ id: c.id, tipo: c.tipo, valor: c.valor, a: nodoDe(t.a), b: nodoDe(t.b) });
   }
 
+  for (const c of g.cortes) {
+    const a = nodoDe(c.p);
+    const b = nodoDe(c.q);
+    if (a && b && a !== b) elementos.push({ id: `W${c.de}${c.a}`, tipo: 'cable', a, b });
+  }
+
   const fuente = elementos.find((e) => e.tipo === 'fuente');
   const netlist = { nodos: [...new Set(nombre.values())], tierra: fuente?.neg, elementos };
 
@@ -154,8 +162,11 @@ export function docANetlist(doc) {
     posNodo[n] = { x: pts.reduce((s, p) => s + p[0], 0) / pts.length, y: pts.reduce((s, p) => s + p[1], 0) / pts.length };
   }
 
+  const esquinaNodo = Object.fromEntries(lista.filter((x) => nombre.has(x.r)).map((x) => [nombre.get(x.r), { x: x.minX, y: x.minY }]));
+  const cablesRama = g.cortes.map((c) => ({ id: `W${c.de}${c.a}`, p: c.p, q: c.q }));
+
   const etiquetaPunto = new Map((doc.etiquetas ?? []).map((e) => [clave(e.x, e.y), e.texto.trim()]));
   const etiquetasPorNodo = {};
   for (const [r, nom] of nombre) etiquetasPorNodo[nom] = [...new Set(clases.get(r).etiquetas)].sort();
-  return { netlist, geo: { ...g, nodoDe, posNodo, etiquetaPunto, etiquetasPorNodo }, avisos };
+  return { netlist, geo: { ...g, nodoDe, posNodo, esquinaNodo, cablesRama, etiquetaPunto, etiquetasPorNodo }, avisos };
 }

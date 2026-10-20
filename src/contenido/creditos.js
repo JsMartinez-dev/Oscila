@@ -60,7 +60,7 @@ export const IMAGENES_EYM = [
     titulo: 'Figuras de los ejercicios resueltos',
     carpeta: 'src/contenido/ejercicios/figuras',
     credito:
-      'Enunciados del material del curso Electricidad y Magnetismo, prof. Jarvin Mestra Páez, Universidad del Magdalena. Figuras redibujadas (LaTeX/TikZ) y soluciones elaboradas por el equipo de Oscila.',
+      'Enunciados del material del curso Electricidad y Magnetismo, prof. Jarvin Mestra Páez, Universidad del Magdalena. Figuras redibujadas (LaTeX/TikZ y SVG propios) y soluciones elaboradas por el equipo de Oscila.',
   },
   {
     titulo: 'Infografía de Oscila',

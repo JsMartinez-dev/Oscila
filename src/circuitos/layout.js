@@ -7,7 +7,7 @@ import { LARGO } from './geometria.js';
 import { formatearValor } from './unidades.js';
 
 const ANCHO_HOJA = LARGO + 2;
-const ALTO_HOJA = 3;
+const ALTO_HOJA = 4;
 
 /**
  * red: resultado de reducir(); corte: Set de ids de aristas que se dibujan como un solo elemento
@@ -18,6 +18,7 @@ export function dibujarReduccion(red, corte) {
   const componentes = [];
   const cables = [];
   const medidas = new Map();
+  let maxY = 0;
 
   const esHoja = (x) => x.tipo === 'hoja' || (corte && corte.has(x.id));
 
@@ -44,6 +45,7 @@ export function dibujarReduccion(red, corte) {
   const colocar = (x, desde, ox, oy) => {
     const { w } = medir(x);
     if (esHoja(x)) {
+      maxY = Math.max(maxY, oy);
       cable(ox, oy, ox + 1, oy);
       componentes.push({
         id: x.id,
@@ -86,13 +88,13 @@ export function dibujarReduccion(red, corte) {
 
   const raiz = red.raiz;
   const m = medir(raiz);
-  const X0 = 2;
+  const X0 = 4;
   colocar(raiz, red.s, X0, 0);
 
   // Fuente vertical a la izquierda, + arriba
   const f = red.fuente;
   componentes.push({ id: f.id, tipo: 'fuente', x: 0, y: LARGO, rot: 270, valor: f.valor, nombre: '\\varepsilon', texto: formatearValor(f.valor, 'fuente') });
-  const yb = Math.max(m.h, LARGO + 1) + 1;
+  const yb = Math.max(maxY + 2, LARGO + 1) + 1;
   cable(0, 0, X0, 0);
   cable(X0 + m.w, 0, X0 + m.w, yb);
   cable(X0 + m.w, yb, 0, yb);

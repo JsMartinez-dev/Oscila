@@ -11,7 +11,7 @@ import { resolverConPasos, latexEcuacion } from './sistemas.js';
 import { n, q, qAmbas, nombreLatex } from './formato.js';
 import { dibujarReduccion } from './layout.js';
 import { SistemaSingular } from './lineal.js';
-import { terminales, puntosDeUnion } from './geometria.js';
+import { terminales, puntosDeUnion, clave } from './geometria.js';
 
 const TOL = 0.01;
 
@@ -101,12 +101,12 @@ function pasosReduccion(net, red, mna, doc, v) {
     tipo: 'formulas',
     latex: R
       ? ['\\text{serie: } R=R_a+R_b', '\\text{paralelo: } \\dfrac1{R_{ab}}=\\dfrac1{R_a}+\\dfrac1{R_b}', 'V=IR', 'P=IV=I^2R', '\\text{fuente: } P=\\varepsilon I']
-      : ['\\text{serie: } \\dfrac1{C_{eq}}=\\dfrac1{C_a}+\\dfrac1{C_b}', '\\text{paralelo: } C_{eq}=C_a+C_b', 'Q=C\\,\\Delta v', 'U=\\tfrac12Q\\,v'],
+      : ['\\text{serie: } \\dfrac1{C_{eq}}=\\dfrac1{C_a}+\\dfrac1{C_b}', '\\text{paralelo: } C_{eq}=C_a+C_b', 'Q=C\\,\\Delta V', 'U=\\tfrac12Q\\,\\Delta V'],
   });
   if (!R) {
     B.push({
       tipo: 'texto',
-      texto: `**Datos SI:** ${red.original.map((h) => `$${h.nombre}=${qAmbas(h.valor, 'F')}$`).join(', ')}, $V=${q(eps, 'V')}$.`,
+      texto: `**Datos SI:** ${red.original.map((h) => `$${h.nombre}=${qAmbas(h.valor, 'F')}$`).join(', ')}, $V_{ab}=${q(eps, 'V')}$.`,
     });
   }
   if (red.sinCorriente.length) {
@@ -159,7 +159,7 @@ function pasosReduccion(net, red, mna, doc, v) {
     v.igual('C_eq', raiz.valor, mna.equivalente.Ceq);
     v.igual('Q_t', Qt, fuenteMna.Q);
     B.push({ tipo: 'ecuacion', latex: `Q_t=${nombreEq}\\,V_{ab}=(${n(raiz.valor)})(${n(eps)})\\ \\Rightarrow\\ \\boxed{Q_t=${q(Qt, 'C')}}`, tag: T() });
-    B.push({ tipo: 'ecuacion', latex: `U_t=\\tfrac12Q_tV_{ab}=\\tfrac12(${n(Qt)})(${n(eps)})\\ \\Rightarrow\\ \\boxed{U_t=${q(Ut, 'J')}}`, tag: T() });
+    B.push({ tipo: 'ecuacion', latex: `U_t=\\tfrac12Q_t\\,V_{ab}=\\tfrac12(${n(Qt)})(${n(eps)})\\ \\Rightarrow\\ \\boxed{U_t=${q(Ut, 'J')}}`, tag: T() });
   }
 
   // 3b. Regreso por cada circuito
@@ -237,7 +237,7 @@ function pasosReduccion(net, red, mna, doc, v) {
     const Ut = 0.5 * raiz.valor * eps * eps;
     v.igual('ΣU', sumaU, Ut);
     filas.push(['**Suma**', '', '', `$\\mathbf{${n(sumaU)}}$`]);
-    B.push({ tipo: 'tabla', encabezados: ['$C$', '$V$ (V)', '$Q=CV$ (C)', '$U=\\tfrac12QV$ (J)'], filas });
+    B.push({ tipo: 'tabla', encabezados: ['$C$', '$\\Delta V$ (V)', '$Q=C\\,\\Delta V$ (C)', '$U=\\tfrac12Q\\,\\Delta V$ (J)'], filas });
     const nodoParalelo = encontrarPrimero(raiz, 'paralelo');
     if (nodoParalelo) {
       const pv = valores.get(nodoParalelo.id);
@@ -254,7 +254,7 @@ function pasosReduccion(net, red, mna, doc, v) {
       const m = mna.porElemento[c.id];
       B.push({
         tipo: 'ecuacion',
-        latex: `${nombreLatex(c.id, 'condensador')}:\\ V=|V_{${c.a}}-V_{${c.b}}|=${q(m.V, 'V')},\\quad Q=CV=${q(m.Q, 'C')},\\quad U=\\tfrac12CV^2=${q(m.U, 'J')}`,
+        latex: `${nombreLatex(c.id, 'condensador')}:\\ \\Delta V=|V_{${c.a}}-V_{${c.b}}|=${q(m.V, 'V')},\\quad Q=C\\,\\Delta V=${q(m.Q, 'C')},\\quad U=\\tfrac12C\\,(\\Delta V)^2=${q(m.U, 'J')}`,
       });
     }
   }
@@ -281,7 +281,7 @@ function encontrarPrimero(x, tipo) {
 // ─────────────────────────────── Kirchhoff ───────────────────────────────
 
 function pasosKirchhoff(net, geo, mna, doc, v) {
-  const pl = plantearKirchhoff(net, geo);
+  const pl = plantearKirchhoff(net, geo, { ramas: doc?.curso?.ramas });
   if (!pl.ok) throw new SistemaSingular(pl.error);
   const B = [];
   let tag = 0;
@@ -292,12 +292,21 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
   const nombreElem = (e) =>
     e.tipo === 'fuente' ? `${q(e.valor, 'V')}` : `${q(e.valor, 'Ω')}`;
   const alias = aliasNodos(geo);
-  const nombreNodo = (x) => `$${nombreNodoLatex(x)}$`;
+  const principal = new Map(doc && geo ? pl.principales.map((x, i) => [x, `N${i + 1}`]) : []);
+  const nodoLatex = (x) => nombreNodoLatex(principal.get(x) ?? x);
+  const nombreNodo = (x) => `$${nodoLatex(x)}$`;
+  const textosPunto = new Set((doc?.etiquetas ?? []).map((e) => e.texto.trim()));
+  const rutaVisible = (ruta) => {
+    if (ruta.every((x) => textosPunto.has(x))) return ruta.map(nombreNodoLatex);
+    return ruta.filter((x) => principal.has(x) || !/^N\d+$/.test(x)).filter((x, i, a) => i === 0 || a[i - 1] !== x).map(nodoLatex);
+  };
 
   // Elemento de la rama donde se dibuja la flecha y su sentido respecto a los terminales del dibujo
   const flechaDe = (r) => {
     const e = r.elems.find((x) => x.elem.tipo === 'resistencia') ?? r.elems[0];
     const nodoA = e.elem.tipo === 'fuente' ? e.elem.neg : e.elem.a; // nodo del terminal "a" en el dibujo
+    const tramo = e.elem.tipo === 'cable' ? geo?.cablesRama?.find((w) => w.id === e.elem.id) : null;
+    if (tramo) return { e, tramo, sentido: geo.nodoDe(tramo.p) === e.desde ? 'ab' : 'ba' };
     return { e, sentido: e.desde === nodoA ? 'ab' : 'ba' };
   };
   // Sentido supuesto en el dibujo: de un nodo principal al otro; en un solo lazo, el de la flecha
@@ -314,13 +323,17 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     return sentido === 'ab' ? direccion(t.a, t.b) : direccion(t.b, t.a);
   };
   const fuenteDe = (r) => r.elems.find((x) => x.elem.tipo === 'fuente')?.elem;
-  const nombreRama = (r) => `la rama de $${nombreElem(fuenteDe(r) ?? r.elems.find((x) => x.elem.tipo === 'resistencia')?.elem ?? r.elems[0].elem)}$`;
+  const salePorMas = (r) => r.elems.some((x) => x.elem.tipo === 'fuente' && x.desde === x.elem.neg);
+  const nombreRama = (r) => {
+    if (r.elems.every((x) => x.elem.tipo === 'cable')) return `el cable de ${nombreNodo(r.desde)} a ${nombreNodo(r.hacia)}`;
+    return `la rama de $${nombreElem(fuenteDe(r) ?? r.elems.find((x) => x.elem.tipo === 'resistencia')?.elem ?? r.elems[0].elem)}$`;
+  };
   const sentidos = new Map(ramas.map((r) => [r, sentidoRama(r)]));
   const conDibujo = ramas.every((r) => sentidos.get(r));
 
   // Diagrama con corrientes y mallas
   const mallasDibujadas = pl.origenMallas === 'dibujo';
-  const nodosAnotados = geo ? nodosParaDiagrama(net, doc, geo) : [];
+  const nodosAnotados = geo ? nodosParaDiagrama(pl.principales, doc, geo) : [];
   B.push({
     tipo: 'diagrama',
     titulo: 'Circuito original',
@@ -328,10 +341,10 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     anotaciones: doc
       ? {
           corrientes: ramas.map((r) => {
-            const { e, sentido } = flechaDe(r);
-            return { id: e.elem.id, sentido, etiqueta: `I${r.k}` };
+            const { e, sentido, tramo } = flechaDe(r);
+            return { id: e.elem.id, sentido, tramo, etiqueta: `I${r.k}` };
           }),
-          mallas: mallasDibujadas ? mallas.map((m, i) => ({ centro: m.centro, etiqueta: `M${i + 1}` })) : [],
+          mallas: mallasDibujadas ? mallas.map((m, i) => ({ centro: m.centro, poligono: m.poligono, etiqueta: `M${i + 1}` })) : [],
           nodos: nodosAnotados,
         }
       : null,
@@ -341,7 +354,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
           ? ` · ${mallas.map((_, i) => `$M_{${i + 1}}$`).join(', ')}: ${mallas.length === 1 ? 'malla recorrida' : 'mallas recorridas'} en sentido horario`
           : '') +
         (nodosAnotados.length
-          ? ` · Puntos azules: nodos (${nodosAnotados.map((n) => `$${nombreNodoLatex(n.etiqueta)}$`).join(', ')})`
+          ? ` · Puntos azules: nodos principales (${nodosAnotados.map((n) => `$${nombreNodoLatex(n.etiqueta)}$`).join(', ')})`
           : '')
       : null,
   });
@@ -350,7 +363,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
   const P = pl.principales.length;
   if (P) {
     const txtNodos = pl.principales
-      .map((x) => (alias[x] && alias[x].length > 1 ? `$${nombreNodoLatex(x)}$ (une ${alias[x].map((a) => '$' + a + '$').join('–')})` : `$${nombreNodoLatex(x)}$`))
+      .map((x) => (alias[x]?.length ? `${nombreNodo(x)} (${alias[x].length > 1 ? 'une ' : 'punto '}${alias[x].map((a) => '$' + a + '$').join('–')})` : nombreNodo(x)))
       .join(P === 2 ? ' y ' : ', ');
     B.push({ tipo: 'texto', texto: `**Nodos principales:** ${txtNodos}.` });
   } else {
@@ -359,16 +372,17 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
   const variasFuentes = ramas.some((r) => r.elems.filter((x) => x.elem.tipo === 'fuente').length > 1);
   B.push({
     tipo: 'texto',
-    texto:
-      `**Regla del sentido supuesto:** cada corriente sale por el $+$ de la fuente de su rama${variasFuentes ? ' (si hay varias, la primera)' : ''}; ` +
-      (conDibujo
-        ? 'en las ramas sin fuente, se supone que baja en el dibujo (o que va hacia la derecha si la rama es horizontal).'
-        : 'en las ramas sin fuente el sentido se elige libremente: si resulta al revés, la corriente da negativa.'),
+    texto: pl.conCurso
+      ? '**Numeración y sentidos:** se usan los de la solución del curso. Cualquier sentido sirve: si resulta al revés, la corriente da negativa.'
+      : `**Regla del sentido supuesto:** cada corriente sale por el $+$ de la fuente de su rama${variasFuentes ? ' (si hay varias, la primera)' : ''}; ` +
+        (conDibujo
+          ? 'en las ramas sin fuente, se supone que baja en el dibujo (o que va hacia la derecha si la rama es horizontal).'
+          : 'en las ramas sin fuente el sentido se elige libremente: si resulta al revés, la corriente da negativa.'),
   });
   const supuesto = (r) => {
     const d = sentidos.get(r);
     const donde = d ? `hacia ${d} por ${nombreRama(r)}` : `de ${nombreNodo(r.desde)} a ${nombreNodo(r.hacia)} por ${nombreRama(r)}`;
-    return `$${r.variable}$: ${donde}${fuenteDe(r) ? ' (sale por el $+$ de la fuente)' : ''}`;
+    return `$${r.variable}$: ${donde}${salePorMas(r) ? ' (sale por el $+$ de la fuente)' : fuenteDe(r) ? ' (entra por el $+$ de la fuente)' : ''}`;
   };
   B.push({ tipo: 'texto', texto: `**Sentidos supuestos:** ${ramas.map(supuesto).join('; ')}.` });
   B.push({
@@ -407,7 +421,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     const der = e.salen.map((r) => r.variable).join('+') || '0';
     const t = T();
     conTag.push({ ...lineales[i], tag: t });
-    B.push({ tipo: 'ecuacion', latex: `\\text{Nodo } ${nombreNodoLatex(e.nodo)}:\\quad ${izq}=${der}`, tag: t });
+    B.push({ tipo: 'ecuacion', latex: `\\text{Nodo } ${nodoLatex(e.nodo)}:\\quad ${izq}=${der}`, tag: t });
   });
   mallas.forEach((m, i) => {
     const crudo =
@@ -417,7 +431,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     const lin = lineales[ecNodos.length + i];
     const t = T();
     conTag.push({ ...lin, tag: t });
-    const ruta = m.ruta?.length ? ` (${m.ruta.map(nombreNodoLatex).join('\\to ')})` : '';
+    const ruta = m.ruta?.length ? ` (${rutaVisible(m.ruta).join('\\to ')})` : '';
     B.push({
       tipo: 'ecuacion',
       latex: `\\text{Malla ${i + 1}${ruta ? '' : ''}}${ruta ? `\\ ${ruta}` : ''}:\\quad ${crudo}\\ \\Rightarrow\\ ${latexEcuacion(lin, vars)}`,
@@ -477,7 +491,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
       `$${n(P)}$`,
     ]);
   }
-  B.push({ tipo: 'tabla', encabezados: ['Elemento', '$I$ (A)', '$V$ (V)', '$P$ (W)'], filas });
+  B.push({ tipo: 'tabla', encabezados: ['Elemento', '$I$ (A)', '$\\Delta V$ (V)', '$P$ (W)'], filas });
 
   // Sentido real de cada corriente
   B.push({ tipo: 'titulo', texto: 'Sentido real de cada corriente' });
@@ -511,7 +525,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     const sSal = sal.reduce((s, x) => s + x, 0);
     B.push({
       tipo: 'check',
-      texto: `**Carga** (nodo $${e.nodo}$): entra $${suma(ent, sEnt)}$ y sale $${suma(sal, sSal)}$ (en A). ✓`,
+      texto: `**Carga** (nodo ${nombreNodo(e.nodo)}): entra $${suma(ent, sEnt)}$ y sale $${suma(sal, sSal)}$ (en A). ✓`,
     });
   }
   v.igual('balance', entregada, disipada + absorbida);
@@ -575,65 +589,26 @@ export function nombreNodoLatex(x) {
   return m ? `${m[1]}_{${m[2]}}` : String(x);
 }
 
-export function nodosParaDiagrama(net, doc, geo) {
+export function nodosParaDiagrama(principales, doc, geo) {
   if (!doc || !geo) return [];
-  const uniones = puntosDeUnion(doc);
-  const etiquetasExistentes = new Set((doc.etiquetas ?? []).map((e) => geo.nodoDe(e)).filter(Boolean));
-  const res = [];
-  for (const n of net.nodos ?? []) {
-    if (etiquetasExistentes.has(n)) continue;
-
-    const unionesNodo = uniones.filter((p) => geo.nodoDe({ x: p[0], y: p[1] }) === n);
-    if (unionesNodo.length) {
-      const cx = unionesNodo.reduce((s, p) => s + p[0], 0) / unionesNodo.length;
-      const cy = unionesNodo.reduce((s, p) => s + p[1], 0) / unionesNodo.length;
-      let mejor = unionesNodo[0];
-      let menorD = Infinity;
-      for (const p of unionesNodo) {
-        const d = (p[0] - cx) ** 2 + (p[1] - cy) ** 2;
-        if (d < menorD) {
-          menorD = d;
-          mejor = p;
-        }
-      }
-      res.push({ etiqueta: n, x: mejor[0], y: mejor[1] });
-      continue;
+  const uniones = puntosDeUnion(doc).map(([x, y]) => ({ x, y }));
+  const textoEn = geo.etiquetaPunto ?? new Map();
+  const segs = geo.segmentos ?? [];
+  const toca = (p) => segs.filter((s) => (s.p.x === p.x && s.p.y === p.y) || (s.q.x === p.x && s.q.y === p.y));
+  return principales.map((nodo, i) => {
+    let cands = uniones.filter((p) => geo.nodoDe(p) === nodo);
+    if (!cands.length) {
+      const pts = segs.flatMap((s) => [s.p, s.q]).filter((p) => geo.nodoDe(p) === nodo);
+      cands = [...pts].sort((a, b) => toca(b).length - toca(a).length).slice(0, 1);
     }
-
-    const segsCable = (geo.segmentos ?? []).filter(
-      (s) => s.tipo === 'cable' && geo.nodoDe(s.p) === n && geo.nodoDe(s.q) === n
-    );
-    if (segsCable.length) {
-      let mejorSeg = segsCable[0];
-      let maxL = -1;
-      for (const s of segsCable) {
-        const l = Math.hypot(s.q.x - s.p.x, s.q.y - s.p.y);
-        if (l > maxL) {
-          maxL = l;
-          mejorSeg = s;
-        }
-      }
-      res.push({
-        etiqueta: n,
-        x: (mejorSeg.p.x + mejorSeg.q.x) / 2,
-        y: (mejorSeg.p.y + mejorSeg.q.y) / 2,
-      });
-      continue;
-    }
-
-    const segs = (geo.segmentos ?? []).filter(
-      (s) => geo.nodoDe(s.p) === n || geo.nodoDe(s.q) === n
-    );
-    if (segs.length) {
-      const p = geo.nodoDe(segs[0].p) === n ? segs[0].p : segs[0].q;
-      res.push({ etiqueta: n, x: p.x, y: p.y });
-      continue;
-    }
-
-    if (geo?.posNodo?.[n]) {
-      res.push({ etiqueta: n, x: geo.posNodo[n].x, y: geo.posNodo[n].y });
-    }
-  }
-  return res;
+    const p =
+      cands.find((c) => textoEn.get(clave(c.x, c.y)) === nodo) ??
+      [...cands].sort((a, b) => a.y - b.y || a.x - b.x)[0] ??
+      geo.posNodo?.[nodo];
+    if (!p) return null;
+    const otros = toca(p).map((s) => (s.p.x === p.x && s.p.y === p.y ? s.q : s.p));
+    const arribaLibre = !otros.some((o) => o.y < p.y);
+    const abajoLibre = !otros.some((o) => o.y > p.y);
+    return { etiqueta: `N${i + 1}`, x: p.x, y: p.y, lado: arribaLibre || !abajoLibre ? 'arriba' : 'abajo' };
+  }).filter(Boolean);
 }
-

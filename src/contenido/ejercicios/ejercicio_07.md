@@ -4,7 +4,7 @@
 
 Un dipolo eléctrico se ubica a lo largo del eje $y$, como se muestra en la figura. La magnitud del momento dipolar es $p=2qa$.
 
-a) Demuestre que el potencial eléctrico está dado por $V=\dfrac{k_e\,p\cos\theta}{r^2}$.
+a) Demuestre que el potencial eléctrico está dado por $V=\dfrac{K_e\,p\cos\theta}{r^2}$.
 b) Determine las componentes $E_r$ y $E_\theta$ del campo eléctrico.
 c) Exprese $V$, $E_x$ y $E_y$ en coordenadas cartesianas para $r\gg a$.
 
@@ -45,11 +45,11 @@ $$
 ### b) Componentes polares
 
 $$
-E_r=-\frac{\partial}{\partial r}\left({K_e} p\cos\theta\,r^{-2}\right)=-{K_e} p\cos\theta\,(-2r^{-3})\Rightarrow\boxed{E_r=\frac{2{K_e} p\cos\theta}{r^3}}
+E_r=-\frac{\partial}{\partial r}\left({K_e} p\cos\theta\,r^{-2}\right)=-{K_e} p\cos\theta\,(-2r^{-3})\ \Rightarrow\ \boxed{E_r=\frac{2{K_e} p\cos\theta}{r^3}}
 $$
 
 $$
-E_\theta=-\frac1r\frac{\partial}{\partial\theta}\left(\frac{{K_e} p\cos\theta}{r^2}\right)=-\frac1r\cdot\frac{{K_e} p(-\sin\theta)}{r^2}\Rightarrow\boxed{E_\theta=\frac{{K_e} p\sin\theta}{r^3}}
+E_\theta=-\frac1r\frac{\partial}{\partial\theta}\left(\frac{{K_e} p\cos\theta}{r^2}\right)=-\frac1r\cdot\frac{{K_e}\,p\,(-\sin\theta)}{r^2}\ \Rightarrow\ \boxed{E_\theta=\frac{{K_e} p\sin\theta}{r^3}}
 $$
 
 ### c) Cartesianas ($r\gg a$)
@@ -57,7 +57,7 @@ $$
 $\cos\theta=\dfrac yr$  $\Rightarrow$  $\boxed{V=\dfrac{{K_e} p\,y}{(x^2+y^2)^{3/2}}}$
 
 $$
-E_x=-\frac{\partial V}{\partial x}=-{K_e} p\,y\left(-\tfrac32\right)(x^2+y^2)^{-5/2}(2x)\Rightarrow\boxed{E_x=\frac{3{K_e} p\,xy}{(x^2+y^2)^{5/2}}}
+E_x=-\frac{\partial V}{\partial x}=-{K_e} p\,y\left(-\tfrac32\right)\cdot(x^2+y^2)^{-5/2}\cdot(2x)\ \Rightarrow\ \boxed{E_x=\frac{3{K_e} p\,xy}{(x^2+y^2)^{5/2}}}
 $$
 
 $$

@@ -129,7 +129,7 @@ function porSustitucion(ecuaciones, vars, nuevoTag) {
   for (const { v, ec, otras } of despejes.reverse()) {
     const sum = otras.reduce((s, o) => s + ec.coef[o] * solucion[o], 0);
     solucion[v] = (ec.c - sum) / ec.coef[v];
-    const conNumeros = otras.map((o) => `${ec.coef[o] < 0 ? '+' : '-'}${k(Math.abs(ec.coef[o]))}(${k(solucion[o])})`).join('');
+    const conNumeros = otras.map((o) => `${ec.coef[o] < 0 ? '+' : '-'}${k(Math.abs(ec.coef[o]))}\\cdot(${k(solucion[o])})`).join('');
     const num = `${k(ec.c)}${conNumeros}`;
     const a = ec.coef[v];
     const expr = otras.length === 0 ? `\\frac{${k(ec.c)}}{${k(a)}}` : Math.abs(a - 1) < EPS ? num : `\\dfrac{${num}}{${k(a)}}`;
@@ -187,7 +187,7 @@ function porGauss(ecuaciones, vars, nuevoTag) {
     for (let c = f + 1; c < n; c++) {
       if (Math.abs(M[f][c]) < EPS) continue;
       s -= M[f][c] * x[c];
-      txt += `${M[f][c] < 0 ? '+' : '-'}${k(Math.abs(M[f][c]))}(${k(x[c])})`;
+      txt += `${M[f][c] < 0 ? '+' : '-'}${k(Math.abs(M[f][c]))}\\cdot(${k(x[c])})`;
     }
     x[f] = s / M[f][f];
     bloques.push({ tipo: 'ecuacion', latex: `${vars[f]}=\\dfrac{${txt}}{${k(M[f][f])}}\\ \\Rightarrow\\ \\boxed{${vars[f]}=${k(x[f])}\\,\\mathrm{A}}`, tag: nuevoTag() });

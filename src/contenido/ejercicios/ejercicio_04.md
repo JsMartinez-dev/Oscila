@@ -54,7 +54,7 @@ $$
 Entonces
 
 $$
-\int_0^L\frac{x}{x+d}\,dx=\int_0^L dx-d\int_0^L\frac{dx}{x+d}
+\int_0^L\frac{x}{x+d}\,dx=\int_0^L dx-d\cdot\int_0^L\frac{dx}{x+d}
 $$
 
 **Paso 5. Primera integral.**  $\displaystyle\int_0^L dx=\Big[x\Big]_0^L=L-0=L$.
@@ -68,7 +68,7 @@ $$
 **Paso 7. Resultado.**  Se reemplazan los pasos 5 y 6 en (1):
 
 $$
-\boxed{V_A={K_e}\alpha\left[L-d\ln\!\left(1+\frac Ld\right)\right]=\frac{\alpha}{4\pi\varepsilon_0}\left[L-d\ln\!\left(1+\frac Ld\right)\right]}
+\boxed{V_A={K_e}\alpha\left[L-d\,\ln\!\left(1+\frac Ld\right)\right]=\frac{\alpha}{4\pi\varepsilon_0}\left[L-d\,\ln\!\left(1+\frac Ld\right)\right]}
 \tag{2}
 $$
 
@@ -83,26 +83,26 @@ $$
 Por la regla de la cadena:
 
 $$
-E_x=-\frac{\partial V}{\partial x_A}=-\frac{dV}{dd}\cdot\frac{\partial d}{\partial x_A}=-\frac{dV}{dd}\cdot(-1)=\frac{dV}{dd}
+E_x=-\frac{\partial V}{\partial x_A}=-\frac{dV}{d(d)}\cdot\frac{\partial d}{\partial x_A}=-\frac{dV}{d(d)}\cdot(-1)=\frac{dV}{d(d)}
 \tag{3}
 $$
 
 **Paso 2. Reescribir $V$.**  Con $\ln\dfrac{L+d}{d}=\ln(L+d)-\ln d$:
 
 $$
-V={K_e}\alpha\Big[L-d\ln(L+d)+d\ln d\Big]
+V={K_e}\alpha\Big[L-d\,\ln(L+d)+d\,\ln d\Big]
 $$
 
 **Paso 3. Derivar término por término**  respecto a $d$ ($L$ es constante):
 
-- $\dfrac{d}{dd}(L)=0$
+- $\dfrac{d}{d(d)}(L)=0$
 
-- Regla del producto: $\dfrac{d}{dd}\big[d\ln(L+d)\big]=(1)\ln(L+d)+d\cdot\dfrac{1}{L+d}=\ln(L+d)+\dfrac{d}{L+d}$
+- Regla del producto: $\dfrac{d}{d(d)}\big[d\,\ln(L+d)\big]=(1)\ln(L+d)+d\cdot\dfrac{1}{L+d}=\ln(L+d)+\dfrac{d}{L+d}$
 
-- Regla del producto: $\dfrac{d}{dd}\big[d\ln d\big]=(1)\ln d+d\cdot\dfrac1d=\ln d+1$
+- Regla del producto: $\dfrac{d}{d(d)}\big[d\,\ln d\big]=(1)\ln d+d\cdot\dfrac1d=\ln d+1$
 
 $$
-\frac{dV}{dd}={K_e}\alpha\left[0-\ln(L+d)-\frac{d}{L+d}+\ln d+1\right]
+\frac{dV}{d(d)}={K_e}\alpha\left[0-\ln(L+d)-\frac{d}{L+d}+\ln d+1\right]
 $$
 
 **Paso 4. Simplificar.**  Se agrupan los logaritmos, $-\ln(L+d)+\ln d=-\ln\dfrac{L+d}{d}=-\ln\!\left(1+\dfrac Ld\right)$, y los otros términos:
@@ -110,7 +110,7 @@ $$
 $$
 1-\frac{d}{L+d}=\frac{(L+d)-d}{L+d}=\frac{L}{L+d}
 \qquad\Rightarrow\qquad
-\frac{dV}{dd}={K_e}\alpha\left[\frac{L}{L+d}-\ln\!\left(1+\frac Ld\right)\right]
+\frac{dV}{d(d)}={K_e}\alpha\left[\frac{L}{L+d}-\ln\!\left(1+\frac Ld\right)\right]
 $$
 
 **Paso 5. Resultado.**  Por (3):
@@ -127,7 +127,7 @@ $$
 - **Signo.** Sea $u=L/d>0$ y $f(u)=\ln(1+u)-\dfrac{u}{1+u}$, que es el corchete de (4). En $u=0$ vale $f(0)=0-0=0$, y su derivada es
 
 $$
-f'(u)=\frac{1}{1+u}-\frac{(1)(1+u)-u(1)}{(1+u)^2}=\frac{1}{1+u}-\frac{1}{(1+u)^2}=\frac{(1+u)-1}{(1+u)^2}=\frac{u}{(1+u)^2}>0 .
+f'(u)=\frac{1}{1+u}-\frac{1\cdot(1+u)-u\cdot1}{(1+u)^2}=\frac{1}{1+u}-\frac{1}{(1+u)^2}=\frac{(1+u)-1}{(1+u)^2}=\frac{u}{(1+u)^2}>0 .
 $$
 
 Como $f$ arranca en $0$ y siempre crece, $f(u)>0$, y entonces $E_x<0$. El campo apunta hacia $-x$: se aleja de la varilla, que tiene carga positiva ($\alpha>0$). ✓

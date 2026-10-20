@@ -34,13 +34,24 @@
   --color-info-fondo: #e6effb;
   --color-revisar: #facc15; /* resaltado de elementos a revisar en el editor (relleno, no texto) */
 
-  /* Editor y hoja de solución (el dibujo de Esquema.jsx conserva sus colores propios) */
+  /* Editor y hoja de solución */
   --color-cuadricula: #8e83a1; /* puntos de la cuadrícula: 3.5:1 sobre blanco */
   --color-guia: #1d4f91; /* cable en previa y cursor del editor */
   --color-hoja-texto: #111827;
   --color-hoja-suave: #4b5563;
   --color-hoja-separador: #6b7280;
   --color-hoja-linea: #b9b0c6; /* bordes de las tablas de la solución */
+
+  /* Dibujo de circuitos (Esquema.jsx) */
+  --esq-linea: var(--color-hoja-texto);
+  --esq-texto: var(--color-hoja-texto);
+  --esq-suave: var(--color-hoja-suave);
+  --esq-corriente: var(--color-ok);
+  --esq-malla: var(--color-clase-mixto);
+  --esq-nodo: var(--color-info);
+  --esq-seleccion: var(--color-guia);
+  --esq-revisar: var(--color-revisar);
+  --esq-fondo: #ffffff;
 
   /* Clasificación de circuitos (franja izquierda de la tarjeta) */
   --color-clase-serie: #0f6b3f;

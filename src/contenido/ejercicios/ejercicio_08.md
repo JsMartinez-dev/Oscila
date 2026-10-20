@@ -12,13 +12,13 @@ c) Calcule la capacitancia del sistema y analice su dependencia con los parámet
 ## Solución
 ![Ejercicio 8 – figura 1](figuras/ej08_fig1.svg)
 
-Corte transversal
+Capacitor coaxial en perspectiva: cilindro interior de radio $a$ y tubo de radios $b$ y $c$, ambos de longitud $L$ ($b-a\ll L$).
 
 ![Ejercicio 8 – figura 2](figuras/ej08_fig2.svg)
 
-Vista lateral ($b-a\ll L$)
+Vista transversal: círculos concéntricos de radios $a$, $b$ y $c$, y superficie gaussiana de radio $r$ (punteada).
 
-> **Fórmulas:** Gauss: $\oint\vec E\cdot d\vec A=\dfrac{q_{enc}}{\varepsilon_0}$ ;  $E=0$ dentro del metal ;  $\Delta V=-\displaystyle\int\vec E\cdot d\vec s$,  es decir $V(r)=-\displaystyle\int E\,dr$ ;  $C=\dfrac{Q}{\Delta V}$
+> **Fórmulas:** Gauss: $\oint\vec E\cdot d\vec A=\dfrac{q_{enc}}{\varepsilon_0}$ ;  $E=0$ dentro del metal ;  $\Delta V=V_b-V_a=-\displaystyle\int_a^b\vec E\cdot d\vec s$,  con $\vec E$ radial: $V_b-V_a=-\displaystyle\int_a^b E\,dr$ ;  $C=\dfrac{Q}{\Delta V}$
 
 ### a) Campo eléctrico con la Ley de Gauss
 
@@ -61,13 +61,15 @@ $$
 E\,(2\pi rL)=0\ \Rightarrow\ \boxed{E=0}
 $$
 
-### b) Potencial eléctrico  (referencia: $V(\infty)=0$)
+### b) Potencial eléctrico  (referencia: $V=0$ en el tubo exterior)
 
-**Paso 1. Relación a usar.**  Entre dos radios $r_1$ y $r_2$:   $V(r_2)-V(r_1)=-\displaystyle\int_{r_1}^{r_2}E\,dr$.  Se empieza desde el infinito y se avanza hacia adentro.
+**Paso 1. Nivel de referencia.**  Se elige $V=0$ en el tubo exterior (el conductor con carga $-Q$). Como es un conductor en equilibrio, todo su metal está al mismo potencial: $V(b)=V(c)=0$.
 
-- **iv) $r\ge c$:**   $V(r)-V(\infty)=-\displaystyle\int_{\infty}^{r}0\,dr'=0$  $\Rightarrow$  $\boxed{V(r)=0}$   (en particular $V(c)=0$).
+**Paso 2. Relación a usar.**  Entre dos radios $r_1$ y $r_2$:   $V(r_2)-V(r_1)=-\displaystyle\int_{r_1}^{r_2}E\,dr$.  Se parte del tubo ($r=b$ o $r=c$) y se avanza hacia afuera y hacia adentro.
 
-- **iii) $b\le r\le c$:**   $V(r)-V(c)=-\displaystyle\int_{c}^{r}0\,dr'=0$  $\Rightarrow$  $V(r)=V(c)$  $\Rightarrow$  $\boxed{V(r)=0}$   (en particular $V(b)=0$).
+- **iii) $b\le r\le c$:**   dentro del metal $E=0$, así que $V(r)-V(b)=-\displaystyle\int_{b}^{r}0\,dr'=0$  $\Rightarrow$  $\boxed{V(r)=0}$.
+
+- **iv) $r\ge c$:**   $V(r)-V(c)=-\displaystyle\int_{c}^{r}0\,dr'=0$  $\Rightarrow$  $V(r)=V(c)$  $\Rightarrow$  $\boxed{V(r)=0}$.
 
 - **ii) $a\le r\le b$:** se usa el campo (2):
 
@@ -96,16 +98,31 @@ Gráficas cualitativas (dibujadas con $b=2a$, $c=2.6a$):  $E_a=\dfrac{Q}{2\pi\va
 
 ### c) Capacitancia
 
-**Paso 1. Diferencia de potencial**  entre el conductor interior ($+Q$) y el exterior ($-Q$), con (3) y $V(b)=0$:
+**Paso 1. Diferencia de potencial entre las placas.**  Basta integrar el campo (2) entre la placa interior ($r=a$, carga $+Q$) y la exterior ($r=b$, carga $-Q$); no se necesita ningún nivel de referencia. De la hoja de fórmulas, $V_b-V_a=-\displaystyle\int_a^b E\,dr$, así que:
 
 $$
-\Delta V=V(a)-V(b)=\frac{Q}{2\pi\varepsilon_0L}\ln\frac ba-0=\frac{Q}{2\pi\varepsilon_0L}\ln\frac ba
+V_{ab}=V_a-V_b=\int_a^b E\,dr
+\tag{4}
 $$
 
-**Paso 2. Definición de capacitancia.** 
+Se reemplaza $E=\dfrac{Q}{2\pi\varepsilon_0L\,r}$ y se sacan las constantes de la integral:
 
 $$
-C=\frac{Q}{\Delta V}=\frac{Q}{\dfrac{Q}{2\pi\varepsilon_0L}\ln\dfrac ba}=Q\cdot\frac{2\pi\varepsilon_0L}{Q\,\ln(b/a)}
+V_{ab}=\int_a^b\frac{Q}{2\pi\varepsilon_0L\,r}\,dr=\frac{Q}{2\pi\varepsilon_0L}\int_a^b\frac{dr}{r}
+$$
+
+$$
+V_{ab}=\frac{Q}{2\pi\varepsilon_0L}\Big[\ln r\Big]_a^b=\frac{Q}{2\pi\varepsilon_0L}\big(\ln b-\ln a\big)
+\qquad\Rightarrow\qquad
+\boxed{V_{ab}=\frac{Q}{2\pi\varepsilon_0L}\ln\frac ba}
+$$
+
+Como $b>a$, $\ln(b/a)>0$ y $V_{ab}>0$: la placa interior (positiva) está a mayor potencial. Coincide con $V(a)-V(b)$ del inciso b), como debe ser, porque una diferencia de potencial no depende de la referencia.
+
+**Paso 2. Definición de capacitancia.**  Con $\Delta V=V_{ab}$:
+
+$$
+C=\frac{Q}{V_{ab}}=\frac{Q}{\dfrac{Q}{2\pi\varepsilon_0L}\ln\dfrac ba}=Q\cdot\frac{2\pi\varepsilon_0L}{Q\,\ln(b/a)}
 \qquad\Rightarrow\qquad
 \boxed{C=\frac{2\pi\varepsilon_0L}{\ln(b/a)}}
 $$
