@@ -15,10 +15,10 @@ e) ¿Cuál es el potencial y el campo eléctrico cuando $x\gg a$? Explique por q
 ![Ejercicio 1 – figura 1](figuras/ej01_fig1.svg)
 
 **Fórmulas:** 
-$v=\sum\dfrac{{K_e} q_i}{r_i}$ ; 
-$\Delta U=q\,\Delta v$ ; 
-$E_x=-\dfrac{\partial v}{\partial x}$ ; 
-$x\gg a:\ v\approx\dfrac{2{K_e} q}{|x|}$ ; 
+$V=\sum\dfrac{{K_e} q_i}{r_i}$ ; 
+$\Delta U=q\,\Delta V$ ; 
+$E_x=-\dfrac{\partial V}{\partial x}$ ; 
+$x\gg a:\ V\approx\dfrac{2{K_e} q}{|x|}$ ; 
 ${K_e}=\dfrac{1}{4\pi\varepsilon_0}$
 
 ### a) Potencial en $O$ y $\Delta U$

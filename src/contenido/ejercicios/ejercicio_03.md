@@ -12,7 +12,7 @@ b) Determine el campo eléctrico en el punto $O$.
 
 $O$ es el origen y el centro del semicírculo. Tramo derecho: $R\le x\le3R$; tramo izquierdo: $-3R\le x\le-R$; arco: $0\le\theta\le\pi$.
 
-> **Fórmulas:** $v=\displaystyle\int\frac{{K_e}\,dq}{r}$,  $dq=\lambda\,dl$ ;   carga puntual: $v=\dfrac{{K_e} q}{r}$ ;   $E_r=-\dfrac{\partial v}{\partial r}$ ;   recto: $\displaystyle\int\frac{{K_e}\lambda\,dx}{x}={K_e}\lambda\ln x$ ;   arco: $v={K_e}\lambda\dfrac{L_{arco}}{R}$
+> **Fórmulas:** $V=\displaystyle\int\frac{{K_e}\,dq}{r}$,  $dq=\lambda\,dl$ ;   carga puntual: $V=\dfrac{{K_e} q}{r}$ ;   $E_r=-\dfrac{\partial V}{\partial r}$ ;   recto: $\displaystyle\int\frac{{K_e}\lambda\,dx}{x}={K_e}\lambda\ln x$ ;   arco: $V={K_e}\lambda\dfrac{L_{arco}}{R}$
 
 ### a) Potencial en $O$
 
@@ -90,10 +90,10 @@ $$
 
 El campo no se puede sacar derivando $V_O$, porque es un solo número: para derivar haría falta $V$ en puntos alrededor de $O$. Por eso se suma el campo de cada pedacito.
 
-**Paso 1. Campo de un pedacito**  (sale de las fórmulas de la hoja). Para una carga puntual $v={K_e} q\,r^{-1}$:
+**Paso 1. Campo de un pedacito**  (sale de las fórmulas de la hoja). Para una carga puntual $V={K_e} q\,r^{-1}$:
 
 $$
-E_r=-\frac{\partial v}{\partial r}=-{K_e} q\left(-1\cdot r^{-2}\right)=\frac{{K_e} q}{r^2}
+E_r=-\frac{\partial V}{\partial r}=-{K_e} q\left(-1\cdot r^{-2}\right)=\frac{{K_e} q}{r^2}
 \qquad\Rightarrow\qquad dE=\frac{{K_e}\,dq}{r^2}
 $$
 

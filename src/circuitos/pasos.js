@@ -11,7 +11,7 @@ import { resolverConPasos, latexEcuacion } from './sistemas.js';
 import { n, q, qAmbas, nombreLatex } from './formato.js';
 import { dibujarReduccion } from './layout.js';
 import { SistemaSingular } from './lineal.js';
-import { terminales } from './geometria.js';
+import { terminales, puntosDeUnion } from './geometria.js';
 
 const TOL = 0.01;
 
@@ -292,7 +292,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
   const nombreElem = (e) =>
     e.tipo === 'fuente' ? `${q(e.valor, 'V')}` : `${q(e.valor, 'Ω')}`;
   const alias = aliasNodos(geo);
-  const nombreNodo = (x) => `$${x}$`;
+  const nombreNodo = (x) => `$${nombreNodoLatex(x)}$`;
 
   // Elemento de la rama donde se dibuja la flecha y su sentido respecto a los terminales del dibujo
   const flechaDe = (r) => {
@@ -320,6 +320,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
 
   // Diagrama con corrientes y mallas
   const mallasDibujadas = pl.origenMallas === 'dibujo';
+  const nodosAnotados = geo ? nodosParaDiagrama(net, doc, geo) : [];
   B.push({
     tipo: 'diagrama',
     titulo: 'Circuito original',
@@ -331,12 +332,16 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
             return { id: e.elem.id, sentido, etiqueta: `I${r.k}` };
           }),
           mallas: mallasDibujadas ? mallas.map((m, i) => ({ centro: m.centro, etiqueta: `M${i + 1}` })) : [],
+          nodos: nodosAnotados,
         }
       : null,
     leyenda: doc
       ? 'Flechas verdes: sentido supuesto de cada corriente' +
         (mallasDibujadas
           ? ` · ${mallas.map((_, i) => `$M_{${i + 1}}$`).join(', ')}: ${mallas.length === 1 ? 'malla recorrida' : 'mallas recorridas'} en sentido horario`
+          : '') +
+        (nodosAnotados.length
+          ? ` · Puntos azules: nodos (${nodosAnotados.map((n) => `$${nombreNodoLatex(n.etiqueta)}$`).join(', ')})`
           : '')
       : null,
   });
@@ -345,7 +350,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
   const P = pl.principales.length;
   if (P) {
     const txtNodos = pl.principales
-      .map((x) => (alias[x] && alias[x].length > 1 ? `$${x}$ (une ${alias[x].map((a) => '$' + a + '$').join('–')})` : `$${x}$`))
+      .map((x) => (alias[x] && alias[x].length > 1 ? `$${nombreNodoLatex(x)}$ (une ${alias[x].map((a) => '$' + a + '$').join('–')})` : `$${nombreNodoLatex(x)}$`))
       .join(P === 2 ? ' y ' : ', ');
     B.push({ tipo: 'texto', texto: `**Nodos principales:** ${txtNodos}.` });
   } else {
@@ -402,7 +407,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     const der = e.salen.map((r) => r.variable).join('+') || '0';
     const t = T();
     conTag.push({ ...lineales[i], tag: t });
-    B.push({ tipo: 'ecuacion', latex: `\\text{Nodo } ${e.nodo}:\\quad ${izq}=${der}`, tag: t });
+    B.push({ tipo: 'ecuacion', latex: `\\text{Nodo } ${nombreNodoLatex(e.nodo)}:\\quad ${izq}=${der}`, tag: t });
   });
   mallas.forEach((m, i) => {
     const crudo =
@@ -412,7 +417,7 @@ function pasosKirchhoff(net, geo, mna, doc, v) {
     const lin = lineales[ecNodos.length + i];
     const t = T();
     conTag.push({ ...lin, tag: t });
-    const ruta = m.ruta?.length ? ` (${m.ruta.join('\\to ')})` : '';
+    const ruta = m.ruta?.length ? ` (${m.ruta.map(nombreNodoLatex).join('\\to ')})` : '';
     B.push({
       tipo: 'ecuacion',
       latex: `\\text{Malla ${i + 1}${ruta ? '' : ''}}${ruta ? `\\ ${ruta}` : ''}:\\quad ${crudo}\\ \\Rightarrow\\ ${latexEcuacion(lin, vars)}`,
@@ -564,3 +569,71 @@ function suma(lista, total) {
 function aliasNodos(geo) {
   return geo?.etiquetasPorNodo ?? {};
 }
+
+export function nombreNodoLatex(x) {
+  const m = String(x).match(/^([A-Za-z]+)(\d+)$/);
+  return m ? `${m[1]}_{${m[2]}}` : String(x);
+}
+
+export function nodosParaDiagrama(net, doc, geo) {
+  if (!doc || !geo) return [];
+  const uniones = puntosDeUnion(doc);
+  const etiquetasExistentes = new Set((doc.etiquetas ?? []).map((e) => geo.nodoDe(e)).filter(Boolean));
+  const res = [];
+  for (const n of net.nodos ?? []) {
+    if (etiquetasExistentes.has(n)) continue;
+
+    const unionesNodo = uniones.filter((p) => geo.nodoDe({ x: p[0], y: p[1] }) === n);
+    if (unionesNodo.length) {
+      const cx = unionesNodo.reduce((s, p) => s + p[0], 0) / unionesNodo.length;
+      const cy = unionesNodo.reduce((s, p) => s + p[1], 0) / unionesNodo.length;
+      let mejor = unionesNodo[0];
+      let menorD = Infinity;
+      for (const p of unionesNodo) {
+        const d = (p[0] - cx) ** 2 + (p[1] - cy) ** 2;
+        if (d < menorD) {
+          menorD = d;
+          mejor = p;
+        }
+      }
+      res.push({ etiqueta: n, x: mejor[0], y: mejor[1] });
+      continue;
+    }
+
+    const segsCable = (geo.segmentos ?? []).filter(
+      (s) => s.tipo === 'cable' && geo.nodoDe(s.p) === n && geo.nodoDe(s.q) === n
+    );
+    if (segsCable.length) {
+      let mejorSeg = segsCable[0];
+      let maxL = -1;
+      for (const s of segsCable) {
+        const l = Math.hypot(s.q.x - s.p.x, s.q.y - s.p.y);
+        if (l > maxL) {
+          maxL = l;
+          mejorSeg = s;
+        }
+      }
+      res.push({
+        etiqueta: n,
+        x: (mejorSeg.p.x + mejorSeg.q.x) / 2,
+        y: (mejorSeg.p.y + mejorSeg.q.y) / 2,
+      });
+      continue;
+    }
+
+    const segs = (geo.segmentos ?? []).filter(
+      (s) => geo.nodoDe(s.p) === n || geo.nodoDe(s.q) === n
+    );
+    if (segs.length) {
+      const p = geo.nodoDe(segs[0].p) === n ? segs[0].p : segs[0].q;
+      res.push({ etiqueta: n, x: p.x, y: p.y });
+      continue;
+    }
+
+    if (geo?.posNodo?.[n]) {
+      res.push({ etiqueta: n, x: geo.posNodo[n].x, y: geo.posNodo[n].y });
+    }
+  }
+  return res;
+}
+

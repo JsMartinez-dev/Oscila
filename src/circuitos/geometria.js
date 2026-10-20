@@ -139,3 +139,32 @@ export function seCruzan(s, t) {
   if (o1 !== o2 && o3 !== o4 && o1 !== 0 && o2 !== 0 && o3 !== 0 && o4 !== 0) return true;
   return false;
 }
+
+/** Puntos de unión: donde llegan 3 o más segmentos, o nodos explícitos. */
+export function puntosDeUnion(doc) {
+  const grado = new Map();
+  const sumar = (x, y) => grado.set(clave(x, y), (grado.get(clave(x, y)) ?? 0) + 1);
+  for (const w of doc.cables ?? []) {
+    sumar(w.x1, w.y1);
+    sumar(w.x2, w.y2);
+  }
+  for (const c of doc.componentes ?? []) {
+    const t = terminales(c);
+    sumar(t.a.x, t.a.y);
+    sumar(t.b.x, t.b.y);
+  }
+  // un extremo que cae en medio de otro cable también es unión (T)
+  for (const w of doc.cables ?? []) {
+    for (const [k] of grado) {
+      const [x, y] = k.split(',').map(Number);
+      const enMedio =
+        (w.x1 === w.x2 && x === w.x1 && y > Math.min(w.y1, w.y2) && y < Math.max(w.y1, w.y2)) ||
+        (w.y1 === w.y2 && y === w.y1 && x > Math.min(w.x1, w.x2) && x < Math.max(w.x1, w.x2));
+      if (enMedio) grado.set(k, grado.get(k) + 2);
+    }
+  }
+  const pts = [...grado].filter(([, g]) => g >= 3).map(([k]) => k.split(',').map(Number));
+  for (const n of doc.nodos ?? []) pts.push([n.x, n.y]);
+  return pts;
+}
+

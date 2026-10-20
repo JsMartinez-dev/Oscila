@@ -63,6 +63,11 @@ export const IMAGENES_EYM = [
       'Enunciados del material del curso Electricidad y Magnetismo, prof. Jarvin Mestra Páez, Universidad del Magdalena. Figuras redibujadas (LaTeX/TikZ) y soluciones elaboradas por el equipo de Oscila.',
   },
   {
+    titulo: 'Infografía de Oscila',
+    carpeta: 'src/Infografia',
+    credito: 'Infografía elaborada por el equipo de Oscila para el II Foro Internacional de Física.',
+  },
+  {
     titulo: 'Escudo de la Universidad del Magdalena',
     archivos: ['logo-unimagdalena.png'],
     credito: 'Marca institucional de la Universidad del Magdalena, usada para identificar el proyecto.',
@@ -79,7 +84,15 @@ export const IMAGENES_EYM = [
   },
   {
     titulo: 'Logotipos de Oscila',
-    archivos: ['logotipos/logotipo-cuadro.svg', 'logotipos/LOGOTIPO-NOMBRE.png', 'logotipos/LOGOTIPO-NOMBRE.svg', 'logotipos/LOGOTIPO.png', 'logotipos/LOGOTIPO.svg'],
+    archivos: [
+      'logotipos/logotipo-cuadro.svg',
+      'logotipos/LOGOTIPO-NOMBRE.png',
+      'logotipos/LOGOTIPO-NOMBRE.svg',
+      'logotipos/LOGOTIPO.png',
+      'logotipos/LOGOTIPO.svg',
+      'logotipos/Oscila-Pendon.png',
+      'logotipos/Oscila-portatil.png',
+    ],
     credito: 'Dibujos propios (SVG/PNG) de la identidad visual de Oscila.',
   },
 ];

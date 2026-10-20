@@ -6,12 +6,12 @@ export const PREGUNTAS = [
     question: "¿Cuál es la unidad del potencial eléctrico en el SI?",
     options: { A: "N/C", B: "J/C (voltio)", C: "C/V", D: "J·s" },
     correctAnswer: "B",
-    feedback: "El potencial es energía por unidad de carga: v = U/q, así que 1 V = 1 J/C. N/C es la unidad del campo eléctrico y C/V la de la capacitancia.",
+    feedback: "El potencial es energía por unidad de carga: V = U/q, así que 1 V = 1 J/C. N/C es la unidad del campo eléctrico y C/V la de la capacitancia.",
     topic: "Potencial eléctrico",
   },
   {
     id: 2,
-    question: "El potencial de una carga puntual es v = Kₑq/r. Si te alejas al doble de la distancia, el potencial…",
+    question: "El potencial de una carga puntual es V = Kₑq/r. Si te alejas al doble de la distancia, el potencial…",
     options: { A: "se duplica", B: "no cambia", C: "se reduce a la mitad", D: "se reduce a la cuarta parte" },
     correctAnswer: "C",
     feedback: "El potencial de una carga puntual es inversamente proporcional a r (no a r²): al doble de distancia queda la mitad. El que cae como 1/r² es el campo.",
@@ -19,7 +19,7 @@ export const PREGUNTAS = [
   },
   {
     id: 3,
-    question: "Según E = −∇v, el campo eléctrico apunta…",
+    question: "Según E = −∇V, el campo eléctrico apunta…",
     options: { A: "hacia donde el potencial aumenta", B: "hacia donde el potencial disminuye", C: "siempre paralelo a las equipotenciales", D: "en cualquier dirección" },
     correctAnswer: "B",
     feedback: "El signo menos indica que el campo apunta en la dirección en que el potencial disminuye más rápido, y es perpendicular a las superficies equipotenciales.",
@@ -27,10 +27,10 @@ export const PREGUNTAS = [
   },
   {
     id: 4,
-    question: "Si se duplica el voltaje aplicado a un condensador, ¿qué pasa con su capacitancia C = Q/Δv?",
+    question: "Si se duplica el voltaje aplicado a un condensador, ¿qué pasa con su capacitancia C = Q/ΔV?",
     options: { A: "Se duplica", B: "Se reduce a la mitad", C: "No cambia: se duplica la carga", D: "Se cuadruplica" },
     correctAnswer: "C",
-    feedback: "La capacitancia depende solo de la geometría y del material. Al duplicar el voltaje se duplica la carga Q = CΔv y C se mantiene.",
+    feedback: "La capacitancia depende solo de la geometría y del material. Al duplicar el voltaje se duplica la carga Q = CΔV y C se mantiene.",
     topic: "Capacitancia",
   },
   {

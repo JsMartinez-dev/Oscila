@@ -7,7 +7,7 @@ Un disco de radio $R$ tiene una densidad de carga superficial no uniforme dada p
 ## Solución
 ![Ejercicio 6 – figura 1](figuras/ej06_fig1.svg)
 
-> **Fórmulas:** $v=\displaystyle\int_0^R\frac{{K_e}\,\sigma(r)\,2\pi r\,dr}{\sqrt{r^2+x^2}}$ ;   $\displaystyle\int\frac{dr}{\sqrt{r^2+x^2}}=\ln\!\left(r+\sqrt{r^2+x^2}\right)$ ;   $E_x=-\dfrac{\partial v}{\partial x}$ ;   partes: $\displaystyle\int u\,dv=uv-\int v\,du$
+> **Fórmulas:** $V=\displaystyle\int_0^R\frac{{K_e}\,\sigma(r)\,2\pi r\,dr}{\sqrt{r^2+x^2}}$ ;   $\displaystyle\int\frac{dr}{\sqrt{r^2+x^2}}=\ln\!\left(r+\sqrt{r^2+x^2}\right)$ ;   $E_x=-\dfrac{\partial V}{\partial x}$ ;   partes: $\displaystyle\int u\,dv=uv-\int v\,du$
 
 ### Potencial en $P$
 
