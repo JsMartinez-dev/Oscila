@@ -69,8 +69,12 @@ export function plantearKirchhoff(net, geo, opciones = {}) {
   for (const r of ramas) {
     const f = r.elems.find((x) => x.elem.tipo === 'fuente');
     let invertir = false;
+    const tramo = r.elems.length === 1 && r.elems[0].elem.tipo === 'cable' ? geo?.cablesRama?.find((w) => w.id === r.elems[0].elem.id) : null;
     if (f) invertir = f.desde === f.elem.pos; // recorrida de + a −: invertir
-    else if (pos[r.desde] && pos[r.hacia]) {
+    else if (tramo) {
+      const [a, b] = geo.nodoDe(tramo.p) === r.desde ? [tramo.p, tramo.q] : [tramo.q, tramo.p];
+      invertir = a.y > b.y + 1e-9 || (Math.abs(a.y - b.y) < 1e-9 && a.x > b.x);
+    } else if (pos[r.desde] && pos[r.hacia]) {
       const a = pos[r.desde];
       const b = pos[r.hacia];
       invertir = a.y > b.y + 1e-9 || (Math.abs(a.y - b.y) < 1e-9 && a.x > b.x);

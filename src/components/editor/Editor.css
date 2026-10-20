@@ -225,6 +225,22 @@
   font-size: 1rem;
 }
 
+.editor-casilla {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: var(--color-texto);
+  cursor: pointer;
+}
+
+.editor-casilla input {
+  width: 1.1rem;
+  height: 1.1rem;
+  padding: 0;
+  accent-color: var(--color-principal);
+}
+
 .editor-mini {
   font-size: var(--texto-xs);
   color: var(--color-texto-suave);
