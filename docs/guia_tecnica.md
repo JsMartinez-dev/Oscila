@@ -244,7 +244,7 @@ paquete_EyM/                material fuente: ejercicios, hoja de fórmulas, caso
 5. **Validación con Zod** (`esquemaReconocimiento`). Si el JSON no cumple, responde 422 con detalles.
 6. **Al editor:** `reconocimientoADoc` dibuja el circuito. Los elementos con confianza menor que **0,7** quedan resaltados para revisar.
 7. **El usuario confirma o corrige** en el editor antes de calcular.
-8. **Ejemplos guardados sin internet:** los ejercicios 11 a 15 traen su reconocimiento ya hecho (`src/contenido/fotos.js` y `src/contenido/fotos/*.json`).
+8. **Montajes guardados sin internet:** los ejercicios 11 a 15 muestran sus esquemas locales (`src/contenido/montajes.js`) y se abren directamente en el editor. No son fotografías ni requieren Gemini.
 
 ```mermaid
 flowchart LR
@@ -308,8 +308,8 @@ flowchart LR
   - `npm run build`: versión de producción en `dist/`;
   - `npm run preview`: sirve `dist/` en `http://localhost:4173`, también con `/api/reconocer` si existe `.env.local`.
 - **Vercel:** `api/reconocer.js` es una función serverless (`maxDuration: 60`). La URL pública de despliegue no está en el código: **[completar por el equipo]**.
-- **Si se cae internet:** el aviso dice que no hay conexión, y la galería de ejemplos guardados y el editor siguen funcionando.
-- **Si se acaba la cuota gratuita:** Gemini responde 429 y la app muestra "Se agotó la cuota gratuita…", con la sugerencia de usar los ejemplos guardados o dibujar.
+- **Si se cae internet:** el aviso dice que no hay conexión, y la galería de montajes guardados y el editor siguen funcionando.
+- **Si se acaba la cuota gratuita:** Gemini responde 429 y la app muestra "Se agotó la cuota gratuita…", con la sugerencia de usar los montajes guardados o dibujar.
 - **Otros errores** con mensaje claro: sin clave (503), clave inválida, modelo inexistente, imagen muy grande y formato no soportado.
 
 ---
@@ -321,7 +321,7 @@ flowchart LR
 - **Solo corriente continua y estado estacionario:** no hay corriente alterna, inductores ni carga o descarga RC en el tiempo. En circuitos con resistencias, los condensadores se tratan como circuito abierto.
 - **Solo fuentes de voltaje ideales:** no hay fuentes de corriente ni resistencia interna como elemento propio.
 - **Redes de solo condensadores con varias fuentes:** no tienen paso a paso (`pasos.js` lo dice expresamente).
-- **Ejemplos guardados sin fotos reales:** falta la carpeta `public/ejemplos_foto/`, así que la galería muestra una "Imagen de reemplazo" con el esquema. Hay que agregar las fotos `ej11.jpg` … `ej15.jpg`.
+- **Montajes guardados:** desde el 15 de noviembre de 2026, los ejercicios 11–15 se presentan como esquemas locales y se abren en el editor; no se necesitan fotografías.
 - **Navegación sin URL:** no se puede compartir el enlace a una sección y el botón "atrás" no navega.
 - **Calor y Ondas:** en revisión; su contenido no se ha corregido.
 - **Tamaño del paquete:** el build avisa de un archivo JavaScript de ~1,5 MB (sin dividir por partes).
@@ -373,7 +373,7 @@ flowchart LR
 
 22. **¿Cómo lee la foto?** El servidor envía la imagen a Gemini con un prompt y un esquema JSON. Gemini responde nodos, elementos, valores, polaridad y su confianza en cada dato.
 23. **¿Qué pasa si la foto se reconoce mal?** El resultado se carga en el editor, y lo dudoso (confianza < 0,7) queda resaltado. El usuario corrige antes de calcular; además, el JSON se valida con Zod.
-24. **¿Y si se acaba la cuota o no hay internet?** Se avisa y se ofrece la galería de ejemplos guardados y el editor, que funcionan sin conexión. Una foto repetida no gasta otra solicitud gracias al caché.
+24. **¿Y si se acaba la cuota o no hay internet?** Se avisa y se ofrece la galería de montajes guardados y el editor, que funcionan sin conexión. Una foto repetida no gasta otra solicitud gracias al caché.
 25. **¿Qué modelo usan?** Por defecto `gemini-3.5-flash-lite`; se puede cambiar con la variable `GEMINI_MODEL`.
 
 ### Datos y seguridad

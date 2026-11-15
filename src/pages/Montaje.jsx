@@ -13,7 +13,7 @@ import './Montaje.css';
 
 const PESTANAS = [
   { id: 'editor', nombre: '1. Dibujar' },
-  { id: 'foto', nombre: '2. Desde una foto' },
+  { id: 'foto', nombre: '2. Foto o montaje guardado' },
   { id: 'solucion', nombre: '3. Solución' },
 ];
 
@@ -52,12 +52,13 @@ export default function Montaje() {
     setPestana('solucion');
   };
 
-  const cargarDesdeFoto = (doc) => {
+  const cargarDesdeFoto = (doc, origen = 'foto') => {
     historial.cambiar(centrar(doc));
     setAvisoFoto(
       <div className="montaje-banner">
-        <strong>Revisa y corrige antes de calcular.</strong> El circuito viene de una foto: compara cada valor, la polaridad de las fuentes y las conexiones con
-        el dibujo original. Lo resaltado en amarillo es lo que el reconocimiento leyó con menos seguridad.
+        <strong>Revisa y corrige antes de calcular.</strong> {origen === 'guardado'
+          ? 'Montaje guardado del curso: puedes modificar sus valores y conexiones en el editor.'
+          : 'El circuito viene de una foto: compara cada valor, la polaridad de las fuentes y las conexiones con el dibujo original. Lo resaltado en amarillo es lo que el reconocimiento leyó con menos seguridad.'}
         <button type="button" onClick={() => setAvisoFoto(null)} aria-label="Cerrar aviso">
           ✕
         </button>
