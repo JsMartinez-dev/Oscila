@@ -107,6 +107,10 @@ src/pages/              secciones de la plataforma
 paquete_EyM/            material fuente: ejercicios, hoja de fórmulas y casos de prueba
 ```
 
+## Contribuir
+
+Consulta [CONTRIBUTING.md](CONTRIBUTING.md) para definir tareas, crear ramas desde `main`, verificar cambios y solicitar revisión. Los PR usan una [plantilla breve](.github/pull_request_template.md) y cuentan con un [workflow de pruebas y compilación](.github/workflows/validacion.yml); las protecciones de `main` requieren configuración administrativa aparte.
+
 ## Créditos
 
 **Electricidad y Magnetismo**
