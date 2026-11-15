@@ -69,7 +69,7 @@ npm run preview    # sirve dist/ en http://localhost:4173
 1. Con internet, ejecuta una vez `npm install` y `npm run build`.
 2. Después, sin internet: `npm run preview` y abre `http://localhost:4173`.
 
-Todo funciona sin conexión: el editor, la solución, la teoría, los ejercicios, el test y la galería de **ejemplos de foto guardados**. Lo único que necesita internet es reconocer fotos nuevas.
+Todo funciona sin conexión: el editor, la solución, la teoría, los ejercicios, el test y la galería de **montajes guardados**. Lo único que necesita internet es reconocer fotos nuevas.
 
 ### Reconocimiento de fotos (Gemini, free tier)
 
@@ -84,7 +84,7 @@ La key **nunca llega al navegador**: la foto se envía a la función serverless 
 - La misma foto no gasta otra solicitud (caché por hash en el navegador).
 - Si se agota la cuota, la plataforma lo dice y ofrece la galería sin internet.
 
-**Fotos de la galería:** guarda las fotos reales de los circuitos de los ejercicios 11 a 15 dibujados a mano como `public/ejemplos_foto/ej11.jpg` … `ej15.jpg`. Si reconoces una de esas fotos en línea, con el botón *Descargar JSON* puedes reemplazar `src/contenido/fotos/ejXX.json`.
+**Montajes guardados:** los ejercicios 11 a 15 incluyen sus esquemas locales. Se abren directamente en el editor para revisar, modificar y calcular sin internet; no requieren fotografías ni solicitudes a Gemini.
 
 ## Estructura
 
@@ -102,7 +102,7 @@ src/circuitos/          núcleo de cálculo (sin React)
   layout.js               dibujo automático de los circuitos de la reducción
   reconocimiento.js       esquema del JSON de la foto y conversión al editor
 src/components/         editor, solución, reconocimiento de fotos, KaTeX
-src/contenido/          ejercicios, teoría, aplicaciones y fotos guardadas
+src/contenido/          ejercicios, teoría, aplicaciones y montajes guardados
 src/pages/              secciones de la plataforma
 paquete_EyM/            material fuente: ejercicios, hoja de fórmulas y casos de prueba
 ```

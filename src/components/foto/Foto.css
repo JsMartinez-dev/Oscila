@@ -152,7 +152,7 @@
 }
 
 .foto-esquema,
-.foto-reemplazo {
+.montaje-guardado-esquema {
   background: var(--color-fondo);
   border: var(--borde-fino);
   border-radius: var(--radio-sm);
@@ -161,12 +161,6 @@
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-}
-
-.foto-reemplazo small {
-  color: var(--color-aviso);
-  font-size: 0.72rem;
-  text-align: center;
 }
 
 .foto-tabla {

@@ -10,7 +10,7 @@ import { clasificar } from './clasificacion.js';
 const datos = JSON.parse(readFileSync(resolve(process.cwd(), 'paquete_EyM/casos/casos_prueba_circuitos.json'), 'utf8'));
 const leer = (n) => JSON.parse(readFileSync(resolve(process.cwd(), `src/contenido/fotos/ej${n}.json`), 'utf8'));
 
-describe('ejemplos de foto guardados (modo sin internet)', () => {
+describe('datos de prueba del reconocimiento', () => {
   for (const n of [11, 12, 13, 14, 15]) {
     it(`Ej. ${n}: JSON válido, dibujo con la misma conectividad y mismos resultados`, () => {
       const v = esquemaReconocimiento.safeParse(leer(n));

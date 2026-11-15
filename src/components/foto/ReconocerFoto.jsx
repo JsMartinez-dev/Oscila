@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { esquemaReconocimiento, reconocimientoADoc, UMBRAL_CONFIANZA } from '../../circuitos/reconocimiento.js';
 import { Esquema } from '../../circuitos/Esquema.jsx';
 import { formatearValor } from '../../circuitos/unidades.js';
-import { FOTOS_GUARDADAS } from '../../contenido/fotos.js';
+import { MONTAJES_GUARDADOS } from '../../contenido/montajes.js';
 import { guardarCache, leerCache, sha256, solicitudesHoy, sumarSolicitud, EVENTO_SOLICITUDES } from './almacen.js';
 import { prepararImagen } from './imagen.js';
 import './Foto.css';
@@ -14,10 +14,10 @@ import './Foto.css';
 const FACTOR = { 'Ω': 1, ohm: 1, 'kΩ': 1e3, 'MΩ': 1e6, F: 1, mF: 1e-3, 'µF': 1e-6, uF: 1e-6, nF: 1e-9, pF: 1e-12, V: 1, mV: 1e-3, kV: 1e3 };
 
 const MENSAJES = {
-  cuota: 'Se agotó la cuota gratuita de reconocimiento por hoy. Usa los ejemplos guardados de abajo (funcionan sin internet) o dibuja el circuito en el editor.',
-  'sin-clave': 'El reconocimiento no está configurado en este servidor (falta la API key). Usa los ejemplos guardados o el editor.',
-  red: 'No hay conexión con el servicio de reconocimiento. Usa los ejemplos guardados (funcionan sin internet) o el editor.',
-  offline: 'Este equipo no tiene internet. Los ejemplos guardados y el editor funcionan sin conexión.',
+  cuota: 'Se agotó la cuota gratuita de reconocimiento por hoy. Usa los montajes guardados de abajo (funcionan sin internet) o dibuja el circuito en el editor.',
+  'sin-clave': 'El reconocimiento no está configurado en este servidor (falta la API key). Usa los montajes guardados o el editor.',
+  red: 'No hay conexión con el servicio de reconocimiento. Usa los montajes guardados (funcionan sin internet) o el editor.',
+  offline: 'Este equipo no tiene internet. Los montajes guardados y el editor funcionan sin conexión.',
 };
 
 export default function ReconocerFoto({ onCargar }) {
@@ -26,7 +26,6 @@ export default function ReconocerFoto({ onCargar }) {
   const [resultado, setResultado] = useState(null); // { reconocimiento, doc, ok, origen }
   const [error, setError] = useState(null); // { codigo, mensaje, detalles }
   const [camara, setCamara] = useState(false);
-  const [vistaGaleria, setVistaGaleria] = useState(null);
   const [usadas, setUsadas] = useState(solicitudesHoy());
   const galeriaRef = useRef(null);
 
@@ -46,7 +45,6 @@ export default function ReconocerFoto({ onCargar }) {
     setError(null);
     setResultado(null);
     setEstado('procesando');
-    setVistaGaleria(null);
     setVista(URL.createObjectURL(blob));
     try {
       const hash = await sha256(await blob.arrayBuffer());
@@ -88,13 +86,6 @@ export default function ReconocerFoto({ onCargar }) {
     }
   };
 
-  const usarGuardado = (f) => {
-    setError(null);
-    setVista(null);
-    mostrar(esquemaReconocimiento.parse(f.reconocimiento), 4 / 3, 'guardado');
-    setVistaGaleria(f);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
   const descargarJSON = () => {
     const blob = new Blob([JSON.stringify(resultado.reconocimiento, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
@@ -138,7 +129,7 @@ export default function ReconocerFoto({ onCargar }) {
             </button>
           )}
           <button type="button" className="foto-boton" onClick={() => galeriaRef.current?.scrollIntoView({ behavior: 'smooth' })}>
-            ⬇ Ejemplos guardados (sin internet)
+            ⬇ Montajes guardados (sin internet)
           </button>
         </div>
         <p className="foto-ayuda">
@@ -182,7 +173,7 @@ export default function ReconocerFoto({ onCargar }) {
               </details>
             )}
             <button type="button" onClick={() => galeriaRef.current?.scrollIntoView({ behavior: 'smooth' })}>
-              Ver ejemplos guardados
+              Ver montajes guardados
             </button>
           </div>
         </div>
@@ -192,8 +183,8 @@ export default function ReconocerFoto({ onCargar }) {
         <section className="foto-resultado">
           <div className="foto-comparar">
             <figure>
-              <figcaption>{resultado.origen === 'guardado' ? `Ejemplo guardado — ${vistaGaleria?.titulo ?? ''}` : 'Foto'}</figcaption>
-              {vista ? <img src={vista} alt="Foto del circuito" /> : vistaGaleria && <FotoGuardada f={vistaGaleria} />}
+              <figcaption>Foto</figcaption>
+              {vista && <img src={vista} alt="Foto del circuito" />}
             </figure>
             <figure>
               <figcaption>Lo que se reconoció</figcaption>
@@ -204,7 +195,6 @@ export default function ReconocerFoto({ onCargar }) {
           </div>
           <p className="foto-mini">
             {resultado.origen === 'cache' && 'Resultado tomado de la caché (esta foto ya se había reconocido): no gastó otra solicitud. '}
-            {resultado.origen === 'guardado' && 'Ejemplo guardado: funciona sin internet. '}
             Lo resaltado en amarillo tiene confianza menor a {Math.round(UMBRAL_CONFIANZA * 100)} %.
           </p>
           {!resultado.ok && (
@@ -245,39 +235,26 @@ export default function ReconocerFoto({ onCargar }) {
             <button type="button" className="foto-boton principal" onClick={() => onCargar(resultado.doc)}>
               Revisar en el editor →
             </button>
-            {resultado.origen !== 'guardado' && (
-              <button type="button" className="foto-boton" onClick={descargarJSON}>
-                Descargar JSON
-              </button>
-            )}
+            <button type="button" className="foto-boton" onClick={descargarJSON}>
+              Descargar JSON
+            </button>
           </div>
         </section>
       )}
 
       <section className="foto-galeria" ref={galeriaRef}>
-        <h3>Ejemplos guardados (funcionan sin internet)</h3>
-        <p className="foto-mini">Fotos de circuitos dibujados a mano con su reconocimiento ya hecho, para la demostración aunque no haya red.</p>
+        <h3>Montajes guardados (funcionan sin internet)</h3>
+        <p className="foto-mini">Esquemas de los ejercicios 11–15 del curso. Abre un montaje en el editor para revisarlo, modificarlo y calcular sin internet.</p>
         <div className="foto-galeria-grid">
-          {FOTOS_GUARDADAS.map((f) => (
-            <button key={f.id} type="button" className="foto-tarjeta" onClick={() => usarGuardado(f)}>
-              <FotoGuardada f={f} />
-              <span>{f.titulo}</span>
+          {MONTAJES_GUARDADOS.map((montaje) => (
+            <button key={montaje.id} type="button" className="foto-tarjeta" onClick={() => onCargar(montaje.doc, 'guardado')}>
+              <div className="montaje-guardado-esquema"><Esquema doc={montaje.doc} maxAncho={300} /></div>
+              <span>{montaje.titulo}</span>
+              <small>Abrir en el editor</small>
             </button>
           ))}
         </div>
       </section>
-    </div>
-  );
-}
-
-/** Foto real si existe en public/ejemplos_foto; si no, una imagen de reemplazo con el esquema. */
-function FotoGuardada({ f }) {
-  const [falla, setFalla] = useState(false);
-  if (!falla) return <img src={`${import.meta.env.BASE_URL}${f.foto}`} alt={`Foto del ${f.titulo}`} onError={() => setFalla(true)} />;
-  return (
-    <div className="foto-reemplazo">
-      <Esquema doc={f.referencia} maxAncho={300} />
-      <small>Imagen de reemplazo: falta la foto {f.foto}</small>
     </div>
   );
 }
