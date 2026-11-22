@@ -61,14 +61,10 @@
 
   /* Foco */
   --color-foco: #2e1a47;
-  --foco: 3px solid var(--color-foco);
   --foco-separacion: 3px;
 
   /* Bordes y radios */
   --grosor-borde: 2px;
-  --borde: var(--grosor-borde) solid var(--color-tinta);
-  --borde-grueso: 3px solid var(--color-tinta);
-  --borde-fino: 1px solid var(--color-linea-suave);
   --radio-sm: 6px;
   --radio: 10px;
   --radio-lg: 14px;
@@ -113,4 +109,59 @@
   --z-velo: 150;
   --z-cajon: 160;
   --transicion: 0.15s ease;
+}
+
+:root,
+.app-shell[data-tema="oscuro"] {
+  --foco: 3px solid var(--color-foco);
+  --borde: var(--grosor-borde) solid var(--color-tinta);
+  --borde-grueso: 3px solid var(--color-tinta);
+  --borde-fino: 1px solid var(--color-linea-suave);
+}
+
+.app-shell[data-tema="oscuro"] {
+  color-scheme: dark;
+  --color-fondo: #2e1a47;
+  --color-superficie: #392655;
+  --color-superficie-2: #251638;
+  --color-tinta: #a98cc7;
+  --color-principal: #f5ebff;
+  --color-principal-hover: #dec7f5;
+  --color-sobre-principal: #2e1a47;
+  --color-acento-suave: #493363;
+  --color-texto: #f5ebff;
+  --color-texto-suave: #d6c4e7;
+  --color-linea-suave: #836b9d;
+  --color-velo: rgba(11, 6, 18, 0.72);
+  --color-foco: #e6ccff;
+
+  --color-ok: #a0ebbb;
+  --color-ok-fondo: #183d32;
+  --color-aviso: #ffdc93;
+  --color-aviso-fondo: #48331f;
+  --color-aviso-borde: #e2a74b;
+  --color-error: #ffb9c6;
+  --color-error-fondo: #512739;
+  --color-info: #b0d8ff;
+  --color-info-fondo: #203b55;
+
+  --color-cuadricula: #af96ca;
+  --color-guia: #b0d8ff;
+  --color-hoja-texto: #f5ebff;
+  --color-hoja-suave: #d6c4e7;
+  --color-hoja-separador: #c2add5;
+  --color-hoja-linea: #836b9d;
+  --color-clase-serie: #a0ebbb;
+  --color-clase-paralelo: #b0d8ff;
+  --color-clase-mixto: #dcb8ff;
+  --color-clase-no: #ffcc9d;
+
+  --esq-linea: var(--color-hoja-texto);
+  --esq-texto: var(--color-hoja-texto);
+  --esq-suave: var(--color-hoja-suave);
+  --esq-corriente: var(--color-ok);
+  --esq-malla: var(--color-clase-mixto);
+  --esq-nodo: var(--color-info);
+  --esq-seleccion: var(--color-guia);
+  --esq-fondo: var(--color-superficie);
 }
