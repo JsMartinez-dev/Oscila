@@ -11,6 +11,7 @@ export const EYM = {
   profesor: 'Jarvin Mestra Páez',
   universidad: 'Universidad del Magdalena',
   evento: 'II Foro Internacional de Física',
+  acreditacionUrl: 'https://www.linkedin.com/posts/juan-sebasti%C3%A1n-mart%C3%ADnez-uribe-697a52280_oscila-faedsica-educaciaejnstem-activity-7527478438119518208-pSIU',
 };
 
 export const listaNombres = (nombres) =>

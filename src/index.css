@@ -232,6 +232,25 @@ textarea {
   min-width: 0;
 }
 
+.page-content.plataforma-cuenta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--esp-3);
+  padding-block: var(--esp-4) 0;
+}
+
+.plataforma-cuenta strong {
+  color: var(--color-principal);
+  overflow-wrap: anywhere;
+}
+
+.plataforma-cuenta p {
+  flex-basis: 100%;
+  text-align: end;
+}
+
 .marca-icono {
   display: block;
   width: 2.4rem;
