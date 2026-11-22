@@ -6,7 +6,6 @@ import { TEORIA } from '../contenido/teoria.js';
 import { APLICACIONES } from '../contenido/aplicaciones.js';
 import { ETIQUETA_ESTADO, modulosVisibles } from '../contenido/modulos.js';
 import { EYM, PLATAFORMA } from '../contenido/creditos.js';
-import { CREDITOS_CALOR_ONDAS as CO } from '../contenido/calor-ondas/creditos.js';
 import './Inicio.css';
 
 const plural = (n, uno, varios) => `${n} ${n === 1 ? uno : varios}`;
@@ -88,40 +87,40 @@ export default function Inicio({ onNavigate, feria = false }) {
         </div>
       </section>
 
-      <section className="tarjeta inicio-creditos" aria-labelledby="inicio-creditos">
+      <section className="tarjeta inicio-tarjeta" aria-labelledby="inicio-creditos">
         <h2 id="inicio-creditos" className="inicio-seccion">
           Créditos
         </h2>
-        <div className="inicio-creditos-cuerpo">
+        <div>
+          <h3 className="inicio-dato-titulo">Desarrolladores de {EYM.modulo}</h3>
+          <ul className="inicio-desarrolladores" role="list">
+            {EYM.desarrolladores.map((nombre) => (
+              <li key={nombre}>{nombre}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="tarjeta inicio-tarjeta" aria-labelledby="inicio-reconocimientos">
+        <h2 id="inicio-reconocimientos" className="inicio-seccion">
+          Acreditaciones y reconocimientos
+        </h2>
+        <div className="inicio-reconocimientos-cuerpo">
           <div className="inicio-universidad">
-            <img src={`${import.meta.env.BASE_URL}logo-unimagdalena.png`} alt="Escudo de la Universidad del Magdalena" />
+            <img src={`${import.meta.env.BASE_URL}logo-unimagdalena.png`} alt="" />
             <span>
               {EYM.universidad}
               <small>{EYM.evento}</small>
             </span>
           </div>
-          <div className="inicio-personas">
-            <div>
-              <h3 className="inicio-creditos-titulo">{EYM.modulo}: desarrolladores</h3>
-              <ul>
-                {EYM.desarrolladores.map((d) => (
-                  <li key={d}>{d}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="inicio-creditos-titulo">Profesor</h3>
-              <ul>
-                <li>{EYM.profesor}</li>
-              </ul>
-            </div>
-
-          </div>
+          <dl>
+            <dt className="inicio-dato-titulo">Profesor</dt>
+            <dd>{EYM.profesor}</dd>
+          </dl>
         </div>
-        <button type="button" className="btn" onClick={() => onNavigate?.('creditos')}>
-          Ver todos los créditos
-          <span aria-hidden="true">→</span>
-        </button>
+        <a className="btn" href={EYM.acreditacionUrl} target="_blank" rel="noopener noreferrer">
+          Ver acreditación
+        </a>
       </section>
     </div>
   );

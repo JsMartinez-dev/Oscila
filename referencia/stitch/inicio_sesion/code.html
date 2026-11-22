@@ -1,0 +1,303 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Oscila - Física que se ve y se calcula</title>
+<!-- Tailwind CSS CDN v3 con plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Plus Jakarta Sans / Outfit para estilo neo-brutalista amigable -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              dark: '#1e1435',
+              darker: '#160d29',
+              primary: '#9061f9',
+              lightPurple: '#b794f6',
+              softLavender: '#ede7f6',
+              bgLight: '#f7f4ff',
+              cardBg: '#ffffff',
+              accentYellow: '#fef08a',
+            }
+          },
+          boxShadow: {
+            'brutal-sm': '2px 2px 0px #1e1435',
+            'brutal': '4px 4px 0px #1e1435',
+            'brutal-lg': '6px 6px 0px #1e1435',
+            'brutal-active': '1px 1px 0px #1e1435',
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Styles -->
+<style data-purpose="neo-brutalist-helpers">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f7f4ff;
+      color: #1e1435;
+    }
+
+    /* Patrón sutil de cuadrícula de física / ingeniería en el fondo */
+    .bg-grid-pattern {
+      background-image: 
+        radial-gradient(circle at 1px 1px, rgba(30, 20, 53, 0.07) 1.5px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    .neo-border {
+      border: 2px solid #1e1435;
+    }
+
+    .neo-border-dashed {
+      border: 2px dashed #1e1435;
+    }
+
+    .neo-btn {
+      transition: all 0.15s ease-in-out;
+    }
+
+    .neo-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0px #1e1435;
+    }
+
+    .neo-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #1e1435;
+    }
+
+    .custom-input:focus {
+      outline: none;
+      border-color: #9061f9;
+      box-shadow: 3px 3px 0px #1e1435;
+    }
+  </style>
+<!-- END: Custom Styles -->
+</head>
+<body class="min-h-screen bg-grid-pattern flex flex-col justify-between selection:bg-[#b794f6] selection:text-[#1e1435]" style="background-color: rgb(46, 26, 71); background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.1) 1.5px, transparent 0px);">
+<!-- BEGIN: TopBar -->
+<header class="w-full neo-border border-t-0 border-x-0 bg-white/80 backdrop-blur-md px-6 lg:px-12 py-3.5 flex justify-between items-center z-10" style="border-color: rgb(255, 255, 255);">
+<!-- Logotipo superior simplificado -->
+<div class="flex items-center gap-3"><div class="flex items-center gap-3"><img alt="Oscila" class="w-auto object-contain h-12" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXXHf-ZWAODRmSjYdjPLvr_r8MGlJYa23t86_yhjkmYMjy8kRiPAODeQSkv5owaNoHQcpCCBg4FK1XTLM9X-PKdA50WS2u-HcpQ7w1HH-KppSEDN22JGatVDlvCqAkAtXqPQDfX7AFNGD4x6coEfFrJlhyv-8ep7iyYSSZXBuQs6_LzcMZlXKsbU6BOadAjhquZAk224sFc50q6dBFsmSlrhDb1yEXPWY0eDYKBpPHeevDfQmAeCHr"><div class="hidden sm:block border-l-2 border-gray-300 pl-3"></div></div></div>
+<!-- Indicador de Evento Institucional -->
+<div class="hidden md:flex items-center gap-2">
+</div>
+</header>
+<!-- END: TopBar -->
+<!-- BEGIN: MainContentSplit -->
+<main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 lg:py-12 flex items-center">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 w-full items-center">
+<!-- ============================================== -->
+<!-- MITAD IZQUIERDA: Identidad, Módulos y Física  -->
+<!-- ============================================== -->
+<!-- BEGIN: LeftBrandingSection -->
+<section class="lg:col-span-6 flex flex-col justify-center space-y-6" data-purpose="brand-introduction"><div class="space-y-6 max-w-xl"><div class="space-y-3"><div class="flex flex-col items-center justify-center text-center gap-2"><img alt="Oscila Logo" class="h-20 sm:h-24 w-auto max-w-sm sm:max-w-md object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcdpwJH0kKZL2lDfeIwWMgDqA1-1u0tDRW2e_LDGfF5ugdURxyx-olMp0J_Zslu9Ga2Ge317fiqe0uSV_dFPUSwcfW6uqS9y4ApSEPIlEUXi2rnyfkyadoehg-1fhk23_78QH_QR41YKMPS1AFM1HxNXys6j7ix_m-4rSSwnDbsUavi94kLjged6guDQaPGUr07kq51pPvn-57n0N0lZqg_cUXvXVpj104Bl5-Y8Rb_QvPstwQEaSe" style="filter: brightness(0) invert(1);"></div><div class="text-center"><h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-1 text-white">Física que se ve y se calcula</h2></div></div></div></section>
+<!-- END: LeftBrandingSection -->
+<!-- ============================================== -->
+<!-- MITAD DERECHA: Card Autenticación Neo-brutalist -->
+<!-- ============================================== -->
+<!-- BEGIN: RightAuthSection -->
+<section class="lg:col-span-6 flex justify-center w-full" data-purpose="authentication-container">
+<div class="w-full max-w-xl bg-white neo-border rounded-3xl p-8 sm:p-12 shadow-brutal-lg relative">
+<!-- Encabezado de la Tarjeta y Pestañas -->
+<div class="mb-6">
+<div class="flex items-center justify-center text-center mb-4"><h3 class="text-2xl sm:text-3xl font-black text-brand-dark tracking-tight text-center">Acceso a la plataforma</h3></div>
+<!-- Selector de Pestañas (Tabs) -->
+<div class="grid grid-cols-2 p-1 bg-[#ede7f6] rounded-xl neo-border gap-1" role="tablist">
+<button aria-controls="form-login" aria-selected="false" class="py-2 text-sm font-bold text-gray-600 hover:text-brand-dark rounded-lg transition-all text-center border-2 border-transparent" id="tab-login" onclick="switchAuthTab('login')" role="tab" type="button" style="animation-delay: 113ms;">
+                Iniciar sesión
+              </button>
+<button aria-controls="form-register" aria-selected="true" class="py-2 text-sm font-extrabold rounded-lg text-brand-dark bg-white neo-border shadow-brutal-sm transition-all text-center" id="tab-register" onclick="switchAuthTab('register')" role="tab" type="button" style="animation-delay: 113ms;">
+                Registrarse
+              </button>
+</div>
+</div>
+<!-- ===================== -->
+<!-- FORMULARIO 1: LOGIN   -->
+<!-- ===================== -->
+<form class="space-y-6 hidden" data-purpose="login-form" id="form-login" onsubmit="event.preventDefault();">
+<!-- Campo: Correo Electrónico -->
+<div>
+<label class="block text-sm font-extrabold uppercase tracking-wider text-brand-dark mb-2" for="login-email">
+                Correo electronico</label>
+<div class="relative">
+<input class="custom-input w-full px-4 py-3.5 neo-border rounded-xl text-base font-medium text-brand-dark placeholder-gray-400 bg-white transition-all" id="login-email" placeholder="cuenta@ejemplo.com" required="" type="email">
+</div>
+</div>
+<!-- Campo: Contraseña -->
+<div>
+<div class="flex justify-between items-center mb-1.5">
+<label class="block text-sm font-extrabold uppercase tracking-wider text-brand-dark" for="login-password">
+                  Contraseña
+                </label>
+<a class="text-sm font-bold text-purple-700 hover:underline" href="#recuperar">
+                  ¿Olvidaste tu contraseña?
+                </a>
+</div>
+<div class="relative">
+<input class="custom-input w-full px-4 py-3.5 neo-border rounded-xl text-base font-medium text-brand-dark placeholder-gray-400 bg-white pr-11 transition-all" id="login-password" placeholder="••••••••••••" required="" type="password">
+<button aria-label="Alternar visibilidad de contraseña" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-500 hover:text-brand-dark focus:outline-none" onclick="togglePasswordVisibility('login-password', 'eye-icon-login')" type="button">
+<svg class="w-5 h-5 stroke-current" fill="none" id="eye-icon-login" stroke-width="2" viewBox="0 0 24 24">
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Recordar sesión -->
+<div class="flex items-center">
+<input class="w-4 h-4 rounded neo-border text-brand-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" id="remember-me" placeholder="on" type="checkbox" value="">
+<label class="ml-2.5 block text-sm font-semibold text-gray-700 cursor-pointer select-none" for="remember-me">
+                Mantener mi sesión activa en este equipo
+              </label>
+</div>
+<!-- Botón Primario de Ingreso -->
+<button class="neo-btn w-full py-4 px-6 bg-[#b794f6] text-brand-dark font-extrabold text-lg neo-border rounded-xl shadow-brutal flex items-center justify-center gap-2 mt-4" type="submit">
+<span>Entrar a Oscila</span>
+<svg class="w-5 h-5 stroke-current" fill="none" stroke-width="2.4" viewBox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</form>
+<!-- ======================== -->
+<!-- FORMULARIO 2: REGISTRO   -->
+<!-- ======================== -->
+<form class="space-y-3.5" data-purpose="registration-form" id="form-register" onsubmit="event.preventDefault();">
+<!-- Nombre Completo -->
+<div>
+<label class="block text-xs font-extrabold uppercase tracking-wider text-brand-dark mb-1" for="register-name">
+                Nombre y Apellidos
+              </label>
+<input class="custom-input w-full px-4 py-2.5 neo-border rounded-xl text-sm font-medium text-brand-dark placeholder-gray-400 bg-white" id="register-name" placeholder="Ej. Ana Milena Pérez" required="" type="text">
+</div>
+<!-- Correo -->
+<div>
+<label class="block text-xs font-extrabold uppercase tracking-wider text-brand-dark mb-1" for="register-email">
+                Correo electronico</label>
+<input class="custom-input w-full px-4 py-2.5 neo-border rounded-xl text-sm font-medium text-brand-dark placeholder-gray-400 bg-white" id="register-email" placeholder="ejemplo@gmail.com" required="" type="email">
+</div>
+<!-- Rol Universitario -->
+<div class="grid grid-cols-2 gap-2">
+<div>
+
+
+</div>
+<div>
+
+
+</div>
+</div>
+<!-- Contraseña de Registro -->
+<div>
+<label class="block text-xs font-extrabold uppercase tracking-wider text-brand-dark mb-1" for="register-password">
+                Crear contraseña
+              </label>
+<input class="custom-input w-full px-4 py-2.5 neo-border rounded-xl text-sm font-medium text-brand-dark placeholder-gray-400 bg-white" id="register-password" placeholder="Mínimo 8 caracteres" required="" type="password">
+</div>
+<!-- Términos -->
+<div class="flex items-start">
+<input class="w-4 h-4 mt-0.5 rounded neo-border text-brand-dark focus:ring-0 focus:ring-offset-0 cursor-pointer" id="terms" required="" type="checkbox">
+<label class="ml-2 block text-xs font-medium text-gray-700 leading-tight" for="terms">
+                Acepto los términos de uso y tratamiento de datos para fines académicos de la Unimagdalena.
+              </label>
+</div>
+<!-- Botón Registro -->
+<button class="neo-btn w-full py-3.5 px-4 bg-[#b794f6] text-brand-dark font-extrabold text-base neo-border rounded-xl shadow-brutal flex items-center justify-center gap-2 mt-2" type="submit"><span>Crear cuenta en Oscila</span><svg class="w-5 h-5 stroke-current" fill="none" stroke-width="2.4" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+</form>
+<!-- Divisor Estilizado -->
+<div class="relative my-5">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full neo-border border-b-0 border-dashed border-gray-300"></div>
+</div>
+</div>
+<!-- Botón de Acceso Institucional / Google -->
+<!-- Pie de tarjeta con nota informativa -->
+<div class="mt-4 pt-3 border-t border-gray-100 text-center">
+</div>
+</div>
+</section>
+<!-- END: RightAuthSection -->
+</div>
+</main>
+<!-- END: MainContentSplit -->
+<!-- BEGIN: Footer -->
+<footer class="w-full neo-border border-b-0 border-x-0 bg-white/60 py-4 px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs font-bold text-gray-600">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-[#9061f9]"></span>
+<span>Oscila ·</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="hover:text-brand-dark transition-colors" href="#creditos">Créditos</a>
+<a class="hover:text-brand-dark transition-colors" href="#soporte">Soporte técnico</a>
+</div>
+</footer>
+<!-- END: Footer -->
+<!-- BEGIN: Scripts de Interacción -->
+<script data-purpose="auth-tabs-and-ui">
+    // Alternancia entre pestañas Iniciar Sesión y Registro
+    function switchAuthTab(targetTab) {
+      const loginTab = document.getElementById('tab-login');
+      const registerTab = document.getElementById('tab-register');
+      const loginForm = document.getElementById('form-login');
+      const registerForm = document.getElementById('form-register');
+
+      if (targetTab === 'login') {
+        // Tab Login Activo
+        loginTab.className = "py-2 text-sm font-extrabold rounded-lg text-brand-dark bg-white neo-border shadow-brutal-sm transition-all text-center";
+        loginTab.setAttribute('aria-selected', 'true');
+        
+        // Tab Register Inactivo
+        registerTab.className = "py-2 text-sm font-bold text-gray-600 hover:text-brand-dark rounded-lg transition-all text-center border-2 border-transparent";
+        registerTab.setAttribute('aria-selected', 'false');
+
+        // Mostrar formulario correspondiente
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+      } else {
+        // Tab Register Activo
+        registerTab.className = "py-2 text-sm font-extrabold rounded-lg text-brand-dark bg-white neo-border shadow-brutal-sm transition-all text-center";
+        registerTab.setAttribute('aria-selected', 'true');
+
+        // Tab Login Inactivo
+        loginTab.className = "py-2 text-sm font-bold text-gray-600 hover:text-brand-dark rounded-lg transition-all text-center border-2 border-transparent";
+        loginTab.setAttribute('aria-selected', 'false');
+
+        // Mostrar formulario correspondiente
+        registerForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+      }
+    }
+
+    // Alternar visibilidad de contraseña
+    function togglePasswordVisibility(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.innerHTML = `
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+        `;
+      } else {
+        input.type = 'password';
+        icon.innerHTML = `
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        `;
+      }
+    }
+  </script>
+<!-- END: Scripts de Interacción -->
+
+
+
+
+</body></html>

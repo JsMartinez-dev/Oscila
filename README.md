@@ -40,7 +40,8 @@ Cada número que se muestra se verifica con un **análisis nodal modificado (MNA
 
 | Sección | Contenido |
 |---|---|
-| Inicio | Portada con los tres módulos y créditos |
+| Acceso | Inicio de sesión, registro y recuperación de contraseña con Supabase |
+| Inicio | Portada de la plataforma con los tres módulos, créditos y los controles de la cuenta |
 | Teoría | Potencial eléctrico, capacitancia, resistencia y circuitos, leyes de Kirchhoff (según la hoja de fórmulas del curso) |
 | Aplicaciones | Fuente de 12 V, desfibrilador, caída de voltaje en un cable y divisor de voltaje con sensor |
 | Montaje | Editor, reconocimiento de fotos y solución paso a paso |
@@ -54,7 +55,7 @@ En cualquier sección, la tecla **F** o el botón de la barra activan el **modo 
 
 ## Ejecutar
 
-Requisitos: Node.js 18 o superior.
+Requisitos: Node.js 22 o superior.
 
 ```bash
 npm install
@@ -67,9 +68,16 @@ npm run preview    # sirve dist/ en http://localhost:4173
 ### Sin internet (día del foro)
 
 1. Con internet, ejecuta una vez `npm install` y `npm run build`.
-2. Después, sin internet: `npm run preview` y abre `http://localhost:4173`.
+2. Ejecuta `npm run preview`, abre `http://localhost:4173` e inicia sesión antes de perder la conexión. Conserva abierta la pestaña durante la demostración.
 
-Todo funciona sin conexión: el editor, la solución, la teoría, los ejercicios, el test y la galería de **montajes guardados**. Lo único que necesita internet es reconocer fotos nuevas.
+El editor, la solución, la teoría, los ejercicios, el test y la galería de **montajes guardados** funcionan sin conexión. El acceso a las cuentas y el reconocimiento de fotos nuevas necesitan internet.
+
+### Cuentas con Supabase
+
+1. Crea un proyecto en [Supabase](https://supabase.com/dashboard). En **Connect**, copia la URL del proyecto y la clave **Publishable** a `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` en `.env.local`. Vite expone las variables con prefijo `VITE_` al navegador, así que usa la clave publicable.
+2. En **Authentication → URL Configuration**, añade `http://localhost:5173/` a **Redirect URLs**, o usa la dirección que imprima Vite. Mantén habilitada la confirmación por correo para probar el flujo completo.
+3. Reinicia `npm run dev`. Desde la pantalla de acceso, crea una cuenta usando el correo de un miembro del proyecto si usas el servicio de correo predeterminado de Supabase. Abre el enlace de confirmación y verifica que puedas iniciar y cerrar sesión. El nombre se guarda como `full_name` en los metadatos del usuario y aparece en la cabecera al entrar.
+4. Para Vercel, configura las mismas dos variables en el proyecto y vuelve a desplegar. En Supabase, pon el dominio publicado en **Site URL** y añádelo a **Redirect URLs**. Configura [SMTP propio](https://supabase.com/docs/guides/auth/auth-smtp) antes de abrir el registro al público.
 
 ### Reconocimiento de fotos (Gemini, free tier)
 

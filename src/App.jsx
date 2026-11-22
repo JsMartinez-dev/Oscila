@@ -14,6 +14,8 @@ import COEjercicios from "./pages/calor-ondas/Ejercicios";
 import COTest from "./pages/calor-ondas/Test";
 import Creditos from "./pages/Creditos";
 import { useModoFeria } from "./components/ModoFeria";
+import Cuenta from "./components/Cuenta.jsx";
+import { supabase } from "./servicios/supabase.js";
 
 const PAGES = {
   inicio: Inicio,
@@ -35,11 +37,54 @@ const PAGES = {
 const ESCRITORIO = "(min-width: 1024px)";
 
 export default function App() {
+  const [sesion, setSesion] = useState(supabase ? undefined : null);
+  const [recuperar, setRecuperar] = useState(false);
+
+  useEffect(() => {
+    if (!supabase) return;
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((evento, sesionActual) => {
+      setSesion(sesionActual);
+      if (evento === "PASSWORD_RECOVERY") setRecuperar(true);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (!sesion || recuperar) {
+    return (
+      <Cuenta
+        cargando={sesion === undefined}
+        recuperar={recuperar}
+        sesionDisponible={Boolean(sesion)}
+        onSalirRecuperacion={() => setRecuperar(false)}
+      />
+    );
+  }
+
+  return <Plataforma sesion={sesion} />;
+}
+
+function Plataforma({ sesion }) {
   const [activePage, setActivePage] = useState("inicio");
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const [cerrandoSesion, setCerrandoSesion] = useState(false);
+  const [errorSesion, setErrorSesion] = useState("");
   const botonMenu = useRef(null);
   const feria = useModoFeria();
   const PageComponent = PAGES[activePage];
+  const nombre = sesion.user.user_metadata?.full_name || sesion.user.email;
+
+  async function cerrarSesion() {
+    setCerrandoSesion(true);
+    setErrorSesion("");
+    try {
+      const { error } = await supabase.auth.signOut({ scope: "local" });
+      if (error) throw error;
+    } catch {
+      setErrorSesion("No pudimos cerrar la sesión. Inténtalo de nuevo.");
+    } finally {
+      setCerrandoSesion(false);
+    }
+  }
 
   const navegar = useCallback((pagina) => {
     setActivePage(pagina);
@@ -95,6 +140,13 @@ export default function App() {
             Menú
           </button>
         </header>
+        <div className="page-content plataforma-cuenta" aria-label="Mi cuenta">
+          <strong>{nombre}</strong>
+          <button type="button" className="btn" onClick={cerrarSesion} disabled={cerrandoSesion}>
+            {cerrandoSesion ? "Cerrando sesión…" : "Cerrar sesión"}
+          </button>
+          {errorSesion && <p role="alert">{errorSesion}</p>}
+        </div>
         <main className="page-content">
           {activePage !== "inicio" && activePage !== "co-inicio" && (
             <button type="button" className="boton-inicio" onClick={() => navegar("inicio")} title="Ir al inicio" aria-label="Ir al inicio">

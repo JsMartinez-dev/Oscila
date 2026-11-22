@@ -189,8 +189,8 @@
   color: var(--color-texto-suave);
 }
 
-/* Créditos */
-.inicio-creditos {
+/* Créditos y reconocimientos */
+.inicio-tarjeta {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -198,11 +198,11 @@
   padding: var(--esp-5) var(--esp-6);
 }
 
-.inicio-creditos .inicio-seccion {
+.inicio-tarjeta .inicio-seccion {
   margin-bottom: 0;
 }
 
-.inicio-creditos-cuerpo {
+.inicio-reconocimientos-cuerpo {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -233,31 +233,22 @@
   width: auto;
 }
 
-.inicio-personas {
-  flex: 1;
-  min-width: min(100%, 20rem);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--esp-4) var(--esp-8);
-}
-
-.inicio-creditos-titulo {
+.inicio-dato-titulo {
   font-size: var(--texto-xs);
+  font-weight: var(--peso-fuerte);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-texto-suave);
   margin-bottom: var(--esp-1);
 }
 
-.inicio-personas ul {
+.inicio-desarrolladores {
   list-style: none;
-  font-weight: var(--peso-medio);
 }
 
-.inicio-creditos-co {
-  flex-basis: 100%;
-  font-size: var(--texto-sm);
-  color: var(--color-texto);
+.inicio-desarrolladores,
+.inicio-reconocimientos-cuerpo dd {
+  font-weight: var(--peso-medio);
 }
 
 @media (max-width: 1100px) {
