@@ -152,6 +152,17 @@ textarea {
   display: grid;
   grid-template-columns: var(--ancho-lateral) minmax(0, 1fr);
   min-height: 100vh;
+  color: var(--color-texto);
+  background: var(--color-fondo);
+}
+
+:root:has(.app-shell[data-tema="oscuro"]) {
+  color-scheme: dark;
+}
+
+/* Las figuras importadas pueden tener trazos oscuros sobre fondo transparente. */
+.app-shell[data-tema="oscuro"] :is(.md-figura, .co-figura img[src$=".svg"]) {
+  background: white;
 }
 
 .app-principal {
@@ -244,6 +255,12 @@ textarea {
 .plataforma-cuenta strong {
   color: var(--color-principal);
   overflow-wrap: anywhere;
+}
+
+.plataforma-tema svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
 }
 
 .plataforma-cuenta p {

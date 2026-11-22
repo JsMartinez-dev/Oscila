@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import BarraLateral, { Marca } from "./components/BarraLateral";
 import Inicio from "./pages/Inicio";
 import Montaje from "./pages/Montaje";
@@ -35,6 +36,7 @@ const PAGES = {
 
 // Desde este ancho la barra lateral queda fija; por debajo es un cajón (igual que en index.css)
 const ESCRITORIO = "(min-width: 1024px)";
+const CLAVE_TEMA = "oscila-tema";
 
 export default function App() {
   const [sesion, setSesion] = useState(supabase ? undefined : null);
@@ -68,10 +70,28 @@ function Plataforma({ sesion }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [cerrandoSesion, setCerrandoSesion] = useState(false);
   const [errorSesion, setErrorSesion] = useState("");
+  const [temaOscuro, setTemaOscuro] = useState(() => {
+    try {
+      return localStorage.getItem(CLAVE_TEMA) === "oscuro";
+    } catch {
+      return false;
+    }
+  });
   const botonMenu = useRef(null);
   const feria = useModoFeria();
   const PageComponent = PAGES[activePage];
   const nombre = sesion.user.user_metadata?.full_name || sesion.user.email;
+  const IconoTema = temaOscuro ? SunIcon : MoonIcon;
+
+  function alternarTema() {
+    const siguiente = !temaOscuro;
+    setTemaOscuro(siguiente);
+    try {
+      localStorage.setItem(CLAVE_TEMA, siguiente ? "oscuro" : "claro");
+    } catch {
+      // El tema sigue activo en esta página si el navegador bloquea el almacenamiento.
+    }
+  }
 
   async function cerrarSesion() {
     setCerrandoSesion(true);
@@ -112,7 +132,7 @@ function Plataforma({ sesion }) {
   }, []);
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" data-tema={temaOscuro ? "oscuro" : "claro"}>
       <BarraLateral
         id="barra-lateral"
         activePage={activePage}
@@ -142,6 +162,10 @@ function Plataforma({ sesion }) {
         </header>
         <div className="page-content plataforma-cuenta" aria-label="Mi cuenta">
           <strong>{nombre}</strong>
+          <button type="button" className="btn plataforma-tema" onClick={alternarTema}>
+            <IconoTema aria-hidden="true" />
+            {temaOscuro ? "Modo claro" : "Modo oscuro"}
+          </button>
           <button type="button" className="btn" onClick={cerrarSesion} disabled={cerrandoSesion}>
             {cerrandoSesion ? "Cerrando sesión…" : "Cerrar sesión"}
           </button>
