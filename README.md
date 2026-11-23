@@ -79,6 +79,8 @@ El editor, la solución, la teoría, los ejercicios, el test y la galería de **
 3. Reinicia `npm run dev`. Desde la pantalla de acceso, crea una cuenta usando el correo de un miembro del proyecto si usas el servicio de correo predeterminado de Supabase. Abre el enlace de confirmación y verifica que puedas iniciar y cerrar sesión. El nombre se guarda como `full_name` en los metadatos del usuario y aparece en la cabecera al entrar.
 4. Para Vercel, configura las mismas dos variables en el proyecto y vuelve a desplegar. En Supabase, pon el dominio publicado en **Site URL** y añádelo a **Redirect URLs**. Configura [SMTP propio](https://supabase.com/docs/guides/auth/auth-smtp) antes de abrir el registro al público.
 
+El [correo de confirmación de Oscila](docs/correo-confirmacion/README.md) tiene una plantilla en español lista para configurar en **Confirm sign up** de Supabase. Incluye vistas previas, validación del escape del nombre y los pasos separados para plantilla, remitente y SMTP. Los archivos del repositorio no activan la plantilla alojada automáticamente.
+
 ### Reconocimiento de fotos (Gemini, free tier)
 
 1. Crea una API key gratuita en [Google AI Studio](https://aistudio.google.com/apikey). No pide tarjeta.

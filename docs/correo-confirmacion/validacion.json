@@ -1,0 +1,74 @@
+[
+  {
+    "caso": "escritorio",
+    "ancho": 960,
+    "contenido": 960,
+    "imagenes": 1,
+    "logo": 2170,
+    "saludo": "Hola, Ana Milena Pérez.",
+    "enlaces": [
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F",
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F"
+    ]
+  },
+  {
+    "caso": "sin-nombre",
+    "ancho": 960,
+    "contenido": 960,
+    "imagenes": 1,
+    "logo": 2170,
+    "saludo": "Hola.",
+    "enlaces": [
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F",
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F"
+    ]
+  },
+  {
+    "caso": "movil",
+    "ancho": 390,
+    "contenido": 390,
+    "imagenes": 1,
+    "logo": 2170,
+    "saludo": "Hola, Ana Milena Pérez.",
+    "enlaces": [
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F",
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F"
+    ]
+  },
+  {
+    "caso": "movil-320",
+    "ancho": 320,
+    "contenido": 320,
+    "imagenes": 1,
+    "logo": 2170,
+    "saludo": "Hola, Ana Milena Pérez.",
+    "enlaces": [
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F",
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F"
+    ]
+  },
+  {
+    "caso": "imagenes-bloqueadas",
+    "ancho": 390,
+    "contenido": 390,
+    "imagenes": 1,
+    "logo": 0,
+    "saludo": "Hola, Ana Milena Pérez.",
+    "enlaces": [
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F",
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F"
+    ]
+  },
+  {
+    "caso": "nombre-no-confiable",
+    "ancho": 390,
+    "contenido": 390,
+    "imagenes": 1,
+    "logo": 2170,
+    "saludo": "Hola, <img src=x onerror=\"alert(1)\"> Ana & \"Pérez\".",
+    "enlaces": [
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F",
+      "https://registro.example.invalid/confirmar?ejemplo=sin-credenciales&destino=https%3A%2F%2Foscila.vercel.app%2F"
+    ]
+  }
+]
