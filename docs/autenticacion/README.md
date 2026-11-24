@@ -25,6 +25,8 @@ La primera consulta falló bajo las restricciones de red; la consulta autorizada
 
 El texto reportado era una traducción local de `over_email_send_rate_limit` en `Cuenta.jsx`. No constituye un diagnóstico de la cuota concreta ni evidencia de que baste esperar unos minutos. Que falle con personas distintas es **compatible con una cuota de proyecto agotada**, pero no demuestra que el SMTP integrado siga activo. No se intentó provocar el límite real ni enviar un correo para averiguarlo.
 
+Evidencia posterior aportada por el usuario: una captura en Gmail muestra un mensaje recibido con asunto **Confirm your email address**, remitente **Supabase Auth** y cuerpo predeterminado en inglés. **Ese mensaje no muestra el correo personalizado de Oscila**. La plantilla existe e ingresó en `main`, pero ello no acredita su activación externa. Hay que identificar el proyecto del envío, revisar y comparar el asunto/HTML alojados en **Confirm sign up**, y validar un mensaje nuevo tras corregirlos. La captura no demuestra la causa exacta ni la configuración SMTP actual, ni que se haya confirmado el enlace. No se incorpora la captura de Gmail al repositorio para evitar publicar contexto de la cuenta personal.
+
 | Posible causa | Cómo distinguirla sin enviar correos adicionales |
 | --- | --- |
 | Cuota global de correo | Revisar SMTP y Rate Limits del proyecto y Auth Logs del intervalo del incidente. El integrado publica 2 correos/hora por proyecto, compartidos entre endpoints de envío. Distintos destinatarios también consumen esa cuota. |
@@ -132,11 +134,11 @@ Capturas: [ingreso escritorio](capturas/ingreso-escritorio.png), [ingreso móvil
 
 ## Pendientes externos exactos
 
-- Acceso administrativo para verificar inventario de cuentas, datos/RLS, logs, cuotas efectivas, SMTP y plantilla alojada. La documentación anterior decía que faltaba activación/envío; hoy no hay evidencia administrativa que permita ratificarlo ni darlo por realizado.
+- Acceso administrativo para verificar inventario de cuentas, datos/RLS, logs, cuotas efectivas, SMTP y plantilla alojada. La captura posterior del usuario muestra un correo recibido sin la personalización; queda pendiente comprobar el proyecto del envío y corregir/verificar el asunto y HTML alojados. No se puede dar por activada la plantilla de Oscila.
 - Proveedor SMTP elegido por el equipo, cuenta, dominio DNS controlado, remitente y credenciales; configurar y comprobar cuotas y transporte en Supabase y proveedor.
 - Proyecto/cliente Google, consentimiento/audiencia, callback, secreto y activación remota. La consulta actual confirmó Google deshabilitado; no se cambió ese ajuste.
 - Variables y redirects de desarrollo/producción; habilitar el interruptor de interfaz después de verificar Google y redesplegar.
-- Destinatario indicado por el usuario para un ensayo real. No se envió ningún correo ni se afirma recepción, confirmación, login u OAuth real.
+- Destinatario indicado por el usuario para un ensayo real del agente. El agente no envió ningún correo ni realizó confirmación, login u OAuth real. La recepción del correo predeterminado está respaldada únicamente por la captura aportada por el usuario; no es una prueba del flujo personalizado.
 - Piloto real con cuentas existentes y nuevas: mismo UUID y propiedad, email/password y Google, reenvío, recuperación, cierre, recarga y registro de varias personas dentro de cuotas acordadas; pruebas de acceso propio/ajeno según RLS real. Recoger evidencia sin datos personales ni tokens.
 
 ## Fuentes oficiales
