@@ -1,0 +1,53 @@
+[
+  {
+    "caso": "ingreso-escritorio",
+    "ancho": 1366,
+    "contenido": 1366
+  },
+  {
+    "caso": "ingreso-movil",
+    "ancho": 390,
+    "contenido": 390
+  },
+  {
+    "caso": "registro-movil",
+    "ancho": 390,
+    "contenido": 390
+  },
+  {
+    "caso": "registro-320",
+    "ancho": 320,
+    "contenido": 320
+  },
+  {
+    "caso": "registro-escritorio",
+    "ancho": 1366,
+    "contenido": 1366
+  },
+  {
+    "caso": "confirmacion-escritorio",
+    "ancho": 1366,
+    "contenido": 1366
+  },
+  {
+    "caso": "limite-correo-movil",
+    "ancho": 390,
+    "contenido": 390
+  },
+  {
+    "caso": "recuperacion-movil",
+    "ancho": 390,
+    "contenido": 390
+  },
+  {
+    "caso": "flujos-simulados",
+    "registroConsecutivo": true,
+    "duplicadosBloqueados": true,
+    "recuperacion": true,
+    "sesionTemporalYPersistente": true,
+    "googleYCancelacion": true,
+    "rutasProtegidas": true,
+    "cierreSesion": true,
+    "llamadasAuthSimuladas": 25
+  }
+]

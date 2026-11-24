@@ -2,7 +2,9 @@
 
 ## Arquitectura y alcance
 
-El registro sigue llamando a `supabase.auth.signUp` en `src/components/Cuenta.jsx`: el nombre llega como `options.data.full_name` y la redirección como `options.emailRedirectTo`. Supabase Auth envía su único correo de confirmación. Este cambio entrega el asunto y HTML para sustituir **Confirm sign up**; no instala un hook, una función de envío ni un segundo correo.
+El registro de `src/components/Cuenta.jsx` delega en `src/servicios/autenticacion.js`, que llama a `supabase.auth.signUp`: el nombre llega como `options.data.full_name` y la redirección como `options.emailRedirectTo`. Supabase Auth envía su único correo de confirmación. Esta plantilla entrega el asunto y HTML para sustituir **Confirm sign up**; no instala un hook, una función de envío ni un segundo correo.
+
+La arquitectura elegida es **Supabase Auth con SMTP propio y Google opcional**; consulta [la documentación de autenticación](../autenticacion/README.md). Esta plantilla sigue vigente para email/contraseña y reenvío de confirmación; el flujo normal de Google con identidad verificada no la necesita. El HTML conserva `.ConfirmationURL` y el escape del nombre, por lo que no requiere cambios de cuerpo para sustituir el transporte.
 
 - Asunto: **Confirma tu correo y empieza con Oscila**.
 - HTML para copiar completo: [`supabase/templates/confirmacion-registro.html`](../../supabase/templates/confirmacion-registro.html).
@@ -80,7 +82,9 @@ Las primeras ejecuciones de Node fallaron por las restricciones de lectura de es
 
 Capturas: [escritorio](capturas/escritorio.png), [sin nombre](capturas/sin-nombre.png), [móvil 390 px](capturas/movil.png), [móvil 320 px](capturas/movil-320.png), [imágenes bloqueadas](capturas/imagenes-bloqueadas.png) y [nombre no confiable](capturas/nombre-no-confiable.png). Datos medidos: [`validacion.json`](validacion.json).
 
-## Prueba real pendiente
+## Estado de la prueba real
+
+La sección siguiente registra el estado histórico de la tarea del correo. En la revisión de autenticación del 23 de noviembre de 2026 se comprobó mediante los ajustes públicos que email y registro están activos, confirmación requerida y Google deshabilitado. La clave pública **no permite verificar SMTP, asunto/HTML alojados ni envíos previos**. Por tanto, su activación y envío anteriores quedan actualmente **sin verificar**; no se asumen pendientes ni realizados por lo que dice este registro histórico. No se envió un nuevo correo. Comparar la configuración administrativa antes de copiar la plantilla otra vez.
 
 Sin una sesión administrativa de Supabase disponible y sin un destinatario indicado, no se ha activado la plantilla ni enviado, recibido o confirmado ningún correo real. El responsable debe:
 
