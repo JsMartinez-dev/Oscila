@@ -2,7 +2,9 @@
 
 ## Arquitectura y alcance
 
-El registro sigue llamando a `supabase.auth.signUp` en `src/components/Cuenta.jsx`: el nombre llega como `options.data.full_name` y la redirección como `options.emailRedirectTo`. Supabase Auth envía su único correo de confirmación. Este cambio entrega el asunto y HTML para sustituir **Confirm sign up**; no instala un hook, una función de envío ni un segundo correo.
+El registro de `src/components/Cuenta.jsx` delega en `src/servicios/autenticacion.js`, que llama a `supabase.auth.signUp`: el nombre llega como `options.data.full_name` y la redirección como `options.emailRedirectTo`. Supabase Auth envía su único correo de confirmación. Esta plantilla entrega el asunto y HTML para sustituir **Confirm sign up**; no instala un hook, una función de envío ni un segundo correo.
+
+La arquitectura elegida es **Supabase Auth con SMTP propio y Google opcional**; consulta [la documentación de autenticación](../autenticacion/README.md). Esta plantilla sigue vigente para email/contraseña y reenvío de confirmación; el flujo normal de Google con identidad verificada no la necesita. El HTML conserva `.ConfirmationURL` y el escape del nombre, por lo que no requiere cambios de cuerpo para sustituir el transporte.
 
 - Asunto: **Confirma tu correo y empieza con Oscila**.
 - HTML para copiar completo: [`supabase/templates/confirmacion-registro.html`](../../supabase/templates/confirmacion-registro.html).
@@ -80,9 +82,13 @@ Las primeras ejecuciones de Node fallaron por las restricciones de lectura de es
 
 Capturas: [escritorio](capturas/escritorio.png), [sin nombre](capturas/sin-nombre.png), [móvil 390 px](capturas/movil.png), [móvil 320 px](capturas/movil-320.png), [imágenes bloqueadas](capturas/imagenes-bloqueadas.png) y [nombre no confiable](capturas/nombre-no-confiable.png). Datos medidos: [`validacion.json`](validacion.json).
 
-## Prueba real pendiente
+## Estado de la prueba real
 
-Sin una sesión administrativa de Supabase disponible y sin un destinatario indicado, no se ha activado la plantilla ni enviado, recibido o confirmado ningún correo real. El responsable debe:
+Evidencia posterior del usuario: la captura de Gmail aportada muestra un correo recibido con asunto **Confirm your email address**, remitente **Supabase Auth** y cuerpo genérico en inglés, **sin la personalización de Oscila**. Por tanto, para ese mensaje el resultado esperado no se cumple. La plantilla está integrada en el repositorio, pero no se publica automáticamente en Supabase. El compañero debe comprobar el proyecto que generó el envío y el asunto/HTML guardados en **Confirm sign up**, conservando primero una copia privada. Tras corregirlos, validar un mensaje nuevo con destinatario autorizado; los ya recibidos no se actualizan. La captura no demuestra por sí sola la causa, la configuración SMTP ni la confirmación del enlace.
+
+La sección siguiente registra el estado histórico de la tarea del correo. En la revisión de autenticación del 23 de noviembre de 2026 se comprobó mediante los ajustes públicos que email y registro están activos, confirmación requerida y Google deshabilitado. La clave pública **no permite verificar SMTP, asunto/HTML alojados ni envíos previos**. Esa consulta por sí sola no acreditaba activación ni envío; la captura posterior aporta evidencia de recepción de un mensaje genérico. El agente no envió un nuevo correo. Comparar la configuración administrativa antes de copiar la plantilla otra vez.
+
+En la tarea original, sin una sesión administrativa de Supabase disponible y sin un destinatario indicado, el agente no activó la plantilla ni realizó pruebas de envío, recepción o confirmación. La captura posterior del usuario actualiza la evidencia de recepción, pero no acredita el flujo personalizado. El responsable debe:
 
 1. Completar la configuración anterior y comprobar el transporte disponible; si se usa el predeterminado, el destinatario de prueba debe estar autorizado por Supabase.
 2. Registrar una cuenta nueva desde Oscila con el nombre de prueba y el correo expresamente indicado. No reutilizar una cuenta confirmada para demostrar el envío de registro.

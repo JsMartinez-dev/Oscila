@@ -1,43 +1,33 @@
 import { useState, useRef } from 'react';
 import { ArrowRightIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import '@fontsource-variable/plus-jakarta-sans';
-import { elegirPersistenciaSesion, supabase } from '../servicios/supabase.js';
+import { elegirPersistenciaSesion, googleHabilitado, supabase } from '../servicios/supabase.js';
+import { crearSolicitudUnica, ENLACE_VENCIDO, esEnlaceVencido, mensajeErrorAcceso, solicitarAcceso } from '../servicios/autenticacion.js';
 import Creditos from '../pages/Creditos.jsx';
 import './Cuenta.css';
 
 const MODOS = { ingreso: 'Iniciar sesión', registro: 'Registrarse' };
 const LOGO = `${import.meta.env.BASE_URL}logotipos/LOGOTIPO-NOMBRE.svg`;
-const ENLACE_VENCIDO = 'La sesión de recuperación ya no es válida. Solicita un enlace nuevo.';
-const ERRORES_DE_ENLACE = new Set([
-  'bad_jwt', 'otp_expired', 'session_expired', 'session_not_found', 'refresh_token_not_found',
-  'refresh_token_already_used', 'current_password_required', 'reauthentication_needed',
-]);
-const ERRORES = {
-  invalid_credentials: 'Revisa el correo y la contraseña e inténtalo de nuevo.',
-  email_not_confirmed: 'Confirma tu correo antes de iniciar sesión.',
-  same_password: 'Elige una contraseña diferente de la que usabas antes.',
-  weak_password: 'Elige una contraseña más fuerte e inténtalo de nuevo.',
-  over_email_send_rate_limit: 'Espera unos minutos antes de volver a solicitar un correo.',
-  over_request_rate_limit: 'Espera unos minutos antes de intentarlo de nuevo.',
-};
-
-export default function Cuenta({ cargando, recuperar, sesionDisponible, onSalirRecuperacion }) {
+export default function Cuenta({ cargando, recuperar, sesionDisponible, onSalirRecuperacion, errorRetorno }) {
   const [modo, setModo] = useState('ingreso');
   const [correo, setCorreo] = useState('');
   const [mostrarClave, setMostrarClave] = useState(false);
   const [ocupado, setOcupado] = useState(false);
   const [aviso, setAviso] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(() => errorRetorno ? mensajeErrorAcceso(errorRetorno, 'ingreso') : '');
   const [ayuda, setAyuda] = useState(null);
   const dialogo = useRef(null);
+  const formulario = useRef(null);
+  const solicitudUnica = useRef(crearSolicitudUnica());
 
   const cambiarClave = recuperar && sesionDisponible && modo !== 'enlace';
   const vista = cambiarClave ? 'nueva-clave' : recuperar ? 'enlace' : modo;
   const registro = vista === 'registro';
   const ingreso = vista === 'ingreso';
   const solicitarEnlace = vista === 'enlace';
+  const confirmacion = vista === 'confirmacion';
   const titulo = cambiarClave ? 'Crea una nueva contraseña' : 'Acceso a la plataforma';
-  const accion = { ingreso: 'Entrar a Oscila', registro: 'Crear cuenta en Oscila', enlace: 'Enviar enlace', 'nueva-clave': 'Guardar contraseña' }[vista];
+  const accion = { ingreso: 'Entrar a Oscila', registro: 'Crear cuenta en Oscila', enlace: 'Enviar enlace', confirmacion: 'Solicitar otra confirmación', 'nueva-clave': 'Guardar contraseña' }[vista];
   const IconoClave = mostrarClave ? EyeSlashIcon : EyeIcon;
 
   function cambiarModo(siguiente) {
@@ -58,68 +48,59 @@ export default function Cuenta({ cargando, recuperar, sesionDisponible, onSalirR
 
   async function enviar(evento) {
     evento.preventDefault();
-    if (!supabase || ocupado) return;
-    const formulario = evento.currentTarget;
-    const campos = new FormData(formulario);
+    if (!supabase || cargando) return;
+    const campos = new FormData(evento.currentTarget);
     const email = campos.get('email')?.trim();
-    const password = campos.get('password');
-    const destino = new URL(import.meta.env.BASE_URL, window.location.origin).href;
-    setOcupado(true);
-    setAviso('');
-    setError('');
-
-    try {
-      if (cambiarClave) {
-        const { error: fallo } = await supabase.auth.updateUser({ password });
-        if (fallo) throw fallo;
-        onSalirRecuperacion();
-      } else if (solicitarEnlace) {
-        const { error: fallo } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: destino });
-        if (fallo) throw fallo;
-        setAviso('Si el correo está registrado, recibirás un enlace para restablecer la contraseña.');
-      } else if (registro) {
-        const nombre = campos.get('nombre').trim();
-        if (!nombre) {
-          setError('Escribe tu nombre y apellidos.');
-          formulario.elements.nombre.focus();
-          return;
-        }
-        elegirPersistenciaSesion(false);
-        const { data, error: fallo } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: destino,
-            data: { full_name: nombre, terms_accepted: campos.has('terminos') },
-          },
-        });
-        if (fallo) throw fallo;
-        if (!data.session) {
-          cambiarModo('ingreso');
-          setCorreo(email);
-          setAviso('Revisa tu correo para confirmar tu cuenta. Luego podrás iniciar sesión.');
-        }
-      } else {
-        elegirPersistenciaSesion(campos.has('recordar'));
-        const { error: fallo } = await supabase.auth.signInWithPassword({ email, password });
-        if (fallo) throw fallo;
-      }
-    } catch (fallo) {
-      const codigo = fallo?.code;
-      if (cambiarClave && (ERRORES_DE_ENLACE.has(codigo) || fallo?.name === 'AuthSessionMissingError')) {
-        cambiarModo('enlace');
-        setError(ENLACE_VENCIDO);
-      } else if (Object.hasOwn(ERRORES, codigo)) {
-        setError(ERRORES[codigo]);
-      } else if (cambiarClave) {
-        const detalle = typeof codigo === 'string' && /^[a-z][a-z0-9_]{0,63}$/.test(codigo) ? ` Código: ${codigo}.` : '';
-        setError(`No pudimos guardar la contraseña. Inténtalo de nuevo.${detalle}`);
-      } else {
-        setError('No pudimos completar la solicitud. Inténtalo de nuevo.');
-      }
-    } finally {
-      setOcupado(false);
+    const nombre = campos.get('nombre')?.trim();
+    if (registro && !nombre) {
+      setError('Escribe tu nombre y apellidos.');
+      formulario.current.elements.nombre.focus();
+      return;
     }
+    await ejecutar(vista, { email, nombre, password: campos.get('password'),
+      terminos: campos.has('terminos'), recordar: campos.has('recordar') });
+  }
+
+  async function ejecutar(operacion, datos) {
+    if (!supabase || cargando) return;
+    await solicitudUnica.current(async () => {
+      setOcupado(true);
+      setAviso('');
+      setError('');
+      try {
+        const data = await solicitarAcceso(supabase, { ...datos, vista: operacion,
+          destino: new URL(import.meta.env.BASE_URL, window.location.origin).href,
+        }, elegirPersistenciaSesion);
+        if (operacion === 'nueva-clave') onSalirRecuperacion();
+        if (operacion === 'enlace') {
+          setAviso('Si el correo está registrado, recibirás un enlace para restablecer la contraseña. Revisa también el correo no deseado.');
+        }
+        if ((operacion === 'registro' && !data?.session) || operacion === 'confirmacion') {
+          cambiarModo('confirmacion');
+          setCorreo(datos.email);
+          setAviso('Si la dirección puede registrarse, recibirás un enlace de confirmación. Revisa también el correo no deseado. Si ya tienes cuenta, inicia sesión o recupera tu contraseña.');
+        }
+      } catch (fallo) {
+        if (operacion === 'nueva-clave' && esEnlaceVencido(fallo)) cambiarModo('enlace');
+        setError(mensajeErrorAcceso(fallo, operacion));
+      } finally {
+        setOcupado(false);
+      }
+    });
+  }
+
+  async function entrarConGoogle() {
+    const campos = new FormData(formulario.current);
+    if (registro && !campos.has('terminos')) {
+      formulario.current.elements.terminos.reportValidity();
+      return;
+    }
+    await ejecutar('google', { recordar: campos.has('recordar') });
+  }
+
+  function registrarOtraPersona() {
+    setCorreo('');
+    cambiarModo('registro');
   }
 
   function mostrarAyuda(seccion) {
@@ -142,7 +123,7 @@ export default function Cuenta({ cargando, recuperar, sesionDisponible, onSalirR
         <section className="acceso-tarjeta" aria-labelledby="acceso-titulo">
           <h1 id="acceso-titulo">{titulo}</h1>
 
-          {!recuperar && !solicitarEnlace && (
+          {!recuperar && !solicitarEnlace && !confirmacion && (
             <div className="acceso-selector" role="tablist" aria-label="Tipo de acceso" onKeyDown={moverPestana}>
               {Object.entries(MODOS).map(([id, etiqueta]) => (
                 <button
@@ -161,6 +142,7 @@ export default function Cuenta({ cargando, recuperar, sesionDisponible, onSalirR
             <div key={id} id={`acceso-panel-${id}`} role="tabpanel" aria-labelledby={`acceso-tab-${id}`} hidden />
           ))}
           <form
+            ref={formulario} aria-busy={ocupado}
             key={vista} method="post" className={`acceso-form acceso-form--${vista}`} onSubmit={enviar}
             id={`acceso-panel-${vista}`} role={ingreso || registro ? 'tabpanel' : undefined}
             aria-labelledby={ingreso || registro ? `acceso-tab-${vista}` : 'acceso-titulo'}
@@ -171,6 +153,8 @@ export default function Cuenta({ cargando, recuperar, sesionDisponible, onSalirR
                 <input id="acceso-nombre" name="nombre" autoComplete="name" placeholder="Ej. Ana Milena Pérez" maxLength={120} required readOnly={ocupado} />
               </div>
             )}
+
+            {confirmacion && <p className="acceso-instruccion">Confirma tu correo para entrar con contraseña. Puedes registrar a otra persona mientras esperas tu mensaje.</p>}
 
             {!cambiarClave && (
               <div className="acceso-campo">
@@ -183,7 +167,7 @@ export default function Cuenta({ cargando, recuperar, sesionDisponible, onSalirR
               </div>
             )}
 
-            {!solicitarEnlace && (
+            {!solicitarEnlace && !confirmacion && (
               <div className="acceso-campo">
                 <div className="acceso-etiqueta">
                   <label htmlFor="acceso-clave">{ingreso ? 'Contraseña' : 'Crear contraseña'}</label>
@@ -224,6 +208,27 @@ export default function Cuenta({ cargando, recuperar, sesionDisponible, onSalirR
               {ocupado ? 'Enviando…' : accion}
               <ArrowRightIcon aria-hidden="true" />
             </button>
+
+            {googleHabilitado && (ingreso || registro) && (
+              <div className="acceso-google">
+                <span>o continúa con tu cuenta de Google</span>
+                <button type="button" className="acceso-enviar acceso-enviar--google" onClick={entrarConGoogle} disabled={ocupado || cargando || !supabase}>
+                  Continuar con Google
+                </button>
+                <p>Google verifica tu identidad. Este acceso no necesita un correo de confirmación de Oscila.</p>
+              </div>
+            )}
+
+            {confirmacion && (
+              <>
+                <button type="button" className="acceso-enlace" disabled={ocupado} onClick={registrarOtraPersona}>Registrar a otra persona</button>
+                <button type="button" className="acceso-enlace" disabled={ocupado} onClick={() => cambiarModo('ingreso')}>Volver a iniciar sesión</button>
+              </>
+            )}
+
+            {ingreso && (
+              <button type="button" className="acceso-enlace" disabled={ocupado} onClick={() => cambiarModo('confirmacion')}>¿Necesitas confirmar tu correo?</button>
+            )}
 
             {solicitarEnlace && (!recuperar || !sesionDisponible) && (
               <button type="button" className="acceso-enlace acceso-volver" disabled={ocupado} onClick={() => {

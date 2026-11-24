@@ -273,6 +273,28 @@
   font-size: 0.9rem;
 }
 
+.acceso-instruccion,
+.acceso-google p {
+  color: #595269;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.acceso-google {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #d1d5db;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.acceso-enviar--google {
+  background: white;
+  font-size: 1rem;
+}
+
 .acceso-estado p:not(:empty) {
   margin-top: 0.5rem;
 }

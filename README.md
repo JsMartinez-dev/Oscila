@@ -81,6 +81,8 @@ El editor, la solución, la teoría, los ejercicios, el test y la galería de **
 
 El [correo de confirmación de Oscila](docs/correo-confirmacion/README.md) tiene una plantilla en español lista para configurar en **Confirm sign up** de Supabase. Incluye vistas previas, validación del escape del nombre y los pasos separados para plantilla, remitente y SMTP. Los archivos del repositorio no activan la plantilla alojada automáticamente.
 
+El flujo renovado conserva Supabase Auth, prepara **SMTP propio y Google OAuth opcional**, distingue errores de envío y acceso, y permite registrar a otra persona desde la confirmación con campos limpios. Consulta [arquitectura, diagnóstico, costes, límites, configuración y pruebas](docs/autenticacion/README.md). Google se muestra con `VITE_AUTH_GOOGLE=true` solo después de configurar el proveedor; sus secretos y las credenciales SMTP se guardan en Supabase, nunca en el navegador. Cambiar la interfaz no amplía las cuotas del proyecto ni del proveedor.
+
 ### Reconocimiento de fotos (Gemini, free tier)
 
 1. Crea una API key gratuita en [Google AI Studio](https://aistudio.google.com/apikey). No pide tarjeta.

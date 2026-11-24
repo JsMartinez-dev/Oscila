@@ -17,6 +17,7 @@ import Creditos from "./pages/Creditos";
 import { useModoFeria } from "./components/ModoFeria";
 import Cuenta from "./components/Cuenta.jsx";
 import { supabase } from "./servicios/supabase.js";
+import { leerErrorRetorno } from "./servicios/autenticacion.js";
 
 const PAGES = {
   inicio: Inicio,
@@ -41,9 +42,18 @@ const CLAVE_TEMA = "oscila-tema";
 export default function App() {
   const [sesion, setSesion] = useState(supabase ? undefined : null);
   const [recuperar, setRecuperar] = useState(false);
+  const [errorRetorno] = useState(() => leerErrorRetorno(window.location.href));
 
   useEffect(() => {
     if (!supabase) return;
+    if (errorRetorno) {
+      const url = new URL(window.location.href);
+      for (const clave of ['error', 'error_code', 'error_description']) url.searchParams.delete(clave);
+      const fragmento = new URLSearchParams(url.hash.slice(1));
+      for (const clave of ['error', 'error_code', 'error_description']) fragmento.delete(clave);
+      url.hash = fragmento.toString();
+      window.history.replaceState(null, '', url);
+    }
     const { data: { subscription } } = supabase.auth.onAuthStateChange((evento, sesionActual) => {
       setSesion(sesionActual);
       if (evento === "PASSWORD_RECOVERY") setRecuperar(true);
@@ -58,6 +68,7 @@ export default function App() {
         recuperar={recuperar}
         sesionDisponible={Boolean(sesion)}
         onSalirRecuperacion={() => setRecuperar(false)}
+        errorRetorno={errorRetorno}
       />
     );
   }
@@ -80,7 +91,7 @@ function Plataforma({ sesion }) {
   const botonMenu = useRef(null);
   const feria = useModoFeria();
   const PageComponent = PAGES[activePage];
-  const nombre = sesion.user.user_metadata?.full_name || sesion.user.email;
+  const nombre = sesion.user.user_metadata?.full_name || sesion.user.user_metadata?.name || sesion.user.email || 'Mi cuenta';
   const IconoTema = temaOscuro ? SunIcon : MoonIcon;
 
   function alternarTema() {
